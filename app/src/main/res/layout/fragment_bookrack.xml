@@ -10,10 +10,13 @@
         android:gravity="center"
         >
 
-        <TextView
-            android:text="你好"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mRecyclerView_f_bookrack"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:scrollbars="vertical"
+            />
 
     </LinearLayout>
 

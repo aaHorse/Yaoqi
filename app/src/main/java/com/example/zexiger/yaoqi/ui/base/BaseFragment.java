@@ -15,6 +15,8 @@ import com.trello.rxlifecycle2.LifecycleTransformer;;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+
 
 public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
         extends SupportFragment implements IBase, BaseContract.BaseView {
@@ -45,6 +47,7 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getContentLayout(), container, false);
+        ButterKnife.bind(this, view);
         return view;
     }
 

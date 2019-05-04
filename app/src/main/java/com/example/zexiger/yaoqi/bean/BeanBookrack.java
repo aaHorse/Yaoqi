@@ -1,5 +1,7 @@
 package com.example.zexiger.yaoqi.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 //http://app.u17.com/v3/appV3_3/android/phone/comic/favRecommend?come_from=lenovo&model=ZUK+Z2121&serialNumber=3089dfb0&android_id=8e8c4ff5b6235ce9&v=4500102HTTP/1.1
@@ -54,7 +56,7 @@ public class BeanBookrack {
                 this.favDefault = favDefault;
             }
 
-            public static class FavDefaultBean {
+            public static class FavDefaultBean{
 
                 private int maxNum;
                 private List<ComicsBeanXX> comics;
@@ -75,7 +77,8 @@ public class BeanBookrack {
                     this.comics = comics;
                 }
 
-                public static class ComicsBeanXX {
+
+                public static class ComicsBeanXX  implements MultiItemEntity {
                     /**
                      * comicId : 68109
                      * name : 蓝翅
@@ -90,6 +93,14 @@ public class BeanBookrack {
                     private String name;
                     private String cover;
                     private int chapterCount;
+                    //
+                    private int itemType;
+                    //样式 1
+                    public static final int TYPE_1= 1;
+                    //样式 2
+                    public static final int TYPE_2 = 2;
+                    //样式 3
+                    public static final int TYPE_3 = 3;
 
                     public int getComicId() {
                         return comicId;
@@ -121,6 +132,15 @@ public class BeanBookrack {
 
                     public void setChapterCount(int chapterCount) {
                         this.chapterCount = chapterCount;
+                    }
+
+                    @Override
+                    public int getItemType() {
+                        return itemType;
+                    }
+
+                    public void setItemType(int itemType) {
+                        this.itemType = itemType;
                     }
                 }
             }

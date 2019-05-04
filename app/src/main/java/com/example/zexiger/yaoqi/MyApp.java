@@ -8,7 +8,11 @@ import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerApplicationComponent;
 import com.example.zexiger.yaoqi.module.ApplicationModule;
 import com.example.zexiger.yaoqi.module.HttpModule;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 
 
 public class MyApp extends Application {
@@ -27,6 +31,11 @@ public class MyApp extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .httpModule(new HttpModule())
                 .build();
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .tag("ttttt")
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        QMUISwipeBackActivityManager.init(this);
     }
 
     public static Context getContext() {
