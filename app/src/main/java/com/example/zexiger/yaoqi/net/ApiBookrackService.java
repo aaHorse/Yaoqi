@@ -9,10 +9,7 @@ import retrofit2.http.Query;
 
 public interface ApiBookrackService {
 
-    /*
-    * 待修改
-    * */
-    @GET(API.BASE+API.url_1)
+    @GET(API.url_1)
     Observable<BeanBookrack> getBookrack();
 
 }

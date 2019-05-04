@@ -32,6 +32,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         super.onCreate(savedInstanceState);
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
+        bindView(mRootView, savedInstanceState);
         attachView();
         initData();
     }

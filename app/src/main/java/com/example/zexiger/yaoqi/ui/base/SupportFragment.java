@@ -13,11 +13,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-/**
- * desc: .
- * author: Will .
- * date: 2017/9/2 .
- */
+
 public class SupportFragment extends RxFragment implements ISupportFragment {
 
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);

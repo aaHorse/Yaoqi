@@ -12,9 +12,6 @@ import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
 import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscriber;
 
 public class MainActivity extends BaseActivity {
 

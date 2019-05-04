@@ -3,9 +3,9 @@ package com.example.zexiger.yaoqi.module;
 
 
 import com.example.zexiger.yaoqi.MyApp;
+import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.ApiBookrackService;
-import com.example.zexiger.yaoqi.net.ApiConstants;
 import com.example.zexiger.yaoqi.net.RetrofitConfig;
 
 import java.io.File;
@@ -16,7 +16,7 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
@@ -37,16 +37,16 @@ public class HttpModule {
     }
 
     @Provides
-    public ApiBookrack provideApiBookrack(OkHttpClient.Builder builder) {
+    ApiBookrack provideApiBookrack(OkHttpClient.Builder builder) {
         builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
         return ApiBookrack.getInstance(retrofitBuilder
-                .baseUrl(ApiConstants.sIFengApi)
+                .baseUrl(API.BASE)
                 .build().create(ApiBookrackService.class));
     }
 }
