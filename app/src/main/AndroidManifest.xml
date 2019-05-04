@@ -37,7 +37,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
-        android:name=".base.MyApplication"
+        android:name=".MyApp"
         tools:replace="android:appComponentFactory"
         android:appComponentFactory="任意字符"
         android:allowBackup="true"

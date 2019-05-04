@@ -15,7 +15,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import javax.inject.Inject;
 
-
+import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
@@ -33,11 +33,13 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
         attachView();
+        initData();
     }
 
     @Override
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = getLayoutInflater().inflate(getContentLayout(), container);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -80,33 +82,33 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         }
     }
 
-/*    @Override
+    @Override
     public void showLoading() {
-        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showLoadingView();
-        }
+//        if (mSimpleMultiStateView != null) {
+//            mSimpleMultiStateView.showLoadingView();
+//        }
     }
 
     @Override
     public void showSuccess() {
-        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showContent();
-        }
+//        if (mSimpleMultiStateView != null) {
+//            mSimpleMultiStateView.showContent();
+//        }
     }
 
     @Override
     public void showFaild() {
-        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showErrorView();
-        }
+//        if (mSimpleMultiStateView != null) {
+//            mSimpleMultiStateView.showErrorView();
+//        }
     }
 
     @Override
     public void showNoNet() {
-        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showNoNetView();
-        }
-    }*/
+//        if (mSimpleMultiStateView != null) {
+//            mSimpleMultiStateView.showNoNetView();
+//        }
+    }
 
     protected void T(String string) {
         T.showShort(MyApp.getContext(), string);

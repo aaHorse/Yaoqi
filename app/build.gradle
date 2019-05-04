@@ -2,7 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    
     defaultConfig {
+
+        packagingOptions {
+            exclude 'META-INF/rxjava.properties'
+        }
+
         applicationId "com.example.zexiger.yaoqi"
         minSdkVersion 17
         targetSdkVersion 28
@@ -46,6 +52,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     //使用Fragmentation
     implementation 'me.yokeyword:fragmentation:1.0.0'
-    //
+    //事件总线
     implementation 'org.simple:androideventbus:1.0.5.1'
 }

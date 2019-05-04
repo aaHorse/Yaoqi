@@ -12,10 +12,18 @@ import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.example.zexiger.yaoqi.ui.bookrack.contract.ContractBeanBookrack;
 import com.example.zexiger.yaoqi.ui.bookrack.presenter.PresenterBeanBookrack;
+import com.orhanobut.logger.Logger;
 
 import org.simple.eventbus.EventBus;
 
 public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack> implements ContractBeanBookrack.View {
+
+    public static FragmentBookrack newInstance() {
+        Bundle args = new Bundle();
+        FragmentBookrack fragment = new FragmentBookrack();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public int getContentLayout() {
@@ -45,6 +53,12 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack> implem
     @Override
     public void loadData(BeanBookrack bookrack) {
         //获取到数据后，对界面进行刷新
+        Logger.d(bookrack);
+    }
 
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 }
