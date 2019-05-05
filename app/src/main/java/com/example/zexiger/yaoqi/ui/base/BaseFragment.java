@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.MyApp;
+import com.example.zexiger.yaoqi.R;
+import com.example.zexiger.yaoqi.utils.DialogHelper;
 import com.example.zexiger.yaoqi.utils.T;
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;;
 
 import javax.inject.Inject;
@@ -23,6 +26,7 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
 
     protected Context mContext;
     protected View mRootView;
+    protected Dialog mLoadingDialog = null;
 
     @Nullable
     @Inject
@@ -41,6 +45,7 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
         }
 
         mContext = mRootView.getContext();
+        mLoadingDialog = DialogHelper.getLoadingDialog(getActivity());
         return mRootView;
     }
 
@@ -89,67 +94,30 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
 
 
     protected void showLoadingDialog() {
-/*        if (mLoadingDialog != null)
-            mLoadingDialog.show();*/
+        if (mLoadingDialog != null)
+            mLoadingDialog.show();
     }
 
     protected void showLoadingDialog(String str) {
-/*        if (mLoadingDialog != null) {
+        if (mLoadingDialog != null) {
             TextView tv = (TextView) mLoadingDialog.findViewById(R.id.tv_load_dialog);
             tv.setText(str);
             mLoadingDialog.show();
-        }*/
+        }
     }
 
     protected void hideLoadingDialog() {
-/*        if (mLoadingDialog != null && mLoadingDialog.isShowing())
-            mLoadingDialog.dismiss();*/
+        if (mLoadingDialog != null && mLoadingDialog.isShowing())
+            mLoadingDialog.dismiss();
     }
 
 
-    private void initStateView() {
-/*        if (mSimpleMultiStateView == null) return;
-        mSimpleMultiStateView.setEmptyResource(R.layout.view_empty)
-                .setRetryResource(R.layout.view_retry)
-                .setLoadingResource(R.layout.view_loading)
-                .setNoNetResource(R.layout.view_nonet)
-                .build()
-                .setonReLoadlistener(new MultiStateView.onReLoadlistener() {
-                    @Override
-                    public void onReload() {
-                        onRetry();
-                    }
-                });*/
-    }
-
-    @Override
-    public void showLoading() {
-/*        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showLoadingView();
-        }*/
-    }
-
-    @Override
-    public void showSuccess() {
-/*        hideLoadingDialog();
-        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showContent();
-        }*/
-    }
 
     @Override
     public void showFaild() {
-/*        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showErrorView();
-        }*/
+        Logger.d("出错啦");
     }
 
-    @Override
-    public void showNoNet() {
-/*        if (mSimpleMultiStateView != null) {
-            mSimpleMultiStateView.showNoNetView();
-        }*/
-    }
 
     protected void T(String string) {
         T.showShort(MyApp.getContext(), string);

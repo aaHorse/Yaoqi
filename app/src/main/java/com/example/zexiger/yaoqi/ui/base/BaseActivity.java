@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.MyApp;
+import com.example.zexiger.yaoqi.R;
+import com.example.zexiger.yaoqi.utils.DialogHelper;
 import com.example.zexiger.yaoqi.utils.T;
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleTransformer;
+
 
 import javax.inject.Inject;
 
@@ -35,6 +39,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         bindView(mRootView, savedInstanceState);
         attachView();
         initData();
+        mLoadingDialog = DialogHelper.getLoadingDialog(this);
     }
 
     @Override
@@ -63,8 +68,8 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
 
     protected void showLoadingDialog(String str) {
         if (mLoadingDialog != null) {
-/*            TextView tv = (TextView) mLoadingDialog.findViewById(R.id.tv_load_dialog);
-            tv.setText(str);*/
+            TextView tv = (TextView) mLoadingDialog.findViewById(R.id.tv_load_dialog);
+            tv.setText(str);
             mLoadingDialog.show();
         }
     }
@@ -76,39 +81,21 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
     }
 
     @Override
+    public void showFaild() {
+        Logger.d("出错啦");
+    }
+
+    @Override
+    public void onRetry() {
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detachView();
         }
-    }
-
-    @Override
-    public void showLoading() {
-//        if (mSimpleMultiStateView != null) {
-//            mSimpleMultiStateView.showLoadingView();
-//        }
-    }
-
-    @Override
-    public void showSuccess() {
-//        if (mSimpleMultiStateView != null) {
-//            mSimpleMultiStateView.showContent();
-//        }
-    }
-
-    @Override
-    public void showFaild() {
-//        if (mSimpleMultiStateView != null) {
-//            mSimpleMultiStateView.showErrorView();
-//        }
-    }
-
-    @Override
-    public void showNoNet() {
-//        if (mSimpleMultiStateView != null) {
-//            mSimpleMultiStateView.showNoNetView();
-//        }
     }
 
     protected void T(String string) {

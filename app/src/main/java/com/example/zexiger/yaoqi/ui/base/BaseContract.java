@@ -10,11 +10,10 @@ public interface BaseContract {
     }
 
     interface BaseView {
-        void showLoading();
-        void showSuccess();
         void showFaild();
-        void showNoNet();
+        //重试
         void onRetry();
+
         /**
          * 绑定生命周期
          */
