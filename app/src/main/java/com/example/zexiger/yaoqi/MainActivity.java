@@ -43,7 +43,6 @@ public class MainActivity extends BaseActivity {
     public void bindView(View view, Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             mFragments[0] = FragmentBookrack.newInstance();
-
             getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
                     mFragments[0]);
         } else {

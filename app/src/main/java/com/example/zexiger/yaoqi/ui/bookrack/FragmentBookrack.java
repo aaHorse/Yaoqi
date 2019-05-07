@@ -3,6 +3,7 @@ package com.example.zexiger.yaoqi.ui.bookrack;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.example.zexiger.yaoqi.R;
@@ -64,15 +65,14 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack> implem
 
     @Override
     public void loadData(BeanBookrack bookrack) {
-        //获取到数据后，对界面进行刷新
-        Logger.d(bookrack);
+        //获取到数据后，将数据显示到界面
         lists.clear();
         for(BeanBookrack.DataBean.ReturnDataBean.FavDefaultBean.ComicsBeanXX item:bookrack.getData().getReturnData().getFavDefault().getComics()){
             //默认是样式 1
             item.setItemType(1);
             lists.add(item);
         }
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         adapter_bookrack=new Adapter_Bookrack(lists);
         mRecyclerView.setAdapter(adapter_bookrack);
     }

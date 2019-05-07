@@ -97,10 +97,6 @@ public class BeanBookrack {
                     private int itemType;
                     //样式 1
                     public static final int TYPE_1= 1;
-                    //样式 2
-                    public static final int TYPE_2 = 2;
-                    //样式 3
-                    public static final int TYPE_3 = 3;
 
                     public int getComicId() {
                         return comicId;
