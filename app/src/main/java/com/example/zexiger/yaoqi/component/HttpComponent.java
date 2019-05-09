@@ -2,6 +2,8 @@ package com.example.zexiger.yaoqi.component;
 
 
 import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
+import com.example.zexiger.yaoqi.ui.update.FragmentUpdate;
+import com.example.zexiger.yaoqi.ui.update.FragmentUpdateContent;
 
 import dagger.Component;
 
@@ -9,5 +11,5 @@ import dagger.Component;
 public interface HttpComponent {
 
     void inject(FragmentBookrack fragmentBookrack);
-
+    void inject(FragmentUpdateContent fragmentUpdateContent);
 }

@@ -1,5 +1,7 @@
 package com.example.zexiger.yaoqi.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 //http://app.u17.com/v3/appV3_3/android/phone/list/todayRecommendList?day=5&page=1&come_from=lenovo&serialNumber=3089dfb0&v=4500102&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9HTTP/1.1
@@ -102,7 +104,7 @@ public class BeanUpdate {
                 this.comics = comics;
             }
 
-            public static class ComicsBean {
+            public static class ComicsBean implements MultiItemEntity {
                 /**
                  * todayId : 13636
                  * btnColor : 0
@@ -143,6 +145,20 @@ public class BeanUpdate {
                 private int chapterIndex;
                 private int updateType;
                 private List<TagListBean> tagList;
+
+                //
+                private int itemType;
+                //样式 1
+                public static final int TYPE_1= 1;
+
+                @Override
+                public int getItemType() {
+                    return itemType;
+                }
+
+                public void setItemType(int itemType) {
+                    this.itemType = itemType;
+                }
 
                 public int getTodayId() {
                     return todayId;

@@ -25,7 +25,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack> implements ContractBeanBookrack.View {
+public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
+        implements ContractBeanBookrack.View {
 
     @BindView(R.id.mRecyclerView_f_bookrack)
     RecyclerView  mRecyclerView;

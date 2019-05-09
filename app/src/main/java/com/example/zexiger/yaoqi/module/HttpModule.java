@@ -6,6 +6,8 @@ import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.ApiBookrackService;
+import com.example.zexiger.yaoqi.net.ApiUpdateContent;
+import com.example.zexiger.yaoqi.net.ApiUpdateContentService;
 import com.example.zexiger.yaoqi.net.RetrofitConfig;
 
 import java.io.File;
@@ -48,5 +50,19 @@ public class HttpModule {
         return ApiBookrack.getInstance(retrofitBuilder
                 .baseUrl(API.BASE)
                 .build().create(ApiBookrackService.class));
+    }
+
+    @Provides
+    ApiUpdateContent providesApiUpdateContent(OkHttpClient.Builder builder) {
+        builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
+
+        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(builder.build());
+
+        return ApiUpdateContent.getInstance(retrofitBuilder
+                .baseUrl(API.BASE)
+                .build().create(ApiUpdateContentService.class));
     }
 }

@@ -7,6 +7,7 @@ import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.module.ApplicationModule;
 import com.example.zexiger.yaoqi.module.HttpModule;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
+import com.example.zexiger.yaoqi.net.ApiUpdateContent;
 
 import dagger.Component;
 
@@ -17,9 +18,7 @@ public interface ApplicationComponent {
 
     ApiBookrack getApiBookrack();
 
-/*    NewsApi getNetEaseApi();
-
-    JanDanApi getJanDanApi();*/
+    ApiUpdateContent getApiUpdateContent();
 
     Context getContext();
 
