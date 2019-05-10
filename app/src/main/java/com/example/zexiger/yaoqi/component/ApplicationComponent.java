@@ -8,6 +8,7 @@ import com.example.zexiger.yaoqi.module.ApplicationModule;
 import com.example.zexiger.yaoqi.module.HttpModule;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.ApiDiscover;
+import com.example.zexiger.yaoqi.net.ApiSpecific;
 import com.example.zexiger.yaoqi.net.ApiUpdateContent;
 
 import dagger.Component;
@@ -22,6 +23,8 @@ public interface ApplicationComponent {
     ApiUpdateContent getApiUpdateContent();
 
     ApiDiscover getApiDiscover();
+
+    ApiSpecific getApiSpecific();
 
     Context getContext();
 

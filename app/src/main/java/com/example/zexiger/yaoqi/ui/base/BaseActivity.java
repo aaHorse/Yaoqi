@@ -37,6 +37,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
         bindView(mRootView, savedInstanceState);
+        initInjector(MyApp.getInstance().getApplicationComponent());
         attachView();
         initData();
         mLoadingDialog = DialogHelper.getLoadingDialog(this);

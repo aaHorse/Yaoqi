@@ -1,9 +1,12 @@
 package com.example.zexiger.yaoqi;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 
+import com.example.zexiger.yaoqi.bean.BeanUpdate;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.ui.aboutme.Fragment_Aboutme;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
@@ -16,7 +19,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
-
+    public static void startActivity(Context context){
+        Intent intent=new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
 
     private SupportFragment[] mFragments = new SupportFragment[4];
 

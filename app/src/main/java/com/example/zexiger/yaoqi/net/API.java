@@ -19,4 +19,9 @@ public class API {
             "getDetectListV4_5?come_from=lenovo&serialNumber=3089dfb0&v=4500102" +
             "&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9HTTP/1.1";
 
+    //单个漫画的详情,  comicid=8805
+    public final static String url_4="v3/appV3_3/android/phone/comic/" +
+            "detail_static_new?come_from=lenovo&serialNumber=3089dfb0&v=4500102" +
+            "&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9HTTP/1.1";
+
 }
