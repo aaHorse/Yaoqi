@@ -21,8 +21,8 @@ public class PresenterBeanUpdateContent extends BasePresenter<ContractUpdateCont
         this.apiUpdate=apiUpdate;
     }
     @Override
-    public void getData() {
-        apiUpdate.getUpdate()
+    public void getData(String day) {
+        apiUpdate.getUpdate(day)
                 .compose(RxSchedulers.<BeanUpdate>applySchedulers())
                 .compose(mView.<BeanUpdate>bindToLife())
                 .subscribe(new Observer<BeanUpdate>() {

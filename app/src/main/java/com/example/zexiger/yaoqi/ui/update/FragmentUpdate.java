@@ -9,16 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.ui.base.SupportFragment;
-import com.example.zexiger.yaoqi.widget.DepthPageTransformer;
 import com.orhanobut.logger.Logger;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,13 +42,13 @@ public class FragmentUpdate extends SupportFragment {
         ButterKnife.bind(this,view);
 
         final List<String> titles=new ArrayList<>();
+        titles.add("周日");
         titles.add("周一");
         titles.add("周二");
         titles.add("周三");
         titles.add("周四");
         titles.add("周五");
         titles.add("周六");
-        titles.add("周日");
         for(int i=0;i<titles.size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(titles.get(i)));
         }
@@ -60,10 +60,9 @@ public class FragmentUpdate extends SupportFragment {
             bundle.putString("day",""+i);
             fragmentUpdateContent.setArguments(bundle);
             fragments.add(fragmentUpdateContent);
-            Logger.d("12345");
         }
 
-        viewPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
+        viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 return fragments.get(i);
@@ -76,21 +75,47 @@ public class FragmentUpdate extends SupportFragment {
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
-                super.destroyItem(container, position, object);
+                //super.destroyItem(container, position, object);
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-
                 return titles.get(position);
             }
-        });
-        viewPager.setPageTransformer(false,new DepthPageTransformer());
-        tabLayout.setupWithViewPager(viewPager);
-        //tabLayout.getTabAt(2).select();
 
+
+        });
+        viewPager.setOffscreenPageLimit(7);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(getDay()).select();
 
         return view;
+    }
+
+    private int getDay(){
+
+        Date date = new Date();
+        SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+        String currSun = dateFm.format(date);
+        switch (currSun){
+            case "星期一":
+                return 1;
+            case "星期二":
+                return 2;
+            case "星期三":
+                return 3;
+            case "星期四":
+                return 4;
+            case "星期五":
+                return 5;
+            case "星期六":
+                return 7;
+            case "星期日":
+                return 0;
+                default:
+                    Logger.d("出错啦");
+                    return 0;
+        }
     }
 }

@@ -17,21 +17,15 @@ public class Adapter_UpdateContent
                 BaseViewHolder> {
     public Adapter_UpdateContent(List<BeanUpdate.DataBean.ReturnDataBean.ComicsBean> data) {
         super(data);
-        Logger.d(8);
         addItemType(BeanUpdate.DataBean.ReturnDataBean.ComicsBean.TYPE_1,R.layout.item_update);
-        Logger.d(9);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, BeanUpdate.DataBean.ReturnDataBean.ComicsBean item) {
-        Logger.d("234");
         switch (helper.getItemViewType()){
             case BeanUpdate.DataBean.ReturnDataBean.ComicsBean.TYPE_1:
-                Logger.d(5);
                 helper.setText(R.id.text_update,item.getTitle());
-                Logger.d(6);
                 Glide.with(MyApp.getContext()).load(item.getCover()).into((ImageView)helper.getView(R.id.image_update));
-                Logger.d(7);
                 break;
             default:
                 Logger.d("出错啦");

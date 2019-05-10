@@ -18,7 +18,7 @@ public class ApiUpdateContent {
         return apiUpdateContent;
     }
 
-    public Observable<BeanUpdate>getUpdate(){
-        return apiUpdateContentService.getUpdate();
+    public Observable<BeanUpdate>getUpdate(String day){
+        return apiUpdateContentService.getUpdate(day);
     }
 }

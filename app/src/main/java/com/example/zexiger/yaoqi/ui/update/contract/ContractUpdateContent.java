@@ -9,6 +9,6 @@ public interface ContractUpdateContent {
     }
 
     interface Presenter extends BaseContract.BasePresenter<View>{
-        void getData();
+        void getData(String day);
     }
 }
