@@ -110,7 +110,7 @@ public class FragmentUpdate extends SupportFragment {
             case "星期五":
                 return 5;
             case "星期六":
-                return 7;
+                return 6;
             case "星期日":
                 return 0;
                 default:

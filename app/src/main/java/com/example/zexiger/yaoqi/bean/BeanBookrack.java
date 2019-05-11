@@ -89,14 +89,25 @@ public class BeanBookrack {
                     /*
                     * 第四级
                     * */
-                    private int comicId;
-                    private String name;
-                    private String cover;
-                    private int chapterCount;
+
                     //
                     private int itemType;
                     //样式 1
                     public static final int TYPE_1= 1;
+
+                    @Override
+                    public int getItemType() {
+                        return itemType;
+                    }
+
+                    public void setItemType(int itemType) {
+                        this.itemType = itemType;
+                    }
+
+                    private int comicId;
+                    private String name;
+                    private String cover;
+                    private int chapterCount;
 
                     public int getComicId() {
                         return comicId;
@@ -130,14 +141,6 @@ public class BeanBookrack {
                         this.chapterCount = chapterCount;
                     }
 
-                    @Override
-                    public int getItemType() {
-                        return itemType;
-                    }
-
-                    public void setItemType(int itemType) {
-                        this.itemType = itemType;
-                    }
                 }
             }
         }

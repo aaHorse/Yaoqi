@@ -1,5 +1,7 @@
 package com.example.zexiger.yaoqi.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 //http://app.u17.com/v3/appV3_3/android/phone/comic/detail_static_new?come_from=lenovo&comicid=8805&serialNumber=3089dfb0&v=4500102&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9HTTP/1.1
@@ -371,7 +373,7 @@ public class BeanSpecific {
                 }
             }
 
-            public static class ChapterListBean {
+            public static class ChapterListBean implements MultiItemEntity {
                 /**
                  * name : 1 相遇
                  * image_total : 46
@@ -389,6 +391,20 @@ public class BeanSpecific {
                  * has_locked_image : false
                  * index : 1
                  */
+
+                //
+                private int itemType;
+                //样式 1
+                public static final int TYPE_1= 1;
+
+                @Override
+                public int getItemType() {
+                    return itemType;
+                }
+
+                public void setItemType(int itemType) {
+                    this.itemType = itemType;
+                }
 
                 private String name;
                 private String image_total;
