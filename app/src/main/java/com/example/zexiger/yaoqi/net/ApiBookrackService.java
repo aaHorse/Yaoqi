@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 public interface ApiBookrackService {
 
     @GET(API.url_1)
-    Observable<BeanBookrack> getBookrack();
+    Observable<BeanBookrack> getBookrack(@Query("key")String key);
 
 }

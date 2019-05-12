@@ -1,6 +1,7 @@
 package com.example.zexiger.yaoqi.net;
 
 import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
 
 import io.reactivex.Observable;
 
@@ -18,6 +19,10 @@ public class ApiSpecific {
     }
 
     public Observable<BeanSpecific>getSpecific(String comicid){
-        return apiSpecificService.getUpdate(comicid);
+        return apiSpecificService.getUpdate(comicid,API.key,API.v);
+    }
+
+    public Observable<BeanSpecific_2>getSpecific_2(String comicid){
+        return apiSpecificService.getUpdate_2(comicid,API.key);
     }
 }

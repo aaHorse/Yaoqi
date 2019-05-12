@@ -5,6 +5,8 @@ import com.example.zexiger.yaoqi.bean.BeanBookrack;
 
 import io.reactivex.Observable;
 
+import static com.example.zexiger.yaoqi.net.API.key;
+
 public class ApiBookrack {
     public static ApiBookrack sApiBookrack;
     private ApiBookrackService mApiBookrackService;
@@ -27,6 +29,6 @@ public class ApiBookrack {
     * 获取默认推荐的书架列表
     * */
     public Observable<BeanBookrack> getBookrack(){
-        return mApiBookrackService.getBookrack();
+        return mApiBookrackService.getBookrack(key);
     }
 }

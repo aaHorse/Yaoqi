@@ -17,6 +17,7 @@ import com.example.zexiger.yaoqi.MainActivity;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.net.ApiSpecific;
@@ -86,6 +87,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     @Override
     public void initData() {
         mPresenter.getData(comicid);
+        mPresenter.getData_2(comicid);
     }
 
     @Override
@@ -126,6 +128,13 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         adapter_specific=new Adapter_Specific(lists_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter_specific);
+    }
+
+    @Override
+    public void loadData_2(BeanSpecific_2 beanSpecific_2) {
+        BeanSpecific_2.DataBean.ReturnDataBean.ComicBean obj=beanSpecific_2.getData().getReturnData().getComic();
+        textView_3.setText("热度值("+obj.getTotal_click()+")");
+        textView_4.setText("本月月票"+obj.getMonth_ticket());
     }
 
 

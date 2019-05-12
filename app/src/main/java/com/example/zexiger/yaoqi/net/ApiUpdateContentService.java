@@ -9,5 +9,5 @@ import retrofit2.http.Query;
 public interface ApiUpdateContentService {
 
     @GET(API.url_2)
-    Observable<BeanUpdate> getUpdate(@Query("day")String day);
+    Observable<BeanUpdate> getUpdate(@Query("day")String day,@Query("page")int page);
 }

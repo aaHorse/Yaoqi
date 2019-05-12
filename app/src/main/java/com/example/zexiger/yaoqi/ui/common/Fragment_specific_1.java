@@ -26,15 +26,18 @@ import butterknife.OnClick;
 
 public class Fragment_specific_1 extends Fragment {
     public static void startFragment(List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean> lists_,
-                                     FragmentManager fragmentManager,int flag_){
+                                     FragmentManager fragmentManager_,int flag_){
         lists=lists_;
         flag=flag_;
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        Fragment_specific_1 fragment=new Fragment_specific_1();
+        fragmentManager=fragmentManager_;
+        FragmentTransaction transaction=fragmentManager_.beginTransaction();
+        fragment=new Fragment_specific_1();
         transaction.replace(R.id.fl_specific,fragment);
         transaction.commit();
     }
 
+    private static FragmentManager fragmentManager;
+    private static Fragment_specific_1 fragment;
     private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
     private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2;//倒序
     private static int flag;//正序或逆序
@@ -87,5 +90,10 @@ public class Fragment_specific_1 extends Fragment {
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
+    }
+    @OnClick(R.id.button_shou)void func_4(){
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.remove(fragment);
+        transaction.commit();
     }
 }
