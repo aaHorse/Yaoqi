@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/rl_specific_1"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        >
         <TextView
             android:id="@+id/text_specific_10"
             android:text="连载中(更新至195话)"

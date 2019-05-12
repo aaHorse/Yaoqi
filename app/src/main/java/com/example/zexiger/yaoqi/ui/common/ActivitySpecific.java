@@ -48,6 +48,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     private List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists;
     private List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2;
     private Adapter_Specific adapter_specific;
+    private int flag=0;
 
     @BindView(R.id.image_specific_1)ImageView imageView_1;
     @BindView(R.id.image_specific_2)ImageView imageView_2;
@@ -139,6 +140,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
     @OnClick(R.id.button_zhengxv)void func_4(){
         lists_2.clear();
+        flag=0;
         for(int i=0;i<5;i++){
             if(lists.get(i)!=null){
                 lists_2.add(lists.get(i));
@@ -150,6 +152,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         adapter_specific.notifyDataSetChanged();
     }
     @OnClick(R.id.button_daoxv)void func_5(){
+        flag=1;
         lists_2.clear();
         int n=0;
         for(int i=lists.size()-1;i>=0;i--){
@@ -163,5 +166,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         }
         adapter_specific.notifyDataSetChanged();
     }
-
+    @OnClick(R.id.button_kai)void func_6(){
+        Fragment_specific_1.startFragment(lists,getSupportFragmentManager(),flag);
+    }
 }
