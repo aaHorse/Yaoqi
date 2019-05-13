@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MainActivity;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
@@ -107,13 +108,10 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
                 .into(imageView_2);
         textView_1.setText(comicBean.getName());
         textView_2.setText(comicBean.getAuthor().getName());
-        //热度值，没有找到数据
-        //月票，没有找到数据
         Glide.with(MyApp.getContext()).load(comicBean.getCover()).into(imageView_3);
         textView_5.setText(comicBean.getDescription());
         textView_6.setText(comicBean.getTicket_desc());
         textView_7.setText(comicBean.getTagList().get(1)+"(更新至"+lists.size()+"话)");
-
 
         lists_2=new ArrayList<>();
         for(int i=0;i<lists.size();i++){
@@ -127,6 +125,12 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         }
         adapter_specific=new Adapter_Specific(lists_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter_specific.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivitySpecificContent.startActicity(MyApp.getContext(),lists,position);
+            }
+        });
         recyclerView.setAdapter(adapter_specific);
     }
 

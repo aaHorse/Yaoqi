@@ -1,8 +1,10 @@
 package com.example.zexiger.yaoqi.component;
 
 
+import com.example.zexiger.yaoqi.net.ApiSpecificContent;
 import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
 import com.example.zexiger.yaoqi.ui.common.ActivitySpecific;
+import com.example.zexiger.yaoqi.ui.common.ActivitySpecificContent;
 import com.example.zexiger.yaoqi.ui.discover.FragmentDiscover;
 import com.example.zexiger.yaoqi.ui.update.FragmentUpdateContent;
 
@@ -15,4 +17,5 @@ public interface HttpComponent {
     void inject(FragmentUpdateContent fragmentUpdateContent);
     void inject(FragmentDiscover fragmentDiscover);
     void inject(ActivitySpecific activitySpecific);
+    void inject(ActivitySpecificContent activitySpecificContent);
 }

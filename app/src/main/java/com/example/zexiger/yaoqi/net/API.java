@@ -20,6 +20,7 @@ public class API {
     //获取月票等数据,comicid,key
     public final static String url_5="v3/appV3_3/android/phone/comic/detail_realtime";
 
-
+    //具体的漫画图片
+    public final static String url_6="v3/appV3_3/android/phone/comic/chapterNew";
 
 }

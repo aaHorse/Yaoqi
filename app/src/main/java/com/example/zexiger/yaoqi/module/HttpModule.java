@@ -9,6 +9,8 @@ import com.example.zexiger.yaoqi.net.ApiBookrackService;
 import com.example.zexiger.yaoqi.net.ApiDiscover;
 import com.example.zexiger.yaoqi.net.ApiDiscoverService;
 import com.example.zexiger.yaoqi.net.ApiSpecific;
+import com.example.zexiger.yaoqi.net.ApiSpecificContent;
+import com.example.zexiger.yaoqi.net.ApiSpecificContentService;
 import com.example.zexiger.yaoqi.net.ApiSpecificService;
 import com.example.zexiger.yaoqi.net.ApiUpdateContent;
 import com.example.zexiger.yaoqi.net.ApiUpdateContentService;
@@ -90,5 +92,15 @@ public class HttpModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
         return ApiSpecific.newInstance(builder1.baseUrl(API.BASE).build().create(ApiSpecificService.class));
+    }
+
+    @Provides
+    ApiSpecificContent providesApiSpecificContent(OkHttpClient.Builder builder){
+        builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
+        Retrofit.Builder builder1=new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(builder.build());
+        return ApiSpecificContent.getInstance(builder1.baseUrl(API.BASE).build().create(ApiSpecificContentService.class));
     }
 }
