@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 
-import com.example.zexiger.yaoqi.bean.BeanUpdate;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
-import com.example.zexiger.yaoqi.ui.aboutme.Fragment_Aboutme;
+import com.example.zexiger.yaoqi.ui.aboutme.FragmentAboutme;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.base.SupportFragment;
 import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
@@ -51,17 +50,18 @@ public class MainActivity extends BaseActivity {
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         if (savedInstanceState == null) {
+            // 0  显示的是书架列表
             mFragments[0] = FragmentBookrack.newInstance();
             mFragments[1]=FragmentUpdate.newInstance();
             mFragments[2]=FragmentDiscover.newInstance();
-            mFragments[3]=Fragment_Aboutme.newInstance();
+            mFragments[3]=FragmentAboutme.newInstance(getSupportFragmentManager());
             getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
                     mFragments[0],mFragments[1],mFragments[2],mFragments[3]);
         } else {
             mFragments[0] = findFragment(FragmentBookrack.class);
             mFragments[1]=findFragment(FragmentUpdate.class);
             mFragments[2]=findFragment(FragmentDiscover.class);
-            mFragments[3]=findFragment(Fragment_Aboutme.class);
+            mFragments[3]=findFragment(FragmentAboutme.class);
         }
     }
 
@@ -77,11 +77,6 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.line_1_main)void button_1(){
         getSupportDelegate().showHideFragment(mFragments[1]);
-/*        FragmentUpdate fragmentUpdate=new FragmentUpdate();
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.contentContainer,fragmentUpdate);
-        transaction.commit();*/
     }
     @OnClick(R.id.line_2_main)void button_2(){
         getSupportDelegate().showHideFragment(mFragments[2]);

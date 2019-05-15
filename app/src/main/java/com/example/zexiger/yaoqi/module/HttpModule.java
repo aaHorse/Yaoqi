@@ -4,6 +4,8 @@ package com.example.zexiger.yaoqi.module;
 
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.net.API;
+import com.example.zexiger.yaoqi.net.ApiAboutMe;
+import com.example.zexiger.yaoqi.net.ApiAboutMeService;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.ApiBookrackService;
 import com.example.zexiger.yaoqi.net.ApiDiscover;
@@ -102,5 +104,15 @@ public class HttpModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
         return ApiSpecificContent.getInstance(builder1.baseUrl(API.BASE).build().create(ApiSpecificContentService.class));
+    }
+
+    @Provides
+    ApiAboutMe providesApiAboutMe(OkHttpClient.Builder builder){
+        builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
+        Retrofit.Builder builder1=new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(builder.build());
+        return ApiAboutMe.getInstance(builder1.baseUrl(API.BASE).build().create(ApiAboutMeService.class));
     }
 }

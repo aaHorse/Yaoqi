@@ -2,7 +2,108 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/my_color_hei"
+    android:orientation="vertical"
     >
+
+    <!--短信登录，QQ登录-->
+    <LinearLayout
+        android:id="@+id/line_aboutme_a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:id="@+id/line_aboutme_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@color/my_color_hong"
+                android:gravity="center"
+                >
+                <TextView
+                    android:text="短信登录"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:id="@+id/line_aboutme_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:background="@color/my_color_hei"
+                >
+                <TextView
+                    android:text="QQ登录"
+                    android:textColor="@color/my_color_bai"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--短信登录界面-->
+    <LinearLayout
+        android:id="@+id/line_aboutme_b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/edit_aboutme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_aboutme"
+            android:text="发送验证码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_aboutme_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/bt_aboutme_2"
+            android:text="登录"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--关于我的信息的具体界面-->
+    <LinearLayout
+        android:id="@+id/line_aboutme_c"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -14,7 +14,8 @@ import javax.inject.Inject;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class PresenterBeanBookrack extends BasePresenter<ContractBeanBookrack.View> implements ContractBeanBookrack.Presenter{
+public class PresenterBeanBookrack
+        extends BasePresenter<ContractBeanBookrack.View> implements ContractBeanBookrack.Presenter{
 
     ApiBookrack api;
 

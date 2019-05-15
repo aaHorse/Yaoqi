@@ -6,6 +6,9 @@ public class API {
             "9faa563bc279002f29603313eecbbbbb0f66e17cb138fc8383f06a48180df0f43f8a635cdf13e682c%253A%253A%253Aopen";
     public final static String v="4500102";
 
+    //账号登录
+    public final static String url_0="v3/appV3_3/android/phone/member/autologin";
+
     //获取书架
     public final static String url_1 ="v3/appV3_3/android/phone/comic/favRecommend";
 
