@@ -1,17 +1,21 @@
 package com.example.zexiger.yaoqi.ui.aboutme;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanAboutMe;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
+import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.ui.aboutme.contract.ContractAboutMe;
 import com.example.zexiger.yaoqi.ui.aboutme.presenter.PresenterAboutMe;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
@@ -41,11 +45,18 @@ public class FragmentAboutme
     private static LinearLayout line_c;
     @BindView(R.id.edit_aboutme)EditText editText_1;
     @BindView(R.id.edit_aboutme_2)EditText editText_2;
+    private String num="";//加密后的电话号码
+    private String num_2="";//加密后的短信验证码
+    public static final int CODE = 1001;//请求码
+    private String android_id;
+
+
 
     @Override
     public void loadData(BeanAboutMe beanAboutMe) {
-         //Logger.d(beanAboutMe.getData().getReturnData().getUser().getBirthday());
-        Logger.d(beanAboutMe.getData().getMessage());
+        API.key=beanAboutMe.getData().getReturnData().getKey();
+        Logger.d(beanAboutMe.getData().getReturnData().getUser());
+        func_3();
     }
 
     @Override
@@ -63,34 +74,58 @@ public class FragmentAboutme
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
+        android_id=Settings.System.getString(MyApp.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        Logger.d(android_id);
         line_a=view.findViewById(R.id.line_aboutme_a);
         line_b=view.findViewById(R.id.line_aboutme_b);
         line_c=view.findViewById(R.id.line_aboutme_c);
         func_5();
     }
 
+    //懒加载调用的方法
     @Override
     public void initData() {
-        mPresenter.getData();
+        //mPresenter.getData();
+    }
+
+    @Override
+    public void showError(String str) {
+        T(str);//270829
     }
 
     @OnClick(R.id.line_aboutme_1)void func_1(){
         func_4();
     }
     @OnClick(R.id.line_aboutme_2)void func_2(){
-        ActivityQQ.startActivity(MyApp.getContext());
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), ActivityQQ.class);
+        startActivityForResult(intent,CODE);
     }
     @OnClick(R.id.bt_aboutme)void func_6(){
-        Logger.d(getBase64(editText_1.getText().toString()));
+        num=getBase64(editText_1.getText().toString());
+        mPresenter.submit(num);
     }
+
+    /*
+    * 获得验证码后，进行登录
+    * */
     @OnClick(R.id.bt_aboutme_2)void func_7(){
-        //获得验证码后，进行登录
+        num_2=getBase64(editText_2.getText().toString());
+        Logger.d(num+"*"+num_2);
+        if(android_id==null){
+            T("无法获取设备号，登录失败");
+        }else if(num.isEmpty()){
+            T("请先获取验证码");
+        }else if(num_2.isEmpty()){
+            T("尚未填写验证码");
+        }else{
+            mPresenter.submit_2(num,num_2,android_id,"mobile");
+        }
     }
 
     /*
     * md5加密代码
     * */
-    //加密
     public static String getBase64(String str){
         String result = "";
         if (str != null) {
@@ -104,10 +139,28 @@ public class FragmentAboutme
     }
 
     /*
-    * 信息验证，QQ登录成功后，调用这一个函数进行显示关于我的主要信息
+    * QQ登录成功后，获取openid等，在这一个函数进行登录
     * */
-    public static void func(){
-        func_3();
+    public void func_qq(String open_id,String access_token){
+        mPresenter.submit_3(open_id,access_token,android_id,"qq");
+    }
+
+    /*
+    *调用QQ登录后，返回open_id和assess_token
+    * */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case CODE:
+                if(resultCode==RESULT_OK){
+                    Bundle bundle=data.getExtras();
+                    String open_id=bundle.getString("open_id");
+                    String access_token=bundle.getString("access_token");
+                    func_qq(open_id,access_token);
+                }
+        }
+
     }
 
     /*

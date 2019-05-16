@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.zexiger.yaoqi.MyApp;
@@ -24,10 +25,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityQQ extends AppCompatActivity {
-    public static void startActivity(Context context){
-        Intent intent=new Intent(context,ActivityQQ.class);
-        context.startActivity(intent);
-    }
 
     private static final String APP_ID = "1108179346";
     private Tencent mTencent;
@@ -58,35 +55,17 @@ public class ActivityQQ extends AppCompatActivity {
         @Override
         public void onComplete(Object response) {
             Toast.makeText(MyApp.getContext(), "授权成功", Toast.LENGTH_SHORT).show();
-            Log.d("ttttt", "response:" + response);
             JSONObject obj = (JSONObject) response;
             try {
-                final String openID = obj.getString("openid");
-                final String accessToken = obj.getString("access_token");
-                final String expires = obj.getString("expires_in");
-                mTencent.setOpenId(openID);
-                mTencent.setAccessToken(accessToken,expires);
-                QQToken qqToken = mTencent.getQQToken();
-                mUserInfo = new UserInfo(getApplicationContext(),qqToken);
-                mUserInfo.getUserInfo(new IUiListener() {
-                    @Override
-                    public void onComplete(Object response) {
-                        Toast.makeText(MyApp.getContext(),"登录成功",Toast.LENGTH_SHORT).show();
-                        JSONObject jsonObject=(JSONObject)response;
-                        initOpenidAndToken(jsonObject);
-                        getUserInfo();
-                    }
-
-                    @Override
-                    public void onError(UiError uiError) {
-                        Log.d("ttttt","登录失败"+uiError.toString());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d("ttttt","登录取消");
-                    }
-                });
+                String open_id = obj.getString("openid");
+                String access_token = obj.getString("access_token");
+                Intent intent=new Intent();
+                Bundle bundle=new Bundle();
+                bundle.putString("open_id",open_id);
+                bundle.putString("access_token",access_token);
+                intent.putExtras(bundle);
+                setResult(RESULT_OK,intent);
+                finish();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -104,47 +83,6 @@ public class ActivityQQ extends AppCompatActivity {
         public void onCancel() {
             Toast.makeText(MyApp.getContext(), "授权取消", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void initOpenidAndToken(JSONObject jsonObject) {
-        try {
-            String openid = jsonObject.getString("openid");
-            String token = jsonObject.getString("access_token");
-            String expires = jsonObject.getString("expires_in");
-
-            mTencent.setAccessToken(token, expires);
-            mTencent.setOpenId(openid);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void getUserInfo() {
-        QQToken mQQToken = mTencent.getQQToken();
-        UserInfo userInfo = new UserInfo(MyApp.getContext(), mQQToken);
-        userInfo.getUserInfo(new IUiListener() {
-            @Override
-            public void onComplete(final Object o) {
-                JSONObject userInfoJson = (JSONObject) o;
-                try {
-                    String nickname = userInfoJson.getString("nickname");
-                    Log.d("ttttt","获取QQ昵称为："+nickname);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(UiError uiError) {
-                Toast.makeText(MyApp.getContext(), "获取qq用户信息错误", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(MyApp.getContext(), "获取qq用户信息取消", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
 
