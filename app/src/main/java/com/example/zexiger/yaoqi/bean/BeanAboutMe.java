@@ -7,6 +7,8 @@ public class BeanAboutMe {
      * data : {"stateCode":1,"message":"登录成功!","returnData":{"key":"75b7512b09942f9b2955f1a9a7e3738034fd66ed95f6967319d1c4efb61752be7b567c263eb85269b6fc8c75c30fbb220f3632f01983b5eaccfab8ee90af8b0afa6fbfdbdb479aa3bec1878586fdba66310db8a5c5f05c75f28f87f047a5d67c1dac1327bd0deaf57eab17ba108908134d73a1ac30e232dd:::open","user":{"nickname":"漫友58849284","user_id":29913771,"username":"15777470522.mobile","canNicknameEdit":true,"site":"mobile_a_phone","other_user_id":0,"group_user":0,"group_admin":0,"group_author":0,"face":"http://static.u17i.com/common/images/face/default.big.gif","ticket":0,"coin":0,"level":0,"vip_level":0,"vip_type":0,"vip_end_time":0,"email":"","bound_email":0,"year_pay":0,"gender":"保密","phoneNumber":"15777470522","client_sign":0,"vip_exp":0,"exp":0,"exp_cpl":0,"vip_exp_cpl":0,"sexType":3,"likeCate":"","isFavRed":0,"score":0,"out_ad_open":false,"master_device":0,"short_description":"恭喜小主已经来到有妖气12天","isAuthor":0,"is_up_pwd":true,"birthday":"0000-00-00","is_modify_info":0,"sign_type":0,"vip_status":0,"reading_ticket":1,"dis_total":1,"share":0},"user_last_read":{"comicId":93661,"chapterId":399277,"comicName":"神之一脚","chapterName":"第一波 踏上绿茵场吧，翔！"}}}
      */
 
+    //15280657062
+
     private int code;
     private DataBean data;
 

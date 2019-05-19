@@ -14,6 +14,8 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 
+import org.litepal.LitePal;
+
 
 public class MyApp extends Application {
 
@@ -35,6 +37,7 @@ public class MyApp extends Application {
                 .tag("ttttt")
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        LitePal.initialize(mContext);
         QMUISwipeBackActivityManager.init(this);
     }
 

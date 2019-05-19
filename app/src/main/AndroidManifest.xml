@@ -49,17 +49,12 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.common.ActivitySpecific"
             android:launchMode="singleTask" />
         <activity android:name=".ui.common.ActivitySpecificContent" />
-        <activity android:name=".ui.aboutme.ActivityQQ"></activity>
+        <activity android:name=".ui.aboutme.ActivityQQ" />
         <!-- QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -67,8 +62,10 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1108179346" />
             </intent-filter>
         </activity>
@@ -78,6 +75,13 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ -->
+        <activity android:name=".ui.aboutme.ActivityAboutme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

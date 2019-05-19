@@ -7,12 +7,15 @@ import android.view.View;
 
 
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
-import com.example.zexiger.yaoqi.ui.aboutme.FragmentAboutme;
+import com.example.zexiger.yaoqi.database.InitClass;
+import com.example.zexiger.yaoqi.ui.aboutme.ActivityAboutme;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.base.SupportFragment;
 import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
 import com.example.zexiger.yaoqi.ui.discover.FragmentDiscover;
 import com.example.zexiger.yaoqi.ui.update.FragmentUpdate;
+
+import org.litepal.crud.DataSupport;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,7 +26,7 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    private SupportFragment[] mFragments = new SupportFragment[4];
+    private SupportFragment[] mFragments = new SupportFragment[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +57,12 @@ public class MainActivity extends BaseActivity {
             mFragments[0] = FragmentBookrack.newInstance();
             mFragments[1]=FragmentUpdate.newInstance();
             mFragments[2]=FragmentDiscover.newInstance();
-            mFragments[3]=FragmentAboutme.newInstance(getSupportFragmentManager());
             getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
-                    mFragments[0],mFragments[1],mFragments[2],mFragments[3]);
+                    mFragments[0],mFragments[1],mFragments[2]);
         } else {
             mFragments[0] = findFragment(FragmentBookrack.class);
             mFragments[1]=findFragment(FragmentUpdate.class);
             mFragments[2]=findFragment(FragmentDiscover.class);
-            mFragments[3]=findFragment(FragmentAboutme.class);
         }
     }
 
@@ -85,6 +86,6 @@ public class MainActivity extends BaseActivity {
         getSupportDelegate().showHideFragment(mFragments[0]);
     }
     @OnClick(R.id.line_4_main)void button_4(){
-        getSupportDelegate().showHideFragment(mFragments[3]);
+        ActivityAboutme.startActivity(this);
     }
 }
