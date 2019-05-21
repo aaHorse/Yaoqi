@@ -61,26 +61,6 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         }
     }
 
-
-    protected void showLoadingDialog() {
-        if (mLoadingDialog != null)
-            mLoadingDialog.show();
-    }
-
-    protected void showLoadingDialog(String str) {
-        if (mLoadingDialog != null) {
-            TextView tv = (TextView) mLoadingDialog.findViewById(R.id.tv_load_dialog);
-            tv.setText(str);
-            mLoadingDialog.show();
-        }
-    }
-
-    protected void hideLoadingDialog() {
-        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
-        }
-    }
-
     @Override
     public void showFaild() {
         Logger.d("出错啦");

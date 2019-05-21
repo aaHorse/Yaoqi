@@ -63,7 +63,6 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
 
     @Override
     public void initData() {
-        //访问网络获取数据
         mPresenter.getData();
     }
 

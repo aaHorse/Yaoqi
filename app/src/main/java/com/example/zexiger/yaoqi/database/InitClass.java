@@ -3,13 +3,22 @@ package com.example.zexiger.yaoqi.database;
 import org.litepal.crud.DataSupport;
 
 public class InitClass extends DataSupport {
-    private Boolean isLogin;
+    private String key;
+    private boolean isLogin;
 
-    public Boolean getLogin() {
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public boolean isLogin() {
         return isLogin;
     }
 
-    public void setLogin(Boolean login) {
+    public void setLogin(boolean login) {
         isLogin = login;
     }
 }

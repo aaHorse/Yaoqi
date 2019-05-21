@@ -3,13 +3,12 @@ package com.example.zexiger.yaoqi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.support.annotation.Nullable;
 
-
-import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.database.InitClass;
-import com.example.zexiger.yaoqi.ui.aboutme.ActivityAboutme;
-import com.example.zexiger.yaoqi.ui.base.BaseActivity;
+import com.example.zexiger.yaoqi.net.API;
+import com.example.zexiger.yaoqi.ui.aboutme.FragmentAboutme;
+import com.example.zexiger.yaoqi.ui.base.SupportActivity;
 import com.example.zexiger.yaoqi.ui.base.SupportFragment;
 import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
 import com.example.zexiger.yaoqi.ui.discover.FragmentDiscover;
@@ -20,61 +19,47 @@ import org.litepal.crud.DataSupport;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends SupportActivity {
     public static void startActivity(Context context){
         Intent intent=new Intent(context,MainActivity.class);
         context.startActivity(intent);
     }
 
-    private SupportFragment[] mFragments = new SupportFragment[3];
+    private SupportFragment[] mFragments = new SupportFragment[4];
+    public static boolean isLogin=false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    public void onRetry() {
-
-    }
-
-    @Override
-    public int getContentLayout() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    public void initInjector(ApplicationComponent appComponent) {
-
-    }
-
-    @Override
-    public void bindView(View view, Bundle savedInstanceState) {
+        InitClass initClass=DataSupport.findLast(InitClass.class);
+        if(initClass!=null){
+            isLogin=initClass.isLogin();
+            API.key=initClass.getKey();
+        }
         if (savedInstanceState == null) {
-            // 0  显示的是书架列表
             mFragments[0] = FragmentBookrack.newInstance();
             mFragments[1]=FragmentUpdate.newInstance();
             mFragments[2]=FragmentDiscover.newInstance();
-            getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
-                    mFragments[0],mFragments[1],mFragments[2]);
+            mFragments[3]=FragmentAboutme.newInstance(getSupportFragmentManager());
+            if(isLogin){
+                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 2,
+                        mFragments[0],mFragments[1],mFragments[2],mFragments[3]);
+            }else{
+                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 3,
+                        mFragments[0],mFragments[1],mFragments[2],mFragments[3]);
+            }
         } else {
             mFragments[0] = findFragment(FragmentBookrack.class);
             mFragments[1]=findFragment(FragmentUpdate.class);
             mFragments[2]=findFragment(FragmentDiscover.class);
+            mFragments[3]=findFragment(FragmentAboutme.class);
         }
     }
 
-    @Override
-    public void initData() {
 
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     @OnClick(R.id.line_1_main)void button_1(){
         getSupportDelegate().showHideFragment(mFragments[1]);
@@ -86,6 +71,6 @@ public class MainActivity extends BaseActivity {
         getSupportDelegate().showHideFragment(mFragments[0]);
     }
     @OnClick(R.id.line_4_main)void button_4(){
-        ActivityAboutme.startActivity(this);
+        getSupportDelegate().showHideFragment(mFragments[3]);
     }
 }
