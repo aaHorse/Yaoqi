@@ -56,7 +56,7 @@ public class ActivitySpecificContent
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        QMUIStatusBarHelper.translucent(this);
+        //QMUIStatusBarHelper.translucent(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 

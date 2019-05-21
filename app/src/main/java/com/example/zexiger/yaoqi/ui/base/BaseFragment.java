@@ -111,8 +111,6 @@ public abstract class BaseFragment<T1 extends BaseContract.BasePresenter>
             mLoadingDialog.dismiss();
     }
 
-
-
     @Override
     public void showFaild() {
         Logger.d("出错啦");

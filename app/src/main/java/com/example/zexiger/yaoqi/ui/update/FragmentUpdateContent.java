@@ -20,6 +20,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.example.zexiger.yaoqi.MainActivity.isLogin;
+
 public class FragmentUpdateContent extends BaseFragment<PresenterBeanUpdateContent>
         implements ContractUpdateContent.View {
     @BindView(R.id.rv_update)RecyclerView recyclerView;
@@ -50,7 +52,9 @@ public class FragmentUpdateContent extends BaseFragment<PresenterBeanUpdateConte
 
     @Override
     public void initData() {
-        mPresenter.getData(day);
+        if(isLogin){
+            mPresenter.getData(day);
+        }
     }
 
     @Override

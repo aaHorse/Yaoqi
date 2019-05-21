@@ -13,7 +13,6 @@ import dagger.Component;
 
 @Component(dependencies = ApplicationComponent.class)
 public interface HttpComponent {
-
     void inject(FragmentBookrack fragmentBookrack);
     void inject(FragmentUpdateContent fragmentUpdateContent);
     void inject(FragmentDiscover fragmentDiscover);

@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/my_color_hong"
     >
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_discover"
+    <TextView
+        android:text="这是发现对应的功能，因为我使用的是Retrofit+RxJava访问网络，
+        并且这一个功能对应的json数据存在不规整的情况，在解析成对应的实体类的时候，不能完全的对应，先放着这一个功能"
+        android:id="@+id/text_discover"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

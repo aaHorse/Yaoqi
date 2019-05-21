@@ -7,5 +7,5 @@ import retrofit2.http.GET;
 
 public interface ApiDiscoverService {
     @GET(API.url_3)
-    Observable<BeanDiscover> getUpdate();
+    Observable<BeanDiscover> getDate();
 }

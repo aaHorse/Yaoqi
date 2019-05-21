@@ -34,6 +34,7 @@ public class MainActivity extends SupportActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         InitClass initClass=DataSupport.findLast(InitClass.class);
+
         if(initClass!=null){
             isLogin=initClass.isLogin();
             API.key=initClass.getKey();
@@ -44,7 +45,7 @@ public class MainActivity extends SupportActivity {
             mFragments[2]=FragmentDiscover.newInstance();
             mFragments[3]=FragmentAboutme.newInstance(getSupportFragmentManager());
             if(isLogin){
-                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 2,
+                getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 0,
                         mFragments[0],mFragments[1],mFragments[2],mFragments[3]);
             }else{
                 getSupportDelegate().loadMultipleRootFragment(R.id.contentContainer, 3,

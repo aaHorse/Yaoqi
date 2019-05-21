@@ -28,6 +28,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.example.zexiger.yaoqi.MainActivity.isLogin;
+
 public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
         implements ContractBeanBookrack.View {
 
@@ -63,7 +65,9 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
 
     @Override
     public void initData() {
-        mPresenter.getData();
+        if(isLogin){
+            mPresenter.getData();
+        }
     }
 
     @Override

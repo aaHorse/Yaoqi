@@ -60,6 +60,7 @@ public class FragmentAboutme
         initClass.setLogin(true);
         initClass.setKey(API.key);
         initClass.save();
+        isLogin=true;
         func_3();
     }
 

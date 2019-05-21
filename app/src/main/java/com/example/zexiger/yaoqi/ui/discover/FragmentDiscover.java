@@ -1,20 +1,21 @@
 package com.example.zexiger.yaoqi.ui.discover;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanDiscover;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
-import com.example.zexiger.yaoqi.ui.base.SupportFragment;
 import com.example.zexiger.yaoqi.ui.discover.contract.ContractBeanDiscover;
 import com.example.zexiger.yaoqi.ui.discover.presenter.PresenterBeanDiscover;
+import com.orhanobut.logger.Logger;
+
+import butterknife.BindView;
+
+import static com.example.zexiger.yaoqi.MainActivity.isLogin;
 
 public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
         implements ContractBeanDiscover.View {
@@ -25,6 +26,8 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
         fragment_discover.setArguments(bundle);
         return fragment_discover;
     }
+
+    @BindView(R.id.text_discover)TextView textView;
 
     @Override
     public int getContentLayout() {
@@ -46,11 +49,17 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
 
     @Override
     public void initData() {
-        mPresenter.getData();
+        if(isLogin){
+            mPresenter.getData();
+        }
     }
 
     @Override
     public void loadData(BeanDiscover beanDiscover) {
-
+        if(beanDiscover!=null){
+            textView.setText(beanDiscover.getData().getMessage());
+        }else{
+            Logger.d("这里出错啦");
+        }
     }
 }

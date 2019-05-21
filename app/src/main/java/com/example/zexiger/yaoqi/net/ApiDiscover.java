@@ -4,6 +4,7 @@ import com.example.zexiger.yaoqi.bean.BeanDiscover;
 
 import io.reactivex.Observable;
 
+
 public class ApiDiscover {
     public static ApiDiscover apiDiscover;
     private ApiDiscoverService apiDiscoverService;
@@ -12,12 +13,12 @@ public class ApiDiscover {
     }
     public static ApiDiscover newInstance(ApiDiscoverService apiDiscoverService){
         if(apiDiscover==null){
-        apiDiscover=new ApiDiscover(apiDiscoverService);
+            apiDiscover=new ApiDiscover(apiDiscoverService);
         }
         return apiDiscover;
     }
 
     public Observable<BeanDiscover> getDiscover(){
-        return apiDiscoverService.getUpdate();
+        return apiDiscoverService.getDate();
     }
 }

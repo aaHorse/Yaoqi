@@ -63,7 +63,6 @@ public class HttpModule {
     @Provides
     ApiUpdateContent providesApiUpdateContent(OkHttpClient.Builder builder) {
         builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
-
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -77,12 +76,10 @@ public class HttpModule {
     @Provides
     ApiDiscover providesApiDiscover(OkHttpClient.Builder builder){
         builder.addInterceptor(RetrofitConfig.sQueryParameterInterceptor);
-
         Retrofit.Builder builder1=new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
-
         return ApiDiscover.newInstance(builder1.baseUrl(API.BASE).build().create(ApiDiscoverService.class));
     }
 

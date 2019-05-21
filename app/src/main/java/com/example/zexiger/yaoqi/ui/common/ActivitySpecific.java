@@ -79,9 +79,6 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        /*
-        * 一行代码，设置沉浸式状态栏，没有做机型检查
-        * */
        QMUIStatusBarHelper.translucent(this);
     }
 

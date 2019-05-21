@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import com.example.zexiger.yaoqi.bean.BeanDiscover;
 import com.example.zexiger.yaoqi.net.ApiDiscover;
 import com.example.zexiger.yaoqi.net.RxSchedulers;
-import com.example.zexiger.yaoqi.ui.base.BaseContract;
 import com.example.zexiger.yaoqi.ui.base.BasePresenter;
 import com.example.zexiger.yaoqi.ui.discover.contract.ContractBeanDiscover;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -42,6 +42,7 @@ public class PresenterBeanDiscover extends BasePresenter<ContractBeanDiscover.Vi
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        Logger.d(e.getMessage());
                         mView.showFaild();
                     }
 

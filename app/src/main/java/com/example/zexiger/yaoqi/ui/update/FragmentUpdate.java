@@ -89,12 +89,10 @@ public class FragmentUpdate extends SupportFragment {
         viewPager.setOffscreenPageLimit(7);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(getDay()).select();
-
         return view;
     }
 
     private int getDay(){
-
         Date date = new Date();
         SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
         String currSun = dateFm.format(date);
