@@ -10,7 +10,7 @@ public class API {
     public final static String url_0="v3/appV3_3/android/phone/member/autologin";
 
     //获取书架
-    public final static String url_1 ="v3/appV3_3/android/phone/comic/favRecommend";
+    public final static String url_1 ="v3/appV3_3/android/phone/fav/index";
 
     //获取更新
     public final static String url_2="v3/appV3_3/android/phone/list/todayRecommendList";
@@ -31,5 +31,8 @@ public class API {
 
     //上传手机号，短信号，进行登录
     public final static String url_8="v3/appV3_3/android/phone/member/openLogin";
+
+    //收藏漫画，将信息上传服务器
+    public final static String url_9="v3/appV3_3/android/phone/fav/index";
 
 }

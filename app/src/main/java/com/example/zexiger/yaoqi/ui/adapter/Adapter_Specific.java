@@ -28,8 +28,16 @@ public class Adapter_Specific
             case BeanSpecific.DataBean.ReturnDataBean.ChapterListBean.TYPE_1:
                 helper.setText(R.id.text_specific_8,item.getName());
                 helper.setText(R.id.text_specific_9,"第"+item.getIndex()+"话 "+func(item.getPublish_time()));
-                Glide.with(MyApp.getContext()).load(item.getSmallPlaceCover())
-                        .into((ImageView) helper.getView(R.id.image_specific_4));
+
+                //type = 0 是仅限VIP看
+                if(item.getType()==0){
+                    Glide.with(MyApp.getContext()).load(item.getSmallPlaceCover())
+                            .into((ImageView) helper.getView(R.id.image_specific_4));
+                }else{
+                    Glide.with(MyApp.getContext()).load(R.drawable.vip_lock)
+                            .into((ImageView) helper.getView(R.id.image_specific_4));
+                }
+
                 break;
             default:
                 Logger.d("出错啦");

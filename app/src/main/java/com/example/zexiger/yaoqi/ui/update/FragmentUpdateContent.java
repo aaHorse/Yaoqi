@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanUpdate;
@@ -12,6 +13,7 @@ import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_UpdateContent;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
+import com.example.zexiger.yaoqi.ui.common.ActivitySpecific;
 import com.example.zexiger.yaoqi.ui.update.contract.ContractUpdateContent;
 import com.example.zexiger.yaoqi.ui.update.presenter.PresenterBeanUpdateContent;
 
@@ -66,6 +68,12 @@ public class FragmentUpdateContent extends BaseFragment<PresenterBeanUpdateConte
         }
        recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
         adapter=new Adapter_UpdateContent(lists);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivitySpecific.startActivity(MyApp.getContext(),lists.get(position).getComicId()+"");
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 }

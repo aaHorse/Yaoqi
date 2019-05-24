@@ -2,6 +2,7 @@ package com.example.zexiger.yaoqi.net;
 
 import com.example.zexiger.yaoqi.bean.BeanSpecific;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
+import com.example.zexiger.yaoqi.bean.Status;
 
 import io.reactivex.Observable;
 
@@ -24,5 +25,9 @@ public class ApiSpecific {
 
     public Observable<BeanSpecific_2>getSpecific_2(String comicid){
         return apiSpecificService.getUpdate_2(comicid,API.key);
+    }
+
+    public Observable<Status>favorite(String data_,int query){
+        return apiSpecificService.favorite(API.key,data_,query);
     }
 }

@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import com.example.zexiger.yaoqi.bean.BeanBookrack;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.RxSchedulers;
-import com.example.zexiger.yaoqi.ui.base.BaseContract;
 import com.example.zexiger.yaoqi.ui.base.BasePresenter;
 import com.example.zexiger.yaoqi.ui.bookrack.contract.ContractBeanBookrack;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -42,6 +42,7 @@ public class PresenterBeanBookrack
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        Logger.d(e.getMessage());
                         mView.showFaild();
                     }
 

@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
+import com.example.zexiger.yaoqi.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 public class Fragment_specific_1 extends Fragment {
     public static void startFragment(List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean> lists_,
@@ -39,7 +42,7 @@ public class Fragment_specific_1 extends Fragment {
     private static FragmentManager fragmentManager;
     private static Fragment_specific_1 fragment;
     private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2;//倒序
+    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2;//adapter使用的
     private static int flag;//正序或逆序
     @BindView(R.id.rv_specific_2)RecyclerView recyclerView;
     Adapter_Specific adapter;
@@ -52,15 +55,35 @@ public class Fragment_specific_1 extends Fragment {
         lists_2=new ArrayList<>();
         reversal();
         if(flag==0){
-            adapter=new Adapter_Specific(lists);
+            zhengxv();
         }else{
-            adapter=new Adapter_Specific(lists_2);
+            reversal();
         }
+        adapter=new Adapter_Specific(lists_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if(lists_2.get(position).getType()==0){
+                    ActivitySpecificContent.startActicity(MyApp.getContext(),lists,position);
+                }else{
+                    T.showShort(MyApp.getContext(),"该章节仅限VIP阅读");
+                }
+            }
+        });
         return view;
     }
 
+    //正序
+    private void zhengxv(){
+        lists_2.clear();
+        for(int i=0;i<lists.size();i++){
+            lists_2.add(lists.get(i));
+        }
+    }
+
+    //倒序
     private void reversal(){
         lists_2.clear();
         for(int i=lists.size()-1;i>=0;i--){
@@ -76,8 +99,7 @@ public class Fragment_specific_1 extends Fragment {
             //
         }else{
             flag=0;
-            adapter=new Adapter_Specific(lists);
-            recyclerView.setAdapter(adapter);
+            zhengxv();
             adapter.notifyDataSetChanged();
         }
     }
@@ -86,8 +108,7 @@ public class Fragment_specific_1 extends Fragment {
             //
         }else {
             flag=1;
-            adapter=new Adapter_Specific(lists_2);
-            recyclerView.setAdapter(adapter);
+            reversal();
             adapter.notifyDataSetChanged();
         }
     }

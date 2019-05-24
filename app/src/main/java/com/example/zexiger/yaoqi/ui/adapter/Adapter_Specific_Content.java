@@ -11,10 +11,10 @@ import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 
 import java.util.List;
 
-public class Adaptet_Specific_Content
+public class Adapter_Specific_Content
         extends BaseMultiItemQuickAdapter
         <BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean,BaseViewHolder> {
-    public Adaptet_Specific_Content(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>list){
+    public Adapter_Specific_Content(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>list){
         super(list);
         addItemType(BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean.TYPE_1,
                 R.layout.item_specific_content);

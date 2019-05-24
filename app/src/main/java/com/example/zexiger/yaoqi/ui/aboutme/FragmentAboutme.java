@@ -23,8 +23,6 @@ import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.orhanobut.logger.Logger;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.OnClick;

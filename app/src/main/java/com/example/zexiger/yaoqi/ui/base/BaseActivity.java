@@ -7,10 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.MyApp;
-import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.utils.DialogHelper;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
