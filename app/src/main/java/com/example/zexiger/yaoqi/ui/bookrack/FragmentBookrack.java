@@ -17,6 +17,7 @@ import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.example.zexiger.yaoqi.ui.bookrack.contract.ContractBeanBookrack;
 import com.example.zexiger.yaoqi.ui.bookrack.presenter.PresenterBeanBookrack;
 import com.example.zexiger.yaoqi.ui.common.ActivitySpecific;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import org.simple.eventbus.EventBus;
 
@@ -30,10 +31,10 @@ import static com.example.zexiger.yaoqi.MainActivity.isLogin;
 public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
         implements ContractBeanBookrack.View {
 
-    @BindView(R.id.mRecyclerView_f_bookrack)
-    RecyclerView  mRecyclerView;
+    @BindView(R.id.mRecyclerView_f_bookrack) RecyclerView  mRecyclerView;
     private Adapter_Bookrack adapter_bookrack;
     private List<BeanBookrack.DataBean.ReturnDataBean.FavListBean>lists=new ArrayList<>();
+    @BindView(R.id.pull_to_refresh) QMUIPullRefreshLayout mPullRefreshLayout;
 
     public static FragmentBookrack newInstance() {
         Bundle args = new Bundle();
@@ -58,6 +59,28 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+
+        mPullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                mPullRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getData();
+                    }
+                }, 2000);
+            }
+        });
     }
 
     @Override
@@ -85,6 +108,9 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
                 ActivitySpecific.startActivity(MyApp.getContext(),lists.get(position).getComic_id()+"",true);
             }
         });
+
+        //
+        mPullRefreshLayout.finishRefresh();
     }
 
     @Override

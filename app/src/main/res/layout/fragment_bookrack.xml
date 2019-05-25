@@ -9,14 +9,19 @@
         android:layout_height="match_parent"
         android:gravity="center"
         >
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRecyclerView_f_bookrack"
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:id="@+id/pull_to_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:scrollbars="vertical"
-            />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mRecyclerView_f_bookrack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:scrollbars="vertical"
+                />
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 
     </LinearLayout>
 

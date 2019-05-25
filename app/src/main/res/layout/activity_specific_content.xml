@@ -1,73 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.common.ActivitySpecificContent"
     >
 
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:background="#80000000"
-            >
-            <ImageButton
-                android:id="@+id/bt_specific_1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/qmui_icon_topbar_back"
-                />
-            <ImageButton
-                android:id="@+id/bt_specific_2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_more_horiz_black_24dp"
-                />
-            <ImageButton
-                android:id="@+id/bt_specific_3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toLeftOf="@id/bt_specific_2"
-                android:layout_marginRight="20dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_file_download_black_24dp"
-                />
-
-        </RelativeLayout>
-
-
-    </android.support.design.widget.AppBarLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_specific_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
     </android.support.v7.widget.RecyclerView>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_specific_content_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/line_specific_content_1"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="#80000000"
+        android:visibility="gone"
+        >
+        <ImageButton
+            android:id="@+id/bt_specific_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="7dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/qmui_icon_topbar_back"
+            />
+        <ImageButton
+            android:id="@+id/bt_specific_2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="7dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_more_horiz_black_24dp"
+            />
+        <ImageButton
+            android:id="@+id/bt_specific_3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/bt_specific_2"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="7dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_file_download_black_24dp"
+            />
+
+    </RelativeLayout>
+
     <LinearLayout
+        android:id="@+id/line_specific_content_2"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:orientation="vertical"
         android:background="@color/my_color_hong"
         android:layout_gravity="bottom"
         >
+
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/line_specific_content_3"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:background="#00000000"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:gravity="right"
+            >
+            <Button
+                android:id="@+id/bt_specific_content_tucao"
+                android:text="吐槽 30"
+                android:background="#80000000"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/my_color_bai"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/my_color_hong"
+            >
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#80000000"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/bt_specific_content_fashe"
+                    android:text="发射"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="#00000000"
+            >
+            <LinearLayout
+                android:id="@+id/line_specific_content_4"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                >
+                <TextView
+                    android:id="@+id/tv_specific_content_1"
+                    android:text="横屏"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#80000000"
+                    android:textColor="@color/my_color_bai"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/line_specific_content_5"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                >
+                <TextView
+                    android:id="@+id/tv_specific_content_2"
+                    android:text="目录"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#80000000"
+                    android:textColor="@color/my_color_bai"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/line_specific_content_6"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                >
+                <TextView
+                    android:id="@+id/tv_specific_content_3"
+                    android:text="平推"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#80000000"
+                    android:textColor="@color/my_color_bai"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/line_specific_content_7"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                >
+                <TextView
+                    android:id="@+id/tv_specific_content_4"
+                    android:text="设置"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:background="#80000000"
+                    android:textColor="@color/my_color_bai"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
