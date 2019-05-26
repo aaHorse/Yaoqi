@@ -19,6 +19,7 @@ import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
 import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
+import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
@@ -170,14 +171,17 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
 
+    //返回
     @OnClick(R.id.bt_specific_1)void func_1(){
 
     }
+    //更多
     @OnClick(R.id.bt_specific_2)void func_2(){
 
     }
+    //下载
     @OnClick(R.id.bt_specific_3)void func_3(){
-
+        ActivityLoad.startActivity(lists,flag);
     }
     @OnClick(R.id.button_zhengxv)void func_4(){
         lists_2.clear();

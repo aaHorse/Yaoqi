@@ -75,4 +75,6 @@ dependencies {
     implementation files('libs/open_sdk_r6008_lite.jar')
     //使用LitePal
     implementation 'org.litepal.android:core:1.4.1'
+    //文件下载框架
+    implementation 'com.liulishuo.filedownloader:library:1.7.6'
 }

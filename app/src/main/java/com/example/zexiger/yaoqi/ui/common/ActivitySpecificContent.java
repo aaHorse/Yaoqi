@@ -100,6 +100,9 @@ public class ActivitySpecificContent
             func_8();
         }
 
+        /*
+        * 切换横竖屏更换UI只能在重新加载这里
+        * */
         if(flag_1==0){
             textView_1.setText("横屏");
         }else{
@@ -223,6 +226,7 @@ public class ActivitySpecificContent
     private void func_7(){
         recyclerView.setVisibility(View.GONE);
         recyclerView_2.setVisibility(View.VISIBLE);
+        textView_3.setText("卷纸");
     }
     /*
     * 显示卷纸
@@ -230,6 +234,7 @@ public class ActivitySpecificContent
     private void func_8(){
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView_2.setVisibility(View.GONE);
+        textView_3.setText("平推");
     }
 
     /*
