@@ -1,6 +1,13 @@
 package com.example.zexiger.yaoqi.ui.common;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +23,7 @@ import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.utils.T;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +48,10 @@ public class ActivityLoad extends AppCompatActivity {
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
 
+    private LocalBroadcastManager mLocalBroadcastManager;
+    private MyBroadcastReceiver mBroadcastReceiver;
+    public final static String ACTION_TYPE_THREAD = "action.type.thread";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +69,14 @@ public class ActivityLoad extends AppCompatActivity {
             button.setText("正序");
         }
         func_5();
+        //动态申请权限
+        verifyStoragePermissions(this);
+        //注册广播
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+        mBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_TYPE_THREAD);
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
     /*
@@ -117,5 +137,42 @@ public class ActivityLoad extends AppCompatActivity {
     * */
     @OnClick(R.id.bt_load_1_2)void func_6(){
         //开启下载服务
+        DownLoadIntentService.startService("123456789");
+    }
+
+    public static void verifyStoragePermissions(Activity activity) {
+        int REQUEST_EXTERNAL_STORAGE = 1;
+        String[] PERMISSIONS_STORAGE = {
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.WRITE_EXTERNAL_STORAGE" };
+        try {
+            //检测是否有写的权限
+            int permission = ActivityCompat.checkSelfPermission(activity,
+                    "android.permission.WRITE_EXTERNAL_STORAGE");
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // 没有写的权限，去申请写的权限，会弹出对话框
+                ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,REQUEST_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case ACTION_TYPE_THREAD:
+                    Logger.d(intent.getIntExtra("progress", 0)+"");
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //注销广播
+        mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
     }
 }

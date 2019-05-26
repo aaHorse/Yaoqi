@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.zexiger.yaoqi">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -17,16 +20,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 获取wifi状态 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 改变wifi状态 -->
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 读取sd卡 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <!-- 获取电池信息 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!-- 设置系统权限 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- 设置系统权限 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 电源锁权限 -->
@@ -80,7 +73,11 @@
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ -->
-        <activity android:name=".ui.common.ActivityLoad"></activity>
+        <activity android:name=".ui.common.ActivityLoad" />
+
+        <service
+            android:name=".ui.common.DownLoadIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
