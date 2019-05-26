@@ -5,9 +5,10 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.List;
 
 //http://app.u17.com/v3/appV3_3/android/phone/comic/detail_static_new?come_from=lenovo&comicid=8805&serialNumber=3089dfb0&v=4500102&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9HTTP/1.1
-public class BeanSpecific {
+public class BeanSpecific_combine {
 
     //漫画的信息，不含月票
+    //静态
 
     private int code;
     private DataBean data;
@@ -107,7 +108,6 @@ public class BeanSpecific {
             }
 
             public static class ComicBean {
-
                 private String name;
                 private String comic_id;
                 private int is_vip;
@@ -416,6 +416,7 @@ public class BeanSpecific {
             }
 
             public static class ChapterListBean implements MultiItemEntity {
+
                 //
                 private int itemType;
                 //样式 1
@@ -431,6 +432,7 @@ public class BeanSpecific {
                 }
 
 
+                ////////////////////////////////////////////////
                 private String name;
                 private String image_total;
                 private String chapter_id;
@@ -1107,4 +1109,5 @@ public class BeanSpecific {
             }
         }
     }
+
 }

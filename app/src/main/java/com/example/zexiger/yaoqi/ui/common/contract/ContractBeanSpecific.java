@@ -1,16 +1,16 @@
 package com.example.zexiger.yaoqi.ui.common.contract;
 
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
-import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_dynamic;
 import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.ui.base.BaseContract;
 
 public interface ContractBeanSpecific {
     interface View extends BaseContract.BaseView{
 
-        void loadData(BeanSpecific beanSpecific);
+        void loadData(BeanSpecific_combine beanSpecificCombine);
 
-        void loadData_2(BeanSpecific_2 beanSpecific_2);
+        void loadData_2(BeanSpecific_dynamic beanSpecific_dynamic);
 
         void loadData_3(Status status);
     }

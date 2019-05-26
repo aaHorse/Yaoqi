@@ -5,13 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 
 import java.util.ArrayList;
@@ -22,15 +21,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActivityLoad extends AppCompatActivity {
-    public static void startActivity(List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean> lists_, int flag_){
+    public static void startActivity(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_, int flag_){
         lists=lists_;
         flag=flag_;
         Intent intent=new Intent(MyApp.getContext(),ActivityLoad.class);
         MyApp.getContext().startActivity(intent);
     }
 
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();//adapter使用的
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();//adapter使用的
     private static int flag;//正序或逆序
     @BindView(R.id.rv_load_1_1)RecyclerView recyclerView;
     private Adapter_Load_1 adapter;

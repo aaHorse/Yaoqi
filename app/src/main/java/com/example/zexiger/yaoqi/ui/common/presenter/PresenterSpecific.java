@@ -1,7 +1,7 @@
 package com.example.zexiger.yaoqi.ui.common.presenter;
 
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
-import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_dynamic;
 import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.net.ApiSpecific;
 import com.example.zexiger.yaoqi.net.RxSchedulers;
@@ -27,16 +27,16 @@ public class PresenterSpecific extends BasePresenter<ContractBeanSpecific.View>
     @Override
     public void getData(String comicid) {
         apiSpecific.getSpecific(comicid)
-                .compose(RxSchedulers.<BeanSpecific>applySchedulers())
-                .compose(mView.<BeanSpecific>bindToLife())
-                .subscribe(new Observer<BeanSpecific>() {
+                .compose(RxSchedulers.<BeanSpecific_combine>applySchedulers())
+                .compose(mView.<BeanSpecific_combine>bindToLife())
+                .subscribe(new Observer<BeanSpecific_combine>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull BeanSpecific specific) {
+                    public void onNext(@NonNull BeanSpecific_combine specific) {
                         mView.loadData(specific);
                     }
 
@@ -55,16 +55,16 @@ public class PresenterSpecific extends BasePresenter<ContractBeanSpecific.View>
     @Override
     public void getData_2(String comicid) {
         apiSpecific.getSpecific_2(comicid)
-                .compose(RxSchedulers.<BeanSpecific_2>applySchedulers())
-                .compose(mView.<BeanSpecific_2>bindToLife())
-                .subscribe(new Observer<BeanSpecific_2>() {
+                .compose(RxSchedulers.<BeanSpecific_dynamic>applySchedulers())
+                .compose(mView.<BeanSpecific_dynamic>bindToLife())
+                .subscribe(new Observer<BeanSpecific_dynamic>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull BeanSpecific_2 specific) {
+                    public void onNext(@NonNull BeanSpecific_dynamic specific) {
                         mView.loadData_2(specific);
                     }
 

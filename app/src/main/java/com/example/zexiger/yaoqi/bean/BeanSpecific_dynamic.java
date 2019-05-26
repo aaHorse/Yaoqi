@@ -3,9 +3,10 @@ package com.example.zexiger.yaoqi.bean;
 import java.util.List;
 
 //http://app.u17.com//v3/appV3_3/android/phone/comic/detail_realtime?come_from=lenovo&comicid=8805&serialNumber=3089dfb0&t=1557624742&v=4500102&model=ZUK+Z2121&android_id=8e8c4ff5b6235ce9%20HTTP/1.1
-public class BeanSpecific_2 {
+public class BeanSpecific_dynamic {
 
     //漫画的信息，含月票
+    //动态
 
     private int code;
     private DataBean data;

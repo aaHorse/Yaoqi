@@ -1,7 +1,7 @@
 package com.example.zexiger.yaoqi.net;
 
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
-import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_dynamic;
 import com.example.zexiger.yaoqi.bean.Status;
 
 import io.reactivex.Observable;
@@ -13,10 +13,10 @@ import retrofit2.http.Query;
 
 public interface ApiSpecificService {
     @GET(API.url_4)
-    Observable<BeanSpecific> getUpdate(@Query("comicid")String comicid,@Query("key")String key,@Query("v")String v);
+    Observable<BeanSpecific_combine> getUpdate(@Query("comicid")String comicid, @Query("key")String key, @Query("v")String v);
 
     @GET(API.url_5)
-    Observable<BeanSpecific_2> getUpdate_2(@Query("comicid")String comicid, @Query("key")String key);
+    Observable<BeanSpecific_dynamic> getUpdate_2(@Query("comicid")String comicid, @Query("key")String key);
 
     @FormUrlEncoded
     @POST(API.url_9)

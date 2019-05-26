@@ -14,12 +14,11 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
-import com.example.zexiger.yaoqi.bean.BeanSpecific_2;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_dynamic;
 import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
@@ -56,12 +55,12 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     private static String comicid;
-    private List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists=new ArrayList<>();
-    private List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();;
+    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists=new ArrayList<>();
+    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();;
     private Adapter_Specific adapter_specific;
     private int flag=0;
     private static boolean isFavorite;
-    private static BeanSpecific beanSpecific;
+    private static BeanSpecific_combine beanSpecificCombine;
 
     @BindView(R.id.image_specific_1)ImageView imageView_1;
     @BindView(R.id.image_specific_2)ImageView imageView_2;
@@ -101,11 +100,11 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     @Override
-    public void loadData(BeanSpecific beanSpecific_) {
-        beanSpecific=beanSpecific_;
-        BeanSpecific.DataBean.ReturnDataBean.ComicBean comicBean=beanSpecific.getData().getReturnData().getComic();
-        for(int i=0;i<beanSpecific.getData().getReturnData().getChapter_list().size();i++){
-            BeanSpecific.DataBean.ReturnDataBean.ChapterListBean obj=beanSpecific.getData().getReturnData().getChapter_list().get(i);
+    public void loadData(BeanSpecific_combine beanSpecific_combine_) {
+        beanSpecificCombine = beanSpecific_combine_;
+        BeanSpecific_combine.DataBean.ReturnDataBean.ComicBean comicBean= beanSpecificCombine.getData().getReturnData().getComic();
+        for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
+            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
             obj.setItemType(1);
             lists.add(obj);
         }
@@ -125,7 +124,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         }
 
         for(int i=0;i<lists.size();i++){
-            BeanSpecific.DataBean.ReturnDataBean.ChapterListBean obj=lists.get(i);
+            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj=lists.get(i);
             if(obj!=null){
                 lists_2.add(obj);
                 if(i==4){
@@ -149,8 +148,8 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     @Override
-    public void loadData_2(BeanSpecific_2 beanSpecific_2) {
-        BeanSpecific_2.DataBean.ReturnDataBean.ComicBean obj=beanSpecific_2.getData().getReturnData().getComic();
+    public void loadData_2(BeanSpecific_dynamic beanSpecific_dynamic) {
+        BeanSpecific_dynamic.DataBean.ReturnDataBean.ComicBean obj= beanSpecific_dynamic.getData().getReturnData().getComic();
         textView_3.setText("热度值("+obj.getTotal_click()+")");
         textView_4.setText("本月月票"+obj.getMonth_ticket());
     }
@@ -214,7 +213,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     @OnClick(R.id.bt_specific_4)void func_7(){
-        String comic_id=beanSpecific.getData().getReturnData().getComic().getComic_id();
+        String comic_id= beanSpecificCombine.getData().getReturnData().getComic().getComic_id();
         if(isFavorite){
             //提交服务器取消收藏
             long last_update_time=(long)System.currentTimeMillis()/1000;

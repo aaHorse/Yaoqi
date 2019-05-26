@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.utils.T;
 
@@ -28,7 +28,7 @@ import butterknife.OnClick;
 
 
 public class Fragment_specific_1 extends Fragment {
-    public static void startFragment(List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean> lists_,
+    public static void startFragment(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
                                      FragmentManager fragmentManager_,int flag_){
         lists=lists_;
         flag=flag_;
@@ -41,8 +41,8 @@ public class Fragment_specific_1 extends Fragment {
 
     private static FragmentManager fragmentManager;
     private static Fragment_specific_1 fragment;
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_2;//adapter使用的
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2;//adapter使用的
     private static int flag;//正序或逆序
     @BindView(R.id.rv_specific_2)RecyclerView recyclerView;
     Adapter_Specific adapter;

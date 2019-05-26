@@ -7,25 +7,24 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.orhanobut.logger.Logger;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class Adapter_Specific
-        extends BaseMultiItemQuickAdapter<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean, BaseViewHolder> {
-    public Adapter_Specific(List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean> lists){
+        extends BaseMultiItemQuickAdapter<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean, BaseViewHolder> {
+    public Adapter_Specific(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists){
         super(lists);
-        addItemType(BeanSpecific.DataBean.ReturnDataBean.ChapterListBean.TYPE_1,R.layout.item_specific);
+        addItemType(BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean.TYPE_1,R.layout.item_specific);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BeanSpecific.DataBean.ReturnDataBean.ChapterListBean item) {
+    protected void convert(BaseViewHolder helper, BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean item) {
         switch (item.getItemType()){
-            case BeanSpecific.DataBean.ReturnDataBean.ChapterListBean.TYPE_1:
+            case BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean.TYPE_1:
                 helper.setText(R.id.text_specific_8,item.getName());
                 helper.setText(R.id.text_specific_9,"第"+item.getIndex()+"话 "+func(item.getPublish_time()));
 

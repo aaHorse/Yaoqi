@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.R;
-import com.example.zexiger.yaoqi.bean.BeanSpecific;
+import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
@@ -40,14 +40,14 @@ import butterknife.OnClick;
 
 public class ActivitySpecificContent
         extends BaseActivity<PresenterSpecificContent> implements ContractBeanSpecificContent.View {
-    public static void startActicity(Context context,List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_,int position_){
+    public static void startActicity(Context context, List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_, int position_){
         lists_chapter=lists_;
         position=position_;
         Intent intent=new Intent(context,ActivitySpecificContent.class);
         context.startActivity(intent);
     }
 
-    private static List<BeanSpecific.DataBean.ReturnDataBean.ChapterListBean>lists_chapter;
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_chapter;
     private List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
     private static int position;
     @BindView(R.id.rv_specific_content)RecyclerView recyclerView;
@@ -112,7 +112,7 @@ public class ActivitySpecificContent
 
     @Override
     public void initData() {
-        BeanSpecific.DataBean.ReturnDataBean.ChapterListBean item=lists_chapter.get(position);
+        BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean item=lists_chapter.get(position);
         mPresenter.getData(item.getChapter_id());
     }
 
