@@ -272,16 +272,8 @@
                     android:layout_alignParentLeft="true"
                     />
                 <Button
-                    android:id="@+id/button_zhengxv"
-                    android:text="正序"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/button_daoxv"
-                    />
-                <Button
-                    android:id="@+id/button_daoxv"
-                    android:text="倒序"
+                    android:id="@+id/bt_shunxv"
+                    android:text="逆序"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

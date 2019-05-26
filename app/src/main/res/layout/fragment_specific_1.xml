@@ -24,19 +24,11 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/button_zhengxv_2"
+            android:layout_toLeftOf="@+id/bt_shunxv"
             />
         <Button
-            android:id="@+id/button_zhengxv_2"
-            android:text="正序"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/button_daoxv_2"
-            />
-        <Button
-            android:id="@+id/button_daoxv_2"
-            android:text="倒序"
+            android:id="@+id/bt_shunxv"
+            android:text="顺序"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -49,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_specific_1"
+        android:layout_marginBottom="?attr/actionBarSize"
         >
 
     </android.support.v7.widget.RecyclerView>

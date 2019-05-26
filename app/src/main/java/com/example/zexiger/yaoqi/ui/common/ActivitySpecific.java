@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +20,15 @@ import com.example.zexiger.yaoqi.bean.BeanSpecific_dynamic;
 import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
+import com.example.zexiger.yaoqi.database.LoadClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecific;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -55,10 +59,11 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     private static String comicid;
-    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists=new ArrayList<>();
-    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();;
+    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists=new ArrayList<>();//多个页面都是用这一个list
+    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();//本页面使用的list
+    private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用的
     private Adapter_Specific adapter_specific;
-    private int flag=0;
+    public static int FLAG=0;
     private static boolean isFavorite;
     private static BeanSpecific_combine beanSpecificCombine;
 
@@ -74,6 +79,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     @BindView(R.id.text_specific_7)TextView textView_7;
     @BindView(R.id.rv_specific_1)RecyclerView recyclerView;
     @BindView(R.id.bt_specific_4)TextView textView_8;
+    @BindView(R.id.bt_shunxv)Button button;
 
     @Override
     public int getContentLayout() {
@@ -103,9 +109,19 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     public void loadData(BeanSpecific_combine beanSpecific_combine_) {
         beanSpecificCombine = beanSpecific_combine_;
         BeanSpecific_combine.DataBean.ReturnDataBean.ComicBean comicBean= beanSpecificCombine.getData().getReturnData().getComic();
+        //开数据库获取下载的信息
+        List<LoadClass>loadClassList=DataSupport.where("comic_id = ?",comicBean.getComic_id()).find(LoadClass.class);
         for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
             BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
             obj.setItemType(1);
+            //二重循环，一下子慢了几十倍。。。
+            for(int j=0;j<loadClassList.size();j++){
+                if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())){
+                    obj.setLoad(true);
+                }else{
+                    obj.setLoad(false);
+                }
+            }
             lists.add(obj);
         }
         Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
@@ -123,14 +139,8 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             textView_8.setText("已收藏");
         }
 
-        for(int i=0;i<lists.size();i++){
-            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj=lists.get(i);
-            if(obj!=null){
-                lists_2.add(obj);
-                if(i==4){
-                    break;
-                }
-            }
+        for(int i=0;i<7;i++){
+            lists_2.add(lists.get(i));
         }
         adapter_specific=new Adapter_Specific(lists_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -138,7 +148,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(lists_2.get(position).getType()==0){
-                    ActivitySpecificContent.startActicity(MyApp.getContext(),lists,position);
+                    ActivitySpecificContent.startActicity(MyApp.getContext(),lists_2,position);
                 }else{
                     T("该章节仅限VIP阅读");
                 }
@@ -180,36 +190,32 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
     //下载
     @OnClick(R.id.bt_specific_3)void func_3(){
-        ActivityLoad.startActivity(lists,flag);
+        ActivityLoad.startActivity(lists);
     }
-    @OnClick(R.id.button_zhengxv)void func_4(){
-        lists_2.clear();
-        flag=0;
-        for(int i=0;i<5;i++){
-            if(lists.size()>i){
-                lists_2.add(lists.get(i));
-                if(i==4){
-                    break;
-                }
-            }
+    @OnClick(R.id.bt_shunxv)void func_5(){
+        if(FLAG==0){
+            button.setText("顺序");
+            FLAG=1;
+        }else{
+            button.setText("逆序");
+            FLAG=0;
         }
-        adapter_specific.notifyDataSetChanged();
-    }
-    @OnClick(R.id.button_daoxv)void func_5(){
-        flag=1;
+        temp.clear();
+        for(int i=0;i<lists.size();i++){
+            temp.add(lists.get(i));
+        }
+        lists.clear();
+        for(int i=temp.size()-1;i>=0;i--){
+            lists.add(temp.get(i));
+        }
         lists_2.clear();
-        int n=0;
-        for(int i=lists.size()-1;i>=0;i--){
+        for(int i=0;i<7;i++){
             lists_2.add(lists.get(i));
-            n++;
-            if(n==5){
-                break;
-            }
         }
         adapter_specific.notifyDataSetChanged();
     }
     @OnClick(R.id.button_kai)void func_6(){
-        Fragment_specific_1.startFragment(lists,getSupportFragmentManager(),flag);
+        Fragment_specific_1.startFragment(lists,getSupportFragmentManager());
     }
 
     @OnClick(R.id.bt_specific_4)void func_7(){
@@ -242,5 +248,19 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             }
         }
         return result;
+    }
+
+    public void func_8(){
+        if(FLAG==0){
+            button.setText("逆序");
+        }else{
+            button.setText("顺序");
+        }
+
+        lists_2.clear();
+        for(int i=0;i<7;i++){
+            lists_2.add(lists.get(i));
+        }
+        adapter_specific.notifyDataSetChanged();
     }
 }

@@ -416,8 +416,29 @@ public class BeanSpecific_combine {
             }
 
             public static class ChapterListBean implements MultiItemEntity {
+                /*
+                * 这些是自己添的
+                * */
+                private boolean isLoad;
+                private boolean isChecked;
 
-                //
+                public boolean isLoad() {
+                    return isLoad;
+                }
+
+                public void setLoad(boolean load) {
+                    isLoad = load;
+                }
+
+                public boolean isChecked() {
+                    return isChecked;
+                }
+
+                public void setChecked(boolean checked) {
+                    isChecked = checked;
+                }
+
+                ////////////////////////
                 private int itemType;
                 //样式 1
                 public static final int TYPE_1= 1;

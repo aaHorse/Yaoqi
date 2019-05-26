@@ -2,9 +2,10 @@
 <litepal>
     <!--数据库的名字-->
     <dbname value="Yaoqi"></dbname>
-    <version value="1"></version>
+    <version value="2"></version>
     <list>
         <!--表对象-->
         <mapping class="com.example.zexiger.yaoqi.database.InitClass"/>
+        <mapping class="com.example.zexiger.yaoqi.database.LoadClass"/>
     </list>
 </litepal>

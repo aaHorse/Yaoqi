@@ -28,7 +28,7 @@ public class Adapter_Specific
                 helper.setText(R.id.text_specific_8,item.getName());
                 helper.setText(R.id.text_specific_9,"第"+item.getIndex()+"话 "+func(item.getPublish_time()));
 
-                //type = 0 是仅限VIP看
+                //type = 3 是仅限VIP看,2 是妖气币
                 if(item.getType()==0){
                     Glide.with(MyApp.getContext()).load(item.getSmallPlaceCover())
                             .into((ImageView) helper.getView(R.id.image_specific_4));

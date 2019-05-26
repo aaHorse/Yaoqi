@@ -26,6 +26,26 @@
             android:layout_marginRight="5dp"
             android:visibility="gone"
             />
+        <ImageView
+            android:id="@+id/iv_item_load_1_4"
+            android:layout_toLeftOf="@id/tv_item_load_1_1"
+            android:src="@drawable/vip"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/iv_item_load_1_5"
+            android:layout_toLeftOf="@id/tv_item_load_1_1"
+            android:src="@drawable/another"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            />
 
         <ImageView
             android:id="@+id/iv_item_load_1_2"
