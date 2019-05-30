@@ -41,7 +41,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         implements ContractBeanSpecific.View {
 
     /*
-    * 一下两个启动活动的函数，是为了间接实现函数赋默认值，
+    * 以下两个启动活动的函数，是为了间接实现函数赋默认值，
     * 在书架过来的赋 1
     * 在其他地方过来的赋 0
     * */
@@ -190,7 +190,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
     //下载
     @OnClick(R.id.bt_specific_3)void func_3(){
-        ActivityLoad.startActivity(lists);
+        ActivityLoad.startActivity(lists,comicid);
     }
     @OnClick(R.id.bt_shunxv)void func_5(){
         if(FLAG==0){

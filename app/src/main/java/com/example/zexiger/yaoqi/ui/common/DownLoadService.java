@@ -1,7 +1,6 @@
 package com.example.zexiger.yaoqi.ui.common;
 
 import android.annotation.TargetApi;
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,16 +10,14 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
@@ -31,13 +28,7 @@ import com.orhanobut.logger.Logger;
 
 import java.text.DecimalFormat;
 
-public class DownLoadIntentService extends Service {
-    public static void startService(String path_,String url_){
-        path=path_;
-        url=url_;
-        Intent intent=new Intent(MyApp.getContext(),DownLoadIntentService.class);
-        MyApp.getContext().startService(intent);
-    }
+public class DownLoadService extends Service {
     public static class MainHandler extends Handler {
 
         private static volatile MainHandler mInstance;
@@ -58,8 +49,6 @@ public class DownLoadIntentService extends Service {
         }
     }
 
-    private static String path;
-    private static String url;
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     private NotificationManager manager;
@@ -86,21 +75,27 @@ public class DownLoadIntentService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        func_2();
         return super.onStartCommand(intent, flags, startId);
     }
 
-    protected void func_2() {
+    /*
+    * 下载文件的方法
+    * */
+    private void func_2(final String path, final String url,final int load_n) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sendChatMsg();
+                sendChatMsg(load_n);
                 fileDownloadSampleListener=new FileDownloadSampleListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                        flag=0;
+                        notification.contentView.setTextViewText(R.id.tv_service,
+                                "   正在下载（00.00%）");
+                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
                         notification.contentView.setProgressBar(R.id.pBar,
                                 totalBytes, 0, false);
-                        manager.notify(1, notification);
+                        manager.notify(load_n, notification);
                     }
 
                     @Override
@@ -110,7 +105,7 @@ public class DownLoadIntentService extends Service {
                         notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
                         notification.contentView.setProgressBar(R.id.pBar,
                                 totalBytes, soFarBytes, false);
-                        manager.notify(1, notification);
+                        manager.notify(load_n, notification);
                         sendThreadStatus(soFarBytes, totalBytes);
                     }
 
@@ -120,13 +115,15 @@ public class DownLoadIntentService extends Service {
                         notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_wancheng);
                         notification.contentView.setProgressBar(R.id.pBar,
                                 100, 100, false);
-                        manager.notify(1, notification);
+                        manager.notify(load_n, notification);
                         flag = 2;
+                        sendDone(load_n);
                         Logger.d("下载完成");
                     }
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
+                        //stopSelf();
                     }
 
                     @Override
@@ -134,7 +131,7 @@ public class DownLoadIntentService extends Service {
                         notification.contentView.setTextViewText(R.id.tv_service,
                                 "   暂停下载（" + func_1(soFarBytes, totalBytes) + "%）");
                         notification.contentView.setImageViewResource(R.id.image_service, R.drawable.kaishi);
-                        manager.notify(1, notification);
+                        manager.notify(load_n, notification);
                         sendPause(soFarBytes, totalBytes);
                         Logger.d("下载暂停");
                     }
@@ -143,9 +140,10 @@ public class DownLoadIntentService extends Service {
                     protected void error(BaseDownloadTask task, Throwable e) {
                         notification.contentView.setTextViewText(R.id.tv_service, "   下载出错");
                         notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_jinggao);
-                        manager.notify(1, notification);
+                        manager.notify(load_n, notification);
                         flag = 3;
                         Logger.d("下载错误");
+                        Logger.d(e.getMessage());
                     }
 
                     @Override
@@ -157,6 +155,7 @@ public class DownLoadIntentService extends Service {
                         .setPath(path,false)
                         .setCallbackProgressTimes(200)
                         .setMinIntervalUpdateSpeed(400)
+                        .setCallbackProgressMinInterval(100)
                         .setListener(fileDownloadSampleListener);
                 singleTaskId =  singleTask.start();
             }
@@ -181,6 +180,15 @@ public class DownLoadIntentService extends Service {
         mLocalBroadcastManager.sendBroadcast(intent);
     }
 
+    /*
+    * 下载完成
+    * */
+    private void sendDone(int load_n){
+        Intent intent = new Intent(ActivityLoad.DONE);
+        intent.putExtra("load_n",load_n);
+        mLocalBroadcastManager.sendBroadcast(intent);
+    }
+
     @TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel(String channelId, String channelName, int importance) {
         //创建一个通知渠道至少需要渠道ID、渠道名称以及重要等级这三个参数，其中渠道ID可以随便定义，只要保证全局唯一性就可以
@@ -190,7 +198,7 @@ public class DownLoadIntentService extends Service {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public void sendChatMsg() {
+    public void sendChatMsg(int load_n) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelId = "chat";
             String channelName = "聊天消息";
@@ -209,16 +217,42 @@ public class DownLoadIntentService extends Service {
         mBuilder.setContent(mRemoteViews);
         notification=mBuilder .build();
 
-        manager.notify(1,notification);
+        manager.notify(load_n,notification);
     }
 
 
+    /*
+    * 单一对象放在这里
+    * */
+    private MyBinder binder=new MyBinder();
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
 
-
+    class MyBinder extends Binder{
+        /*
+        * 在活动中对这一个类里面的方法进行调用，实现服务与活动的通信
+        * */
+        private int load_n;
+        private String path;
+        private String url;
+        //开始下载
+        public void startDownLoad(String path_,String url_,int load_n_){
+            path=path_;
+            url=url_;
+            load_n=load_n_;
+            func_2(path,url,load_n);
+        }
+        //暂停后再次开始下载
+        public void start(){
+            func_2(path,url,load_n);
+        }
+        //暂停
+        public void pause(){
+            FileDownloader.getImpl().pause(singleTaskId);
+        }
+    }
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
@@ -226,16 +260,11 @@ public class DownLoadIntentService extends Service {
             switch (intent.getAction()) {
                 case FROM_tongzhilan:
                     //暂停0，下载1，完成2，出错3
-                    Logger.d("通知栏的广播发来了信息");
                     if(flag==0){
-                        //开始
-                        func_2();
-                        //singleTask.start();
-                        Logger.d("在这");
+                        binder.start();
                         flag=1;
                     }else if(flag==1){
-                        Logger.d("在这");
-                        FileDownloader.getImpl().pause(singleTaskId);
+                        binder.pause();
                         flag=0;
                     }else if(flag==2){
                         Logger.d("在这2");

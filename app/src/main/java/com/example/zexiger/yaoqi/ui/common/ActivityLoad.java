@@ -2,11 +2,14 @@ package com.example.zexiger.yaoqi.ui.common;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +25,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
-import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.utils.T;
-import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.orhanobut.logger.Logger;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,32 +39,45 @@ import butterknife.OnClick;
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
 public class ActivityLoad extends AppCompatActivity {
-    public static void startActivity(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_){
+    public static void startActivity(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
+                                     String comicid_){
         lists=lists_;
+        comicid=comicid_;
         Intent intent=new Intent(MyApp.getContext(),ActivityLoad.class);
         MyApp.getContext().startActivity(intent);
     }
 
-    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;//正序
+    private static String comicid;
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用
+    List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_checked=new ArrayList<>();//被选中的
     @BindView(R.id.rv_load_1_1)RecyclerView recyclerView;
     private Adapter_Load_1 adapter;
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
-
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     public final static String FROM_Thread = "FROM_Thread";
     public final static String FROM_tongzhilan = "FROM_tongzhilan";
-    //下载文件的存放地址
-    public static String PATH=Environment.getExternalStorageDirectory().getAbsolutePath()+"/youyaoqi/";
+    public final static String DONE="DONE";
+    private DownLoadService.MyBinder binder;
+    private ServiceConnection connection=new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder=(DownLoadService.MyBinder)service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+           //
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
         ButterKnife.bind(this);
-
         textView.setText("共"+lists.size()+"话");
         StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
@@ -84,7 +97,12 @@ public class ActivityLoad extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(FROM_Thread);
         intentFilter.addAction(FROM_tongzhilan);
+        intentFilter.addAction(DONE);
         mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
+        //绑定服务
+        Intent intent=new Intent(this,DownLoadService.class);
+        startService(intent);
+        bindService(intent,connection,BIND_AUTO_CREATE);
     }
 
     /*
@@ -144,13 +162,41 @@ public class ActivityLoad extends AppCompatActivity {
     * 极速下载
     * */
     @OnClick(R.id.bt_load_1_2)void func_6(){
-        //开启下载服务
-        String url="http://zip4.u17i.com/29/808029_crop.zip?update_time=1536679835";
-        String path=  Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/1/7";
-        Logger.d(path);
-        DownLoadIntentService.startService(path,url);
+        lists_checked.clear();
+        for(int i=0;i<lists.size();i++){
+            if(lists.get(i).isChecked()==true){
+                lists_checked.add(lists.get(i));
+            }
+        }
+        if(lists_checked.size()==0){
+            T.showDefultToast(MyApp.getContext(),"还没有选择下载内容");
+        }else{
+            if(binder==null){
+                return;
+            }else{
+                load(0);
+            }
+        }
     }
 
+    /*
+    *下载
+    * */
+    private void load(int i){
+        int chapter_id=Integer.valueOf(lists_checked.get(i).getChapter_id());
+        int num=chapter_id%100;
+        String zip_n=comicid.substring(comicid.length()-1,comicid.length());
+        long update_time=(long)System.currentTimeMillis()/1000;
+        String url="http://zip"+zip_n+".u17i.com/"+num+"/"+chapter_id+"_crop.zip?update_time="+update_time;
+        String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/"+comicid+"/"+chapter_id;
+        Logger.d(path);
+        Logger.d(url);
+        binder.startDownLoad(path,url,i);
+    }
+
+    /*
+    * 动态申请权限
+    * */
     public static void verifyStoragePermissions(Activity activity) {
         int REQUEST_EXTERNAL_STORAGE = 1;
         String[] PERMISSIONS_STORAGE = {
@@ -169,6 +215,9 @@ public class ActivityLoad extends AppCompatActivity {
         }
     }
 
+    /*
+    * 本地接收器
+    * */
     private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -179,8 +228,30 @@ public class ActivityLoad extends AppCompatActivity {
                 case FROM_tongzhilan:
                     Logger.d("AL通知栏发来了信息"+intent.getStringExtra("progress"));
                     break;
+                case DONE:
+                    int load_n=intent.getIntExtra("load_n",-1);
+                    func_7(load_n);
+                    if(load_n!=-1&&++load_n<lists_checked.size()){
+                        load(load_n);
+                    }
+                    break;
                 default:
                     Logger.d("在这里");
+            }
+        }
+    }
+
+    /*
+    * 某一个下载完成后，将其写入数据库，以及修改当前的list
+    * */
+    private void func_7(int load_n){
+        String str=lists_checked.get(load_n).getChapter_id();
+        for(int i=0;i<lists.size();i++){
+            if(str.equals(lists.get(i).getChapter_id())){
+                lists.get(i).setChecked(false);
+                lists.get(i).setLoad(true);
+                adapter.notifyDataSetChanged();
+                break;
             }
         }
     }
@@ -190,5 +261,6 @@ public class ActivityLoad extends AppCompatActivity {
         super.onDestroy();
         //注销广播
         mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
+        unbindService(connection);
     }
 }

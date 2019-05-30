@@ -419,8 +419,8 @@ public class BeanSpecific_combine {
                 /*
                 * 这些是自己添的
                 * */
-                private boolean isLoad;
-                private boolean isChecked;
+                private boolean isLoad;//已经下载的
+                private boolean isChecked;//被选中准备下载的
 
                 public boolean isLoad() {
                     return isLoad;
