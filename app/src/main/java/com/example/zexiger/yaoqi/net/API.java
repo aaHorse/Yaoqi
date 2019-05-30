@@ -1,5 +1,7 @@
 package com.example.zexiger.yaoqi.net;
 
+import android.os.Environment;
+
 public class API {
     public final static String BASE="http://app.u17.com/";
     public static String key="";

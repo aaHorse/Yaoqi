@@ -8,6 +8,7 @@ import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerApplicationComponent;
 import com.example.zexiger.yaoqi.module.ApplicationModule;
 import com.example.zexiger.yaoqi.module.HttpModule;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -39,6 +40,7 @@ public class MyApp extends Application {
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
         LitePal.initialize(mContext);
         QMUISwipeBackActivityManager.init(this);
+        FileDownloader.setupOnApplicationOnCreate(this);
     }
 
     public static Context getContext() {

@@ -78,7 +78,7 @@ public class FragmentAboutme
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         android_id=Settings.System.getString(MyApp.getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        Logger.d(android_id);
+        //Logger.d(android_id);
         line_a=view.findViewById(R.id.line_aboutme_a);
         line_b=view.findViewById(R.id.line_aboutme_b);
         line_c=view.findViewById(R.id.line_aboutme_c);

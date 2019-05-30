@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +22,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.utils.T;
+import com.liulishuo.filedownloader.util.FileDownloadUtils;
 import com.orhanobut.logger.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +54,10 @@ public class ActivityLoad extends AppCompatActivity {
 
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
-    public final static String ACTION_TYPE_THREAD = "action.type.thread";
+    public final static String FROM_Thread = "FROM_Thread";
+    public final static String FROM_tongzhilan = "FROM_tongzhilan";
+    //下载文件的存放地址
+    public static String PATH=Environment.getExternalStorageDirectory().getAbsolutePath()+"/youyaoqi/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +82,8 @@ public class ActivityLoad extends AppCompatActivity {
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
         mBroadcastReceiver = new MyBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_TYPE_THREAD);
+        intentFilter.addAction(FROM_Thread);
+        intentFilter.addAction(FROM_tongzhilan);
         mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
     }
 
@@ -137,7 +145,10 @@ public class ActivityLoad extends AppCompatActivity {
     * */
     @OnClick(R.id.bt_load_1_2)void func_6(){
         //开启下载服务
-        DownLoadIntentService.startService("123456789");
+        String url="http://zip4.u17i.com/29/808029_crop.zip?update_time=1536679835";
+        String path=  Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/1/7";
+        Logger.d(path);
+        DownLoadIntentService.startService(path,url);
     }
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -158,13 +169,18 @@ public class ActivityLoad extends AppCompatActivity {
         }
     }
 
-    class MyBroadcastReceiver extends BroadcastReceiver {
+    private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
-                case ACTION_TYPE_THREAD:
-                    Logger.d(intent.getIntExtra("progress", 0)+"");
+                case FROM_Thread:
+                    //Logger.d(intent.getStringExtra("progress"));
                     break;
+                case FROM_tongzhilan:
+                    Logger.d("AL通知栏发来了信息"+intent.getStringExtra("progress"));
+                    break;
+                default:
+                    Logger.d("在这里");
             }
         }
     }
