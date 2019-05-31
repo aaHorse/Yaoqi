@@ -114,12 +114,12 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
             BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
             obj.setItemType(1);
+            obj.setLoad(false);
+            obj.setChecked(false);
             //二重循环，一下子慢了几十倍。。。
             for(int j=0;j<loadClassList.size();j++){
                 if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())){
                     obj.setLoad(true);
-                }else{
-                    obj.setLoad(false);
                 }
             }
             lists.add(obj);

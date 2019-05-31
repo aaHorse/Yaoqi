@@ -1,16 +1,16 @@
 package com.example.zexiger.yaoqi.ui.adapter;
 
-import android.opengl.Visibility;
-import android.view.View;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.orhanobut.logger.Logger;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Adapter_Load_1
@@ -28,11 +28,17 @@ public class Adapter_Load_1
             case BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean.TYPE_1:
                 helper.setText(R.id.tv_item_load_1_1,item.getIndex()+"");
                 if(item.isLoad()){
-                    //是否已经下载了
-                    helper.setVisible(R.id.iv_item_load_1_2,true);
-                }
-                if(item.isChecked()){
-                    helper.setVisible(R.id.iv_item_load_1_3,true);
+                    Glide.with(MyApp.getContext()).load(R.drawable.is_load)
+                            .override(40, 40)
+                            .into((ImageView) helper.getView(R.id.iv_item_load_1_2));
+                }else if(item.isChecked()){
+                    Glide.with(MyApp.getContext()).load(R.drawable.load)
+                            .override(40, 40)
+                            .into((ImageView) helper.getView(R.id.iv_item_load_1_2));
+                } else{
+                    Glide.with(MyApp.getContext()).load(R.drawable.kong)
+                            .override(40, 40)
+                            .into((ImageView) helper.getView(R.id.iv_item_load_1_2));
                 }
                 func_1(item.getType());
                 break;
@@ -48,24 +54,24 @@ public class Adapter_Load_1
     private void func_1(int sign){
         switch (sign){
             case 0:
-                helper.setVisible(R.id.iv_item_load_1_1,false);//钱
-                helper.setVisible(R.id.iv_item_load_1_4,false);//vip
-                helper.setVisible(R.id.iv_item_load_1_5,false);//其他
+                Glide.with(MyApp.getContext()).load(R.drawable.kong)
+                        .override(40, 40)
+                        .into((ImageView) helper.getView(R.id.iv_item_load_1_1));
                 break;
             case 2:
-                helper.setVisible(R.id.iv_item_load_1_1,true);//钱
-                helper.setVisible(R.id.iv_item_load_1_4,false);//vip
-                helper.setVisible(R.id.iv_item_load_1_5,false);//其他
+                Glide.with(MyApp.getContext()).load(R.drawable.money)
+                        .override(40, 40)
+                        .into((ImageView) helper.getView(R.id.iv_item_load_1_1));
                 break;
             case 3:
-                helper.setVisible(R.id.iv_item_load_1_1,false);//钱
-                helper.setVisible(R.id.iv_item_load_1_4,true);//vip
-                helper.setVisible(R.id.iv_item_load_1_5,false);//其他
+                Glide.with(MyApp.getContext()).load(R.drawable.vip)
+                        .override(40, 40)
+                        .into((ImageView) helper.getView(R.id.iv_item_load_1_1));
                 break;
             default:
-                helper.setVisible(R.id.iv_item_load_1_1,false);//钱
-                helper.setVisible(R.id.iv_item_load_1_4,false);//vip
-                helper.setVisible(R.id.iv_item_load_1_5,true);//其他
+                Glide.with(MyApp.getContext()).load(R.drawable.another)
+                        .override(40, 40)
+                        .into((ImageView) helper.getView(R.id.iv_item_load_1_1));
                 break;
         }
     }

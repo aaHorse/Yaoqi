@@ -21,13 +21,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.database.LoadClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,14 +146,12 @@ public class ActivityLoad extends AppCompatActivity {
                 }
                 //
                 if(obj.getType()==0){
-                    ImageView imageView=view.findViewById(R.id.iv_item_load_1_3);
                     if(obj.isChecked()){
-                        imageView.setVisibility(View.GONE);
                         obj.setChecked(false);
                     }else{
-                        imageView.setVisibility(View.VISIBLE);
                         obj.setChecked(true);
                     }
+                    adapter.notifyDataSetChanged();
                 }else{
                     //Toast,不是免费的
                     T.showDefultToast(MyApp.getContext(),"该章节是收费的，无法下载");
@@ -164,7 +166,7 @@ public class ActivityLoad extends AppCompatActivity {
     @OnClick(R.id.bt_load_1_2)void func_6(){
         lists_checked.clear();
         for(int i=0;i<lists.size();i++){
-            if(lists.get(i).isChecked()==true){
+            if(lists.get(i).isChecked()){
                 lists_checked.add(lists.get(i));
             }
         }
@@ -230,9 +232,12 @@ public class ActivityLoad extends AppCompatActivity {
                     break;
                 case DONE:
                     int load_n=intent.getIntExtra("load_n",-1);
-                    func_7(load_n);
-                    if(load_n!=-1&&++load_n<lists_checked.size()){
-                        load(load_n);
+                    if(load_n!=-1){
+                        func_7(load_n);
+                        load_n++;
+                        if(load_n<lists_checked.size()){
+                            load(load_n);
+                        }
                     }
                     break;
                 default:
@@ -250,10 +255,14 @@ public class ActivityLoad extends AppCompatActivity {
             if(str.equals(lists.get(i).getChapter_id())){
                 lists.get(i).setChecked(false);
                 lists.get(i).setLoad(true);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemChanged(i);
                 break;
             }
         }
+        LoadClass loadClass=new LoadClass();
+        loadClass.setComic_id(comicid);
+        loadClass.setChapter_id(str);
+        loadClass.save();
     }
 
     @Override
