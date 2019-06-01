@@ -136,6 +136,7 @@ public class BeanBookrack {
                 private int itemType;
                 //样式 1
                 public static final int TYPE_1= 1;
+                public static final int TYPE_2= 2;//尾部
 
                 @Override
                 public int getItemType() {

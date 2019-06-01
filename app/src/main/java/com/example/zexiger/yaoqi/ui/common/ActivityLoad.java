@@ -26,8 +26,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
+import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
 
@@ -42,7 +44,7 @@ import butterknife.OnClick;
 
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
-public class ActivityLoad extends AppCompatActivity {
+public class ActivityLoad extends BaseActivity {
     public static void startActivity(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
                                      String comicid_){
         lists=lists_;
@@ -77,37 +79,6 @@ public class ActivityLoad extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_load);
-        ButterKnife.bind(this);
-        textView.setText("共"+lists.size()+"话");
-        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        adapter=new Adapter_Load_1(lists);
-        recyclerView.setAdapter(adapter);
-        if(FLAG==0){
-            button.setText("逆序");
-        }else{
-            button.setText("正序");
-        }
-        func_5();
-        //动态申请权限
-        verifyStoragePermissions(this);
-        //注册广播
-        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
-        mBroadcastReceiver = new MyBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(FROM_Thread);
-        intentFilter.addAction(FROM_tongzhilan);
-        intentFilter.addAction(DONE);
-        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
-        //绑定服务
-        Intent intent=new Intent(this,DownLoadService.class);
-        startService(intent);
-        bindService(intent,connection,BIND_AUTO_CREATE);
-    }
 
     /*
     * 正序或倒序按钮
@@ -215,6 +186,50 @@ public class ActivityLoad extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getContentLayout() {
+        return R.layout.activity_load;
+    }
+
+    @Override
+    public void initInjector(ApplicationComponent appComponent) {
+        //
+    }
+
+    @Override
+    public void bindView(View view, Bundle savedInstanceState) {
+        textView.setText("共"+lists.size()+"话");
+        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        adapter=new Adapter_Load_1(lists);
+        recyclerView.setAdapter(adapter);
+        if(FLAG==0){
+            button.setText("逆序");
+        }else{
+            button.setText("正序");
+        }
+        func_5();
+        //动态申请权限
+        verifyStoragePermissions(this);
+        //注册广播
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
+        mBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FROM_Thread);
+        intentFilter.addAction(FROM_tongzhilan);
+        intentFilter.addAction(DONE);
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, intentFilter);
+        //绑定服务
+        Intent intent=new Intent(this,DownLoadService.class);
+        startService(intent);
+        bindService(intent,connection,BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void initData() {
+        //
     }
 
     /*

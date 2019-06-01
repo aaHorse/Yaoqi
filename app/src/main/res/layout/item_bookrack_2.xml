@@ -12,18 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         app:cardCornerRadius="8dp"
+        app:cardBackgroundColor ="#E6EFFF"
         >
         <ImageView
             android:id="@+id/image_bookrack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
+            android:src="@mipmap/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             />
     </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/text_bookrack"
-        android:text="漫画题目"
+        android:text="我要添加"
         android:gravity="center"
         android:maxLines="1"
         android:layout_width="match_parent"

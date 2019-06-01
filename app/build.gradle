@@ -77,4 +77,6 @@ dependencies {
     implementation 'org.litepal.android:core:1.4.1'
     //文件下载框架
     implementation 'com.liulishuo.filedownloader:library:1.7.6'
+    //底部导航栏
+    implementation 'com.hjm:BottomTabBar:1.2.2'
 }

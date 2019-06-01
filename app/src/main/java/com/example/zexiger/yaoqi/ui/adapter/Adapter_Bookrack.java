@@ -18,6 +18,7 @@ public class Adapter_Bookrack
     public Adapter_Bookrack(List<BeanBookrack.DataBean.ReturnDataBean.FavListBean> data) {
         super(data);
         addItemType(BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_1, R.layout.item_bookrack);
+        addItemType(BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_2, R.layout.item_bookrack_2);
     }
 
     @Override
@@ -27,6 +28,8 @@ public class Adapter_Bookrack
                 helper.setText(R.id.text_bookrack,item.getName());
                 Glide.with(MyApp.getContext()).load(item.getCover()).into((ImageView)helper.getView(R.id.image_bookrack));
                 helper.addOnClickListener(R.id.line_bookract);
+                break;
+            case BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_2:
                 break;
             default:
                 Logger.d("匹配出错");

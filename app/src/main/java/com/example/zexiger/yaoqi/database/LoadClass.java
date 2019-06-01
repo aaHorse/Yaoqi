@@ -21,4 +21,5 @@ public class LoadClass extends DataSupport {
     public void setChapter_id(String chapter_id) {
         this.chapter_id = chapter_id;
     }
+
 }

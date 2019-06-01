@@ -3,64 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    xmlns:hjm="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/contentContainer"
+
+    <com.hjm.bottomtabbar.BottomTabBar
+        android:id="@+id/bottom_tab_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/line_mian"
-        >
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/line_mian"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        >
-        <LinearLayout
-            android:id="@+id/line_1_main"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="#123456"
-            android:orientation="vertical"
-            >
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/line_2_main"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="#9996"
-            >
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/line_3_main"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="#996"
-            >
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/line_4_main"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="#9960"
-            >
-        </LinearLayout>
-    </LinearLayout>
+        hjm:tab_bar_background="@color/my_color_lan"
+        hjm:tab_font_size="3sp"
+        hjm:tab_img_height="25dp"
+        hjm:tab_img_width="25dp"
+        hjm:tab_isshow_divider="true"
+        hjm:tab_padding_bottom="1dp"
+        hjm:tab_padding_top="1dp"
+        hjm:tab_selected_color="#000000"
+        hjm:tab_unselected_color="@color/colorPrimary"
+        />
 
 </RelativeLayout>
