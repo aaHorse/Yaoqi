@@ -28,6 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="matrix"
+                    android:alpha="0.7"
                     />
 
                 <!--中间-->
@@ -112,7 +113,8 @@
                         >
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            >
                             <TextView
                                 android:id="@+id/text_specific_4"
                                 android:text="本月月票 293"
@@ -120,38 +122,58 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:layout_alignParentTop="true"
+                                android:layout_marginTop="5dp"
                                 />
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
+                                android:layout_margin="2dp"
                                 >
                                 <LinearLayout
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content">
-                                    <Button
-                                        android:text="少年"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                    android:layout_height="30dp">
+                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                        android:text="小二"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:clickable="true"
+                                        android:gravity="center"
+                                        android:textColor="@color/app_color_blue"
+                                        app:qmui_backgroundColor="@color/my_color_lan"
+                                        app:qmui_borderColor="@color/app_color_blue"
+                                        app:qmui_borderWidth="1px" />
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content">
-                                    <Button
-                                        android:text="少年"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                    android:layout_height="30dp">
+                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                        android:text="中二"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:clickable="true"
+                                        android:gravity="center"
+                                        android:textColor="@color/app_color_blue"
+                                        app:qmui_backgroundColor="@color/my_color_lan"
+                                        app:qmui_borderColor="@color/app_color_blue"
+                                        app:qmui_borderWidth="1px" />
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content">
-                                    <Button
-                                        android:text="少年"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                    android:layout_height="30dp">
+                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                        android:text="大二"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:clickable="true"
+                                        android:gravity="center"
+                                        android:textColor="@color/app_color_blue"
+                                        app:qmui_backgroundColor="@color/my_color_lan"
+                                        app:qmui_borderColor="@color/app_color_blue"
+                                        app:qmui_borderWidth="1px" />
                                 </LinearLayout>
                             </LinearLayout>
                         </RelativeLayout>
@@ -386,6 +408,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="matrix"
+            android:alpha="0.7"
             />
 
         <RelativeLayout

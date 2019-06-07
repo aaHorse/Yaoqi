@@ -14,6 +14,7 @@ import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.utils.DialogHelper;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.trello.rxlifecycle2.LifecycleTransformer;;
 
 import javax.inject.Inject;

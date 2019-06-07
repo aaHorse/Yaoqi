@@ -21,10 +21,12 @@ import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
+import com.example.zexiger.yaoqi.database.UpdateClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecific;
+import com.example.zexiger.yaoqi.utils.UpdateDB;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -175,6 +177,11 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             //收藏
             isFavorite=true;
             textView_8.setText("已收藏");
+            UpdateClass obj=new UpdateClass();
+            obj.setComic_id(comicid);
+            obj.setLast_update_time(beanSpecificCombine.getData().getReturnData().getComic().getLast_update_time()+"");
+            obj.setName(beanSpecificCombine.getData().getReturnData().getComic().getName());
+            UpdateDB.add(obj);
             T("收藏成功");
         }
     }
@@ -182,11 +189,11 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
 
     //返回
     @OnClick(R.id.bt_specific_1)void func_1(){
-
+        finish();
     }
     //更多
     @OnClick(R.id.bt_specific_2)void func_2(){
-
+        T("没有更多啦");
     }
     //下载
     @OnClick(R.id.bt_specific_3)void func_3(){

@@ -1,6 +1,8 @@
 package com.example.zexiger.yaoqi.utils;
 
+import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.bean.BeanBookrack;
+import com.example.zexiger.yaoqi.database.UpdateClass;
 import com.example.zexiger.yaoqi.net.API;
 import com.example.zexiger.yaoqi.net.ApiBookrackService;
 import com.orhanobut.logger.Logger;
@@ -24,7 +26,7 @@ public class Update {
          * 每15分钟查看一次，用户第一次登录时，key会为空，没有做检查，因为15分钟后才会第一次发送，
          * 这个时间足够用户进行登录获取key了
          * */
-        RxTimerUtil.interval(1000*60*15, new IRxNext() {
+        RxTimerUtil.interval(1000*30, new IRxNext() {
             @Override
             public void doNext(long number) {
                 Logger.d("在这里");
@@ -52,8 +54,26 @@ public class Update {
 
                     @Override
                     public void onNext(BeanBookrack bookrack) {
-                        //
-                        Logger.d(bookrack.getCode());
+                        if(bookrack!=null&&bookrack.getData().getStateCode()==1){
+                            for(int i=0;i<bookrack.getData().getReturnData().getFavList().size();i++){
+                                BeanBookrack.DataBean.ReturnDataBean.FavListBean favListBean
+                                        =bookrack.getData().getReturnData().getFavList().get(i);
+                                UpdateClass obj=new UpdateClass();
+                                obj.setComic_id(favListBean.getComic_id());
+                                obj.setLast_update_time(favListBean.getLast_update_time());
+                                obj.setName(favListBean.getName());
+                                if(UpdateDB.query(obj)){
+                                    //如果章节更新了
+                                    /*
+                                     * 弹出通知栏
+                                     * */
+                                    T.showDefultToast(MyApp.getContext(),"更新了");
+                                }else{
+                                    //章节没有更新
+                                    T.showDefultToast(MyApp.getContext(),"没有更新");
+                                }
+                            }
+                        }
                     }
 
                     @Override

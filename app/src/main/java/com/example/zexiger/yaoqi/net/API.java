@@ -37,4 +37,13 @@ public class API {
     //收藏漫画，将信息上传服务器
     public final static String url_9="v3/appV3_3/android/phone/fav/index";
 
+    //搜索，关键词动态匹配
+    public final static String url_10="v3/appV3_3/android/phone/search/relative";
+
+    //搜索，最终结果的匹配
+    public final static String url_11="v3/appV3_3/android/phone/search/searchResult";
+
+    //打开搜索时，第一个默认值
+    public final static String url_12="v3/appV3_3/android/phone/search/hotkeywordsnew";
+
 }

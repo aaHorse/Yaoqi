@@ -1,17 +1,23 @@
 package com.example.zexiger.yaoqi.ui.discover;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanDiscover;
+import com.example.zexiger.yaoqi.bean.BeanSearch_2;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
+import com.example.zexiger.yaoqi.ui.adapter.Adapter_Search_2;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.example.zexiger.yaoqi.ui.discover.contract.ContractBeanDiscover;
 import com.example.zexiger.yaoqi.ui.discover.presenter.PresenterBeanDiscover;
 import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -28,6 +34,9 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
     }
 
     @BindView(R.id.text_discover)TextView textView;
+    @BindView(R.id.rv_discover)RecyclerView recyclerView;
+    Adapter_Search_2 adapter_search_2;//借用搜索里面的adapter
+    private List<BeanSearch_2>lists=new ArrayList<>();
 
     @Override
     public int getContentLayout() {

@@ -5,9 +5,9 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -77,11 +77,10 @@
         <!-- QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ -->
         <activity android:name=".ui.common.ActivityLoad" />
 
-        <service
-            android:name=".ui.common.DownLoadService">
-        </service>
+        <service android:name=".ui.common.DownLoadService" />
 
-
+        <activity android:name=".ui.bookrack.ActivitySearch" />
+        <activity android:name=".ui.bookrack.Activity_Search_2"></activity>
     </application>
 
 </manifest>

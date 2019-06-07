@@ -16,4 +16,5 @@
     <color name="my_color_hong">#fa4a4a</color>
     <color name="my_color_lv">#46c458</color>
     <color name="my_color_lan">#E6E6FA</color>
+    <color name="my_parent">#00000000</color>
 </resources>

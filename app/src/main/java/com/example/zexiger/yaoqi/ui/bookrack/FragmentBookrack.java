@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.example.zexiger.yaoqi.MainActivity.isLogin;
 
@@ -114,7 +115,6 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position==adapter.getItemCount()-1){
                     MainActivity.func();
-                    Logger.d("在这里");
                 }else{
                     ActivitySpecific.startActivity(MyApp.getContext(),lists.get(position).getComic_id()+"",true);
                 }
@@ -123,6 +123,11 @@ public class FragmentBookrack extends BaseFragment<PresenterBeanBookrack>
         //
         mPullRefreshLayout.finishRefresh();
     }
+
+    @OnClick(R.id.search_bookrack)void func(){
+        ActivitySearch.startActivity();
+    }
+
 
     @Override
     public void onDestroyView() {

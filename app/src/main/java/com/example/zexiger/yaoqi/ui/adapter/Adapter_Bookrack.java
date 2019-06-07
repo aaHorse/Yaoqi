@@ -30,6 +30,7 @@ public class Adapter_Bookrack
                 helper.addOnClickListener(R.id.line_bookract);
                 break;
             case BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_2:
+                helper.addOnClickListener(R.id.line_bookract);
                 break;
             default:
                 Logger.d("匹配出错");

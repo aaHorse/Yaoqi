@@ -9,6 +9,7 @@ import com.example.zexiger.yaoqi.module.HttpModule;
 import com.example.zexiger.yaoqi.net.ApiAboutMe;
 import com.example.zexiger.yaoqi.net.ApiBookrack;
 import com.example.zexiger.yaoqi.net.ApiDiscover;
+import com.example.zexiger.yaoqi.net.ApiSearch;
 import com.example.zexiger.yaoqi.net.ApiSpecific;
 import com.example.zexiger.yaoqi.net.ApiSpecificContent;
 import com.example.zexiger.yaoqi.net.ApiUpdateContent;
@@ -31,6 +32,8 @@ public interface ApplicationComponent {
     ApiSpecificContent getApiSpecificContent();
 
     ApiAboutMe getApiAboutMe();
+
+    ApiSearch getApiSearch();
 
     Context getContext();
 

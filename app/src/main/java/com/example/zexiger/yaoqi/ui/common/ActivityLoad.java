@@ -32,6 +32,8 @@ import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import org.litepal.crud.DataSupport;
 
@@ -61,6 +63,8 @@ public class ActivityLoad extends BaseActivity {
     private Adapter_Load_1 adapter;
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
+    @BindView(R.id.topbar)
+    QMUITopBarLayout mTopBar;
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     public final static String FROM_Thread = "FROM_Thread";
@@ -210,6 +214,7 @@ public class ActivityLoad extends BaseActivity {
         }else{
             button.setText("正序");
         }
+        initTopBar();
         func_5();
         //动态申请权限
         verifyStoragePermissions(this);
@@ -278,6 +283,17 @@ public class ActivityLoad extends BaseActivity {
         loadClass.setComic_id(comicid);
         loadClass.setChapter_id(str);
         loadClass.save();
+    }
+
+    private void initTopBar() {
+        QMUIStatusBarHelper.translucent(this);
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mTopBar.setTitle("我要下载");
     }
 
     @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/qmui_topbar_height"
@@ -24,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
                 />
             <Button
                 android:id="@+id/bt_load_1_1"
@@ -31,39 +32,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:background="@drawable/bg_bt"
                 />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_load_1_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_load_1_1"
-            android:paddingBottom="45dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="45dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
+            android:layout_marginBottom="50dp"
+            android:background="@color/my_parent"
             >
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_load_1_1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:layout_alignParentBottom="true"
+            android:background="@color/my_parent"
+            android:layout_gravity="bottom"
             >
             <Button
                 android:id="@+id/bt_load_1_2"
                 android:text="极速下载"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_bt"
+                />
         </LinearLayout>
-    </RelativeLayout>
+
+    </FrameLayout>
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
         android:id="@+id/topbar"

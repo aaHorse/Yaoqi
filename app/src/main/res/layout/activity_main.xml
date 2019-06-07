@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:hjm="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/app_primary_color"
+    >
 
 
     <com.hjm.bottomtabbar.BottomTabBar
@@ -20,6 +22,7 @@
         hjm:tab_padding_top="1dp"
         hjm:tab_selected_color="#000000"
         hjm:tab_unselected_color="@color/colorPrimary"
+        android:fitsSystemWindows="true"
         />
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import com.example.zexiger.yaoqi.ui.bookrack.FragmentBookrack;
 import com.example.zexiger.yaoqi.ui.discover.FragmentDiscover;
 import com.example.zexiger.yaoqi.ui.update.FragmentUpdate;
 import com.hjm.bottomtabbar.BottomTabBar;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import org.litepal.crud.DataSupport;
 
@@ -46,18 +47,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        final BottomTabBar bottomTabBar=view.findViewById(R.id.bottom_tab_bar);
+        bottomTabBar=view.findViewById(R.id.bottom_tab_bar);
         InitClass initClass=DataSupport.findLast(InitClass.class);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
 
         if(initClass!=null){
             isLogin=initClass.isLogin();
             API.key=initClass.getKey();
         }
 
+
         bottomTabBar.init(getSupportFragmentManager())
                 .setImgSize(25, 25)
                 .addTabItem("更新", R.mipmap.today_select,R.mipmap.today_unselect, FragmentUpdate.class)
-                .addTabItem("发现", R.mipmap.find_select,R.mipmap.find_unselect, FragmentDiscover.class)
+                .addTabItem("离线", R.mipmap.find_select,R.mipmap.find_unselect, FragmentDiscover.class)
                 .addTabItem("书架", R.mipmap.book_select,R.mipmap.book_unselect, FragmentBookrack.class)
                 .addTabItem("我的", R.mipmap.mine_select,R.mipmap.mine_unselect, FragmentAboutme.class)
                 .setOnTabChangeListener(new BottomTabBar.OnTabChangeListener() {

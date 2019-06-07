@@ -1,6 +1,7 @@
 package com.example.zexiger.yaoqi.ui.update;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -52,6 +53,7 @@ public class FragmentUpdate extends SupportFragment {
         for(int i=0;i<titles.size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(titles.get(i)));
         }
+        tabLayout.setTabTextColors(Color.parseColor("#ffffff"),Color.parseColor("#ffffff"));
         final List<Fragment>fragments=new ArrayList<>();
         for(int i=0;i<titles.size();i++){
             //加入碎片

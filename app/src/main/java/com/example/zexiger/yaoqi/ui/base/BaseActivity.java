@@ -17,6 +17,7 @@ import com.example.zexiger.yaoqi.utils.DialogHelper;
 import com.example.zexiger.yaoqi.utils.T;
 import com.example.zexiger.yaoqi.utils.Update;
 import com.orhanobut.logger.Logger;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 
@@ -56,6 +57,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         initInjector(MyApp.getInstance().getApplicationComponent());
         attachView();
         initData();
+        QMUIStatusBarHelper.setStatusBarDarkMode(this);//白色
         mLoadingDialog = DialogHelper.getLoadingDialog(this);
         new Update();//检查漫画更新
     }
