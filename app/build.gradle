@@ -79,4 +79,7 @@ dependencies {
     implementation 'com.liulishuo.filedownloader:library:1.7.6'
     //底部导航栏
     implementation 'com.hjm:BottomTabBar:1.2.2'
+    //解压库
+    implementation 'org.zeroturnaround:zt-zip:1.13'
 }
+

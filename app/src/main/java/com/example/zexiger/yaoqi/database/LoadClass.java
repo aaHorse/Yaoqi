@@ -5,9 +5,8 @@ import org.litepal.crud.DataSupport;
 public class LoadClass extends DataSupport {
     private String comic_id;
     private String chapter_id;
-    private String name;
-    private String author;
-    private String cover_address;
+    private String name;//章节的名字
+    private String address;//章节压缩包对应的信息描述,是一个规整的字符串，在取出时转为数组
 
     public String getComic_id() {
         return comic_id;
@@ -33,19 +32,11 @@ public class LoadClass extends DataSupport {
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getCover_address() {
-        return cover_address;
-    }
-
-    public void setCover_address(String cover_address) {
-        this.cover_address = cover_address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

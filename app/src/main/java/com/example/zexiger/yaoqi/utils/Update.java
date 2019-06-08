@@ -29,7 +29,7 @@ public class Update {
         RxTimerUtil.interval(1000*30, new IRxNext() {
             @Override
             public void doNext(long number) {
-                Logger.d("在这里");
+                //Logger.d("在这里");
                 func();
             }
         });

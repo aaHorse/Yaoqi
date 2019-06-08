@@ -3,6 +3,7 @@ package com.example.zexiger.yaoqi.ui.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -21,12 +22,17 @@ import com.example.zexiger.yaoqi.bean.Status;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
+import com.example.zexiger.yaoqi.database.LoadClass_0;
 import com.example.zexiger.yaoqi.database.UpdateClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecific;
+import com.example.zexiger.yaoqi.utils.LoadDB;
 import com.example.zexiger.yaoqi.utils.UpdateDB;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
+import com.liulishuo.filedownloader.FileDownloader;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -198,6 +204,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     //下载
     @OnClick(R.id.bt_specific_3)void func_3(){
         ActivityLoad.startActivity(lists,comicid);
+        func_9();
     }
     @OnClick(R.id.bt_shunxv)void func_5(){
         if(FLAG==0){
@@ -240,6 +247,73 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             Logger.d(data_);
             mPresenter.favorite_3(data_+"\n",1);
         }
+    }
+
+    /*
+     * 开一个线程，让缓存先写入数据库
+     * */
+    private void func_9(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<LoadClass_0> lists_=LoadDB.query(beanSpecificCombine.getData().getReturnData().getComic().getComic_id());
+                if(lists_!=null&&lists_.size()>0){
+                    //
+                }else{
+                    //数据库中没有的，将信息写入数据库
+                    final LoadClass_0 obj=new LoadClass_0();
+                    obj.setComic_id(beanSpecificCombine.getData().getReturnData().getComic().getComic_id());
+                    obj.setAuthor(beanSpecificCombine.getData().getReturnData().getComic().getAuthor().getName());
+                    obj.setName(beanSpecificCombine.getData().getReturnData().getComic().getName());
+                    /*
+                    * 将封面图片下载，将对应的地址写进数据库
+                    * */
+                    //章节文件里面的第一个
+                    String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/"+comicid+"/"+"1.jpg";
+                    obj.setCover_address(path);
+                    FileDownloader.getImpl().create(beanSpecificCombine.getData().getReturnData().getComic().getCover())
+                            .setPath(path)
+                            .setListener(new FileDownloadListener() {
+                                @Override
+                                protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                }
+
+                                @Override
+                                protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
+                                }
+
+                                @Override
+                                protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                }
+
+                                @Override
+                                protected void blockComplete(BaseDownloadTask task) {
+                                    LoadDB.add(obj);
+                                }
+
+                                @Override
+                                protected void retry(final BaseDownloadTask task, final Throwable ex, final int retryingTimes, final int soFarBytes) {
+                                }
+
+                                @Override
+                                protected void completed(BaseDownloadTask task) {
+                                }
+
+                                @Override
+                                protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                }
+
+                                @Override
+                                protected void error(BaseDownloadTask task, Throwable e) {
+                                }
+
+                                @Override
+                                protected void warn(BaseDownloadTask task) {
+                                }
+                            }).start();
+                }
+            }
+        }).start();
     }
 
     /*

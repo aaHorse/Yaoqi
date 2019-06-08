@@ -80,7 +80,8 @@
         <service android:name=".ui.common.DownLoadService" />
 
         <activity android:name=".ui.bookrack.ActivitySearch" />
-        <activity android:name=".ui.bookrack.Activity_Search_2"></activity>
+        <activity android:name=".ui.bookrack.Activity_Search_2" />
+        <activity android:name=".ui.discover.ActivityOffLine"></activity>
     </application>
 
 </manifest>

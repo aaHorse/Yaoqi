@@ -134,7 +134,7 @@ public class BeanSpecificContent {
                  */
 
                 //
-                private int itemType;
+                private int itemType=1;
                 //样式 1
                 public static final int TYPE_1= 1;
 

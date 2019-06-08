@@ -25,11 +25,17 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
+import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
+import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
 import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
+import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecificContent;
+import com.example.zexiger.yaoqi.ui.common.contract.ContractLoad;
+import com.example.zexiger.yaoqi.ui.common.presenter.PresenterLoad;
+import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecificContent;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -46,7 +52,8 @@ import butterknife.OnClick;
 
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
-public class ActivityLoad extends BaseActivity {
+public class ActivityLoad
+        extends BaseActivity<PresenterLoad> implements ContractLoad.View {
     public static void startActivity(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
                                      String comicid_){
         lists=lists_;
@@ -56,6 +63,7 @@ public class ActivityLoad extends BaseActivity {
     }
 
     private static String comicid;
+    private BeanSpecificContent beanSpecificContent;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用
     List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_checked=new ArrayList<>();//被选中的
@@ -160,15 +168,7 @@ public class ActivityLoad extends BaseActivity {
     *下载
     * */
     private void load(int i){
-        int chapter_id=Integer.valueOf(lists_checked.get(i).getChapter_id());
-        int num=chapter_id%100;
-        String zip_n=comicid.substring(comicid.length()-1,comicid.length());
-        long update_time=(long)System.currentTimeMillis()/1000;
-        String url="http://zip"+zip_n+".u17i.com/"+num+"/"+chapter_id+"_crop.zip?update_time="+update_time;
-        String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/"+comicid+"/"+chapter_id;
-        Logger.d(path);
-        Logger.d(url);
-        binder.startDownLoad(path,url,i);
+        mPresenter.getData(lists_checked.get(i).getChapter_id(),i);
     }
 
     /*
@@ -199,7 +199,10 @@ public class ActivityLoad extends BaseActivity {
 
     @Override
     public void initInjector(ApplicationComponent appComponent) {
-        //
+        DaggerHttpComponent.builder()
+                .applicationComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -237,6 +240,14 @@ public class ActivityLoad extends BaseActivity {
         //
     }
 
+    @Override
+    public void loadData(BeanSpecificContent beanSpecificContent_, int load_n) {
+        beanSpecificContent=beanSpecificContent_;
+        String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/"+comicid+"/"
+                +beanSpecificContent.getData().getReturnData().getChapter_id()+".zip";
+        binder.startDownLoad(path,beanSpecificContent.getData().getReturnData().getZip_file_high(),load_n);
+    }
+
     /*
     * 本地接收器
     * */
@@ -271,6 +282,7 @@ public class ActivityLoad extends BaseActivity {
     * */
     private void func_7(int load_n){
         String str=lists_checked.get(load_n).getChapter_id();
+        String name=lists_checked.get(load_n).getName();
         for(int i=0;i<lists.size();i++){
             if(str.equals(lists.get(i).getChapter_id())){
                 lists.get(i).setChecked(false);
@@ -282,7 +294,25 @@ public class ActivityLoad extends BaseActivity {
         LoadClass loadClass=new LoadClass();
         loadClass.setComic_id(comicid);
         loadClass.setChapter_id(str);
+        loadClass.setName(name);
+        loadClass.setAddress(func_8(load_n));
         loadClass.save();
+    }
+
+    private String func_8(int load_n){
+        String str="";
+        List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>listBeans
+                =beanSpecificContent.getData().getReturnData().getImage_list();
+        /*
+        * 注意这里，把压缩包的图片的描述信息转为字符串进行存储
+        * */
+        for(int i=0;i<listBeans.size();i++){
+            BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean bean=listBeans.get(i);
+            if(bean.getImages()!=null&&bean.getImages().size()>0){
+                str+=bean.getWidth()+","+bean.getHeight()+","+bean.getImages().get(0).getId()+";";
+            }
+        }
+        return str;
     }
 
     private void initTopBar() {

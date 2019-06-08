@@ -33,21 +33,23 @@ public class Adapter_Search_2
                 helper.setText(R.id.tv_item_search_2_1,item.getName());
                 helper.setText(R.id.tv_item_search_2_2,item.getAuthor());
 
-                List<Bean>lists=new ArrayList<>();
-                for(int i=0;i<item.getTags().size();i++){
-                    Bean bean=new Bean();
-                    String str=item.getTags().get(i);
-                    if(!str.isEmpty()){
-                        bean.setStr(str);
-                        lists.add(bean);
+                if(item.getTags()!=null){
+                    List<Bean>lists=new ArrayList<>();
+                    for(int i=0;i<item.getTags().size();i++){
+                        Bean bean=new Bean();
+                        String str=item.getTags().get(i);
+                        if(!str.isEmpty()){
+                            bean.setStr(str);
+                            lists.add(bean);
+                        }
                     }
+                    Adapter_button adapter_button=new Adapter_button(lists);
+                    RecyclerView recyclerView=helper.getView(R.id.rv_item_search_2);
+                    LinearLayoutManager layoutManager=new LinearLayoutManager(MyApp.getContext());
+                    layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter_button);
                 }
-                Adapter_button adapter_button=new Adapter_button(lists);
-                RecyclerView recyclerView=helper.getView(R.id.rv_item_search_2);
-                LinearLayoutManager layoutManager=new LinearLayoutManager(MyApp.getContext());
-                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter_button);
                 break;
             default:
                 Logger.d("匹配出错");

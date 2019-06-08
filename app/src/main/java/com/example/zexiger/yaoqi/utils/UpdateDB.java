@@ -21,7 +21,7 @@ public class UpdateDB {
     public static boolean query(UpdateClass obj){
          List<UpdateClass> lists =DataSupport.where("comic_id = ?",
                 obj.getComic_id()).find(UpdateClass.class);
-         if(lists!=null){
+         if(lists!=null&&lists.size()>0){
              UpdateClass updateClass=lists.get(lists.size()-1);//取最后更新的，防止出现重复
              int a=Integer.parseInt(updateClass.getLast_update_time());
              int b=Integer.parseInt(obj.getLast_update_time());

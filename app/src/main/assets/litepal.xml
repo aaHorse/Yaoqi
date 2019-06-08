@@ -10,5 +10,7 @@
         <mapping class="com.example.zexiger.yaoqi.database.LoadClass"/>
         <!--记住订阅收藏里面的信息-->
         <mapping class="com.example.zexiger.yaoqi.database.UpdateClass"/>
+        <!--缓存-->
+        <mapping class="com.example.zexiger.yaoqi.database.LoadClass_0"/>
     </list>
 </litepal>

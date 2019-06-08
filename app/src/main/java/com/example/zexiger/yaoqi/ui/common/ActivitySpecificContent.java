@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
 import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
@@ -47,8 +48,21 @@ public class ActivitySpecificContent
         context.startActivity(intent);
     }
 
+    /*
+    * 离线过来的,type为false
+    * */
+    public static void startActivity(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_){
+        lists_2=lists_;
+        type=false;
+        Context context=MyApp.getContext();
+        Intent intent=new Intent(context,ActivitySpecificContent.class);
+        context.startActivity(intent);
+    }
+
+    private static boolean type=true;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_chapter;
-    private List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
+    private static List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
+    private static List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_2;
     private static int position;
     @BindView(R.id.rv_specific_content)RecyclerView recyclerView;
     @BindView(R.id.rv_specific_content_2)RecyclerView recyclerView_2;
@@ -59,9 +73,6 @@ public class ActivitySpecificContent
     private static int posture=0;
     private static int flag=0;
     private static int flag_1=0;
-    private static int flag_2=0;
-    private static int flag_3=0;
-    private static int flag_4=0;
     @BindView(R.id.tv_specific_content_1)TextView textView_1;
     @BindView(R.id.tv_specific_content_2)TextView textView_2;
     @BindView(R.id.tv_specific_content_3)TextView textView_3;
@@ -108,40 +119,48 @@ public class ActivitySpecificContent
         }else{
             textView_1.setText("竖屏");
         }
+
+        if(!type){
+            func_10();
+        }
     }
 
     @Override
     public void initData() {
-        BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean item=lists_chapter.get(position);
-        mPresenter.getData(item.getChapter_id());
+        if(type){
+            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean item=lists_chapter.get(position);
+            mPresenter.getData(item.getChapter_id());
+        }
     }
 
     @Override
     public void loadData(BeanSpecificContent beanSpecificContent) {
-        List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean> obj=beanSpecificContent.getData().getReturnData().getImage_list();
-        for(int i=0;i<obj.size();i++){
-            BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean item=obj.get(i);
-            item.setItemType(1);
-            lists.add(item);
-        }
-        adapter=new Adapter_Specific_Content(lists);
-        recyclerView.setAdapter(adapter);
-        recyclerView_2.setAdapter(adapter);
-        SnapHelper mSnapHelper=new PagerSnapHelper();
-        mSnapHelper.attachToRecyclerView(recyclerView_2);
+       if(type){
+           List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean> obj=beanSpecificContent.getData().getReturnData().getImage_list();
+           for(int i=0;i<obj.size();i++){
+               BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean item=obj.get(i);
+               item.setItemType(1);
+               lists.add(item);
+           }
+           adapter=new Adapter_Specific_Content(lists);
+           recyclerView.setAdapter(adapter);
+           recyclerView_2.setAdapter(adapter);
+           SnapHelper mSnapHelper=new PagerSnapHelper();
+           mSnapHelper.attachToRecyclerView(recyclerView_2);
 
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(flag==0){
-                    func_4();
-                    flag=1;
-                }else{
-                    func_5();
-                    flag=0;
-                }
-            }
-        });
+           adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+               @Override
+               public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                   if(flag==0){
+                       func_4();
+                       flag=1;
+                   }else{
+                       func_5();
+                       flag=0;
+                   }
+               }
+           });
+       }
     }
 
     /*
@@ -170,7 +189,11 @@ public class ActivitySpecificContent
     * 下载
     * */
     @OnClick(R.id.bt_specific_3)void func_3(){
-        T("下载");
+        if(type){
+            T("下载");
+        }else{
+            T("处于离线功能板块，无法进行下载");
+        }
     }
 
     /*
@@ -254,4 +277,27 @@ public class ActivitySpecificContent
         }
     }
 
+    /*
+    * 离线功能的显示
+    * */
+    private void func_10(){
+        adapter=new Adapter_Specific_Content(lists_2);
+        recyclerView.setAdapter(adapter);
+        recyclerView_2.setAdapter(adapter);
+        SnapHelper mSnapHelper=new PagerSnapHelper();
+        mSnapHelper.attachToRecyclerView(recyclerView_2);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if(flag==0){
+                    func_4();
+                    flag=1;
+                }else{
+                    func_5();
+                    flag=0;
+                }
+            }
+        });
+    }
 }
