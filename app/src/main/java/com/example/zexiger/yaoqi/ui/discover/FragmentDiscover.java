@@ -20,6 +20,7 @@ import com.example.zexiger.yaoqi.ui.discover.contract.ContractBeanDiscover;
 import com.example.zexiger.yaoqi.ui.discover.presenter.PresenterBeanDiscover;
 import com.example.zexiger.yaoqi.utils.LoadDB;
 import com.orhanobut.logger.Logger;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
     @BindView(R.id.rv_discover)RecyclerView recyclerView;
     Adapter_Search_2 adapter_search_2;//借用搜索里面的adapter
     private List<BeanSearch_2.DataBean.ReturnDataBean.ComicsBean>lists=new ArrayList<>();
+    @BindView(R.id.pull_to_refresh) QMUIPullRefreshLayout mPullRefreshLayout;
 
     @Override
     public int getContentLayout() {
@@ -60,6 +62,48 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
 
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
+        func_2();
+        adapter_search_2=new Adapter_Search_2(lists);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
+        recyclerView.setAdapter(adapter_search_2);
+        func_1();
+    }
+
+    private void func_1(){
+        mPullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                mPullRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        func_2();
+                        adapter_search_2.notifyDataSetChanged();
+                        mPullRefreshLayout.finishRefresh();
+                    }
+                }, 2000);
+            }
+        });
+
+
+        adapter_search_2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityOffLine.startActivity(lists.get(position));
+            }
+        });
+    }
+
+    private void func_2(){
         List<LoadClass_0>lists_=LoadDB.query();
         lists.clear();
         for(int i=0;i<lists_.size();i++){
@@ -72,19 +116,6 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
             obj.setCover(lists_.get(i).getCover_address());
             lists.add(obj);
         }
-        adapter_search_2=new Adapter_Search_2(lists);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
-        recyclerView.setAdapter(adapter_search_2);
-        func_1();
-    }
-
-    private void func_1(){
-        adapter_search_2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityOffLine.startActivity(lists.get(position));
-            }
-        });
     }
 
     @Override

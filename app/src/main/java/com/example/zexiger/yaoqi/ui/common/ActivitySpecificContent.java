@@ -44,6 +44,7 @@ public class ActivitySpecificContent
     public static void startActicity(Context context, List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_, int position_){
         lists_chapter=lists_;
         position=position_;
+        type=true;
         Intent intent=new Intent(context,ActivitySpecificContent.class);
         context.startActivity(intent);
     }
@@ -61,7 +62,7 @@ public class ActivitySpecificContent
 
     private static boolean type=true;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_chapter;
-    private static List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
+    private List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
     private static List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_2;
     private static int position;
     @BindView(R.id.rv_specific_content)RecyclerView recyclerView;

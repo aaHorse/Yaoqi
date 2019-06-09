@@ -29,26 +29,6 @@ import com.orhanobut.logger.Logger;
 import java.text.DecimalFormat;
 
 public class DownLoadService extends Service {
-    public static class MainHandler extends Handler {
-
-        private static volatile MainHandler mInstance;
-
-        private MainHandler() {
-            super(Looper.getMainLooper());
-        }
-
-        public static MainHandler getInstance() {
-            if (mInstance == null) {
-                synchronized (MainHandler.class) {
-                    if (mInstance == null) {
-                        mInstance = new MainHandler();
-                    }
-                }
-            }
-            return mInstance;
-        }
-    }
-
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     private NotificationManager manager;
@@ -106,7 +86,7 @@ public class DownLoadService extends Service {
                         notification.contentView.setProgressBar(R.id.pBar,
                                 totalBytes, soFarBytes, false);
                         manager.notify(load_n, notification);
-                        sendThreadStatus(soFarBytes, totalBytes);
+                        sendThreadStatus(soFarBytes, totalBytes,load_n);
                     }
 
                     @Override
@@ -165,8 +145,9 @@ public class DownLoadService extends Service {
     /**
      * 发送进度消息给活动
      */
-    private void sendThreadStatus(int soFarBytes, int totalBytes) {
+    private void sendThreadStatus(int soFarBytes, int totalBytes,int load_n) {
         Intent intent = new Intent(ActivityLoad.FROM_Thread);
+        intent.putExtra("load_n",load_n);
         intent.putExtra("progress", func_1(soFarBytes,totalBytes));//把百分比传给对应的下载活动
         mLocalBroadcastManager.sendBroadcast(intent);
     }
@@ -213,7 +194,8 @@ public class DownLoadService extends Service {
         intent.setAction(FROM_tongzhilan);
         mRemoteViews.setOnClickPendingIntent(R.id.image_service,
                 PendingIntent.getBroadcast(MyApp.getContext(), 10, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        mBuilder.setSmallIcon(R.drawable.load);
+        mBuilder.setSmallIcon(R.drawable.sign);
+        mBuilder.setContentTitle("有妖气");
         mBuilder.setContent(mRemoteViews);
         notification=mBuilder .build();
 

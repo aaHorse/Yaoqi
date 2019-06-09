@@ -32,7 +32,8 @@ import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
 public class Fragment_specific_1 extends Fragment {
     public static void startFragment(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
-                                     FragmentManager fragmentManager_){
+                                     FragmentManager fragmentManager_,String comicid_){
+        comicid=comicid_;
         lists=lists_;
         fragmentManager=fragmentManager_;
         FragmentTransaction transaction=fragmentManager_.beginTransaction();
@@ -41,6 +42,7 @@ public class Fragment_specific_1 extends Fragment {
         transaction.commit();
     }
 
+    private static String comicid;
     private static FragmentManager fragmentManager;
     private static Fragment_specific_1 fragment;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;
@@ -76,7 +78,7 @@ public class Fragment_specific_1 extends Fragment {
     }
 
     @OnClick(R.id.button_load_specific)void func_1(){
-
+        ActivityLoad.startActivity(lists,comicid);
     }
     @OnClick(R.id.bt_shunxv)void func_3(){
         if(FLAG==0){

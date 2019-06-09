@@ -57,7 +57,7 @@
                             android:layout_height="match_parent">
                             <TextView
                                 android:id="@+id/text_specific_1"
-                                android:text="祖先帮帮忙"
+                                android:text=" "
                                 android:textSize="30sp"
                                 android:textColor="@color/my_color_bai"
                                 android:background="#00000000"
@@ -72,7 +72,7 @@
                                 >
                                 <TextView
                                     android:id="@+id/text_specific_2"
-                                    android:text="作者"
+                                    android:text=" "
                                     android:textSize="15sp"
                                     android:textColor="@color/my_color_bai"
                                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                                     />
                                 <TextView
                                     android:id="@+id/text_specific_3"
-                                    android:text="热度值(12345万)"
+                                    android:text=" "
                                     android:textSize="15sp"
                                     android:textColor="@color/my_color_bai"
                                     android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:layout_alignParentTop="true"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="20dp"
                                 />
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -134,46 +134,37 @@
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="30dp">
-                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                    <Button
                                         android:text="小二"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:clickable="true"
-                                        android:gravity="center"
-                                        android:textColor="@color/app_color_blue"
-                                        app:qmui_backgroundColor="@color/my_color_lan"
-                                        app:qmui_borderColor="@color/app_color_blue"
-                                        app:qmui_borderWidth="1px" />
+                                        android:background="@drawable/bg_bt"
+                                        android:layout_margin="3dp"
+                                        />
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="30dp">
-                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                    <Button
                                         android:text="中二"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:clickable="true"
-                                        android:gravity="center"
-                                        android:textColor="@color/app_color_blue"
-                                        app:qmui_backgroundColor="@color/my_color_lan"
-                                        app:qmui_borderColor="@color/app_color_blue"
-                                        app:qmui_borderWidth="1px" />
+                                        android:background="@drawable/bg_bt"
+                                        android:layout_margin="3dp"
+                                        />
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="30dp">
-                                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                                    <Button
                                         android:text="大二"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:clickable="true"
-                                        android:gravity="center"
-                                        android:textColor="@color/app_color_blue"
-                                        app:qmui_backgroundColor="@color/my_color_lan"
-                                        app:qmui_borderColor="@color/app_color_blue"
-                                        app:qmui_borderWidth="1px" />
+                                        android:background="@drawable/bg_bt"
+                                        android:layout_margin="3dp"
+                                        />
                                 </LinearLayout>
                             </LinearLayout>
                         </RelativeLayout>
@@ -217,23 +208,42 @@
                 android:orientation="horizontal"
                 >
                 <LinearLayout
+                    android:id="@+id/line_specific_1"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="#abc"
+                    android:background="@drawable/bg_bt"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
                     >
-                    <TextView
-                        android:id="@+id/bt_specific_4"
-                        android:gravity="center"
-                        android:text="收藏"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        >
+                        <ImageView
+                            android:id="@+id/iv_specific_1"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            />
+                        <TextView
+                            android:id="@+id/bt_specific_4"
+                            android:gravity="center"
+                            android:text=" "
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/iv_specific_1"
+                            android:layout_marginLeft="10dp"
+                            />
+                    </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="#bca"
+                    android:background="@drawable/bg_bt"
+                    android:layout_margin="5dp"
                     >
                     <TextView
                         android:gravity="center"
@@ -246,19 +256,23 @@
             <!--漫画故事描述-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                >
                 <TextView
                     android:id="@+id/text_specific_5"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:maxLines="4"
                     android:text="@string/cs"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:gravity="center"
                 >
                 <TextView
@@ -275,6 +289,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_bt"
+                    android:layout_margin="5dp"
                     />
             </LinearLayout>
 
@@ -285,7 +301,7 @@
                 >
                 <TextView
                     android:id="@+id/text_specific_7"
-                    android:text="连载中(更新至195话)"
+                    android:text=" "
                     android:gravity="center"
                     android:maxLines="1"
                     android:layout_weight="1"
@@ -300,6 +316,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_bt"
+                    android:layout_margin="5dp"
                     />
             </LinearLayout>
 
@@ -319,6 +337,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:background="@drawable/bg_bt"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     />
             </LinearLayout>
 
@@ -328,7 +351,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:text="猜你喜欢"
+                    android:text="     猜你喜欢"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <LinearLayout
@@ -351,7 +374,9 @@
                         <TextView
                             android:text="名字"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
@@ -370,7 +395,9 @@
                         <TextView
                             android:text="名字"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="1"
@@ -390,7 +417,9 @@
                         <TextView
                             android:text="名字"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

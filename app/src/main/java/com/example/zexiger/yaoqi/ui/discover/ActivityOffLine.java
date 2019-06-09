@@ -20,6 +20,8 @@ import com.example.zexiger.yaoqi.ui.adapter.Adapter_OffLine;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.ActivitySpecificContent;
 import com.orhanobut.logger.Logger;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import org.litepal.crud.DataSupport;
 import org.zeroturnaround.zip.ZipUtil;
@@ -46,6 +48,7 @@ public class ActivityOffLine extends BaseActivity {
     @BindView(R.id.rv_offline)RecyclerView recyclerView;
     Adapter_OffLine adapter_offLine;
     private List<Bean>lists=new ArrayList<>();
+    @BindView(R.id.topbar) QMUITopBarLayout mTopBar;
 
     @Override
     public int getContentLayout() {
@@ -69,6 +72,7 @@ public class ActivityOffLine extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter_offLine);
         func_1();
+        initTopBar();
     }
 
     @Override
@@ -124,5 +128,16 @@ public class ActivityOffLine extends BaseActivity {
             Logger.d(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void initTopBar() {
+        QMUIStatusBarHelper.translucent(this);
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mTopBar.setTitle(comicsBean.getName());
     }
 }

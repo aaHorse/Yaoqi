@@ -73,7 +73,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     private Adapter_Specific adapter_specific;
     public static int FLAG=0;
     private static boolean isFavorite;
-    private static BeanSpecific_combine beanSpecificCombine;
+    private BeanSpecific_combine beanSpecificCombine;
 
     @BindView(R.id.image_specific_1)ImageView imageView_1;
     @BindView(R.id.image_specific_2)ImageView imageView_2;
@@ -88,6 +88,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     @BindView(R.id.rv_specific_1)RecyclerView recyclerView;
     @BindView(R.id.bt_specific_4)TextView textView_8;
     @BindView(R.id.bt_shunxv)Button button;
+    @BindView(R.id.iv_specific_1)ImageView imageView;
 
     @Override
     public int getContentLayout() {
@@ -145,6 +146,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
 
         if(isFavorite){
             textView_8.setText("已收藏");
+            imageView.setImageResource(R.mipmap.icon_comic_detail_uncollect);
         }
 
         for(int i=0;i<7;i++){
@@ -178,11 +180,13 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             //取消收藏
             isFavorite=false;
             textView_8.setText("收藏");
+            imageView.setImageResource(R.mipmap.icon_comic_detail_collect);
             T("取消收藏成功");
         }else{
             //收藏
             isFavorite=true;
             textView_8.setText("已收藏");
+            imageView.setImageResource(R.mipmap.icon_comic_detail_uncollect);
             UpdateClass obj=new UpdateClass();
             obj.setComic_id(comicid);
             obj.setLast_update_time(beanSpecificCombine.getData().getReturnData().getComic().getLast_update_time()+"");
@@ -229,10 +233,10 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         adapter_specific.notifyDataSetChanged();
     }
     @OnClick(R.id.button_kai)void func_6(){
-        Fragment_specific_1.startFragment(lists,getSupportFragmentManager());
+        Fragment_specific_1.startFragment(lists,getSupportFragmentManager(),comicid);
     }
 
-    @OnClick(R.id.bt_specific_4)void func_7(){
+    @OnClick(R.id.line_specific_1)void func_7(){
         String comic_id= beanSpecificCombine.getData().getReturnData().getComic().getComic_id();
         if(isFavorite){
             //提交服务器取消收藏

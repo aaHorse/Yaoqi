@@ -1,38 +1,75 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:paddingTop="15dp"
-    android:paddingBottom="10dp"
     >
 
-    <TextView
-        android:id="@+id/tv_service"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="   正在下载 ..." />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
         >
-        <ProgressBar
-            android:id="@+id/pBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="4dp"
-            android:layout_margin="5dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="15dp"
+            >
+            <ImageView
+                android:src="@mipmap/yjtp"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+            <TextView
+                android:text="有妖气"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            >
+            <ProgressBar
+                android:id="@+id/pBar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_margin="5dp"
+                />
+            <ImageView
+                android:id="@+id/image_service"
+                android:src="@drawable/zanting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="   正在下载 ..."
+            android:textSize="15sp"
+            android:layout_gravity="left|bottom"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
             />
-        <ImageView
-            android:id="@+id/image_service"
-            android:src="@drawable/zanting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            />
-    </LinearLayout>
-</LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/icon_yaoqi_login"
+        />
+</FrameLayout>

@@ -71,8 +71,7 @@ public class ActivityLoad
     private Adapter_Load_1 adapter;
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
-    @BindView(R.id.topbar)
-    QMUITopBarLayout mTopBar;
+    @BindView(R.id.topbar) QMUITopBarLayout mTopBar;
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     public final static String FROM_Thread = "FROM_Thread";
@@ -256,9 +255,15 @@ public class ActivityLoad
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case FROM_Thread:
-                    //Logger.d(intent.getStringExtra("progress"));
+                    String progress=intent.getStringExtra("progress")+"%";
+                    int n=intent.getIntExtra("load_n",-1);
+                    if(n!=-1&&n<lists_checked.size()){
+                        String chaterid=lists_checked.get(n).getChapter_id();
+                        func_9(chaterid,progress);
+                    }
                     break;
                 case FROM_tongzhilan:
+                    //暂停或继续
                     Logger.d("AL通知栏发来了信息"+intent.getStringExtra("progress"));
                     break;
                 case DONE:
@@ -287,6 +292,7 @@ public class ActivityLoad
             if(str.equals(lists.get(i).getChapter_id())){
                 lists.get(i).setChecked(false);
                 lists.get(i).setLoad(true);
+                lists.get(i).setIndex((i+1)+"");
                 adapter.notifyItemChanged(i);
                 break;
             }
@@ -313,6 +319,19 @@ public class ActivityLoad
             }
         }
         return str;
+    }
+
+    /*
+    * 显示进度条的信息
+    * */
+    private void func_9(String chaterid,String progress){
+        for(int i=0;i<lists.size();i++){
+            if(lists.get(i).getChapter_id().equals(chaterid)){
+                lists.get(i).setIndex(progress);
+                break;
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void initTopBar() {

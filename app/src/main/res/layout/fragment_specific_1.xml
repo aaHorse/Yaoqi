@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="50dp"
             />
         <Button
             android:id="@+id/button_load_specific"
@@ -25,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/bt_shunxv"
+            android:background="@drawable/bg_bt"
+            android:layout_margin="5dp"
             />
         <Button
             android:id="@+id/bt_shunxv"
@@ -33,6 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:background="@drawable/bg_bt"
+            android:layout_margin="5dp"
             />
     </RelativeLayout>
 
@@ -55,7 +60,10 @@
             android:id="@+id/button_shou"
             android:text="收起目录"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_bt"
+            android:layout_margin="5dp"
+            />
     </LinearLayout>
 
 </RelativeLayout>

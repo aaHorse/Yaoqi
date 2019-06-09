@@ -30,4 +30,8 @@
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="30dp" />
+    <View
+        android:background="@color/my_color_bai"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </LinearLayout>

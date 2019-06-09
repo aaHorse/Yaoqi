@@ -35,9 +35,9 @@
         android:name=".MyApp"
         android:allowBackup="true"
         android:appComponentFactory="任意字符"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/sign"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/sign"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
