@@ -256,7 +256,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     /*
      * 开一个线程，让缓存先写入数据库
      * */
-    private void func_9(){
+    public void func_9(){
         new Thread(new Runnable() {
             @Override
             public void run() {

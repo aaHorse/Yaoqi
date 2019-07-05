@@ -77,9 +77,9 @@ public class Fragment_specific_1 extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.button_load_specific)void func_1(){
+/*    @OnClick(R.id.button_load_specific)void func_1(){
         ActivityLoad.startActivity(lists,comicid);
-    }
+    }*/
     @OnClick(R.id.bt_shunxv)void func_3(){
         if(FLAG==0){
             FLAG=1;

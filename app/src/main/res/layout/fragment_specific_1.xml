@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="50dp"
             />
-        <Button
+<!--        <Button
             android:id="@+id/button_load_specific"
             android:text="下载"
             android:layout_width="60dp"
@@ -28,7 +28,7 @@
             android:layout_toLeftOf="@+id/bt_shunxv"
             android:background="@drawable/bg_bt"
             android:layout_margin="5dp"
-            />
+            />-->
         <Button
             android:id="@+id/bt_shunxv"
             android:text="顺序"
