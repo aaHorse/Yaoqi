@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@mipmap/icon_login_way_qq"
+                android:src="@mipmap/icon_login_way_verify_code"
                 />
             <TextView
                 android:text="短信登录"
@@ -59,7 +59,7 @@
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@mipmap/icon_login_way_verify_code"
+                android:src="@mipmap/icon_login_way_qq"
                 />
             <TextView
                 android:text="QQ登录"
