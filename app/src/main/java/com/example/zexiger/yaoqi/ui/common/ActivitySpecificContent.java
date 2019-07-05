@@ -52,14 +52,16 @@ public class ActivitySpecificContent
     /*
     * 离线过来的,type为false
     * */
-    public static void startActivity(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_){
+    public static void startActivity(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_,String name_){
         lists_2=lists_;
         type=false;
+        name=name_;
         Context context=MyApp.getContext();
         Intent intent=new Intent(context,ActivitySpecificContent.class);
         context.startActivity(intent);
     }
 
+    private static String name;//离线显示时，把章节的名字传过来
     private static boolean type=true;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_chapter;
     private List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists=new ArrayList<>();
@@ -78,6 +80,7 @@ public class ActivitySpecificContent
     @BindView(R.id.tv_specific_content_2)TextView textView_2;
     @BindView(R.id.tv_specific_content_3)TextView textView_3;
     @BindView(R.id.tv_specific_content_4)TextView textView_4;
+    @BindView(R.id.tv_specific_content_5)TextView textView_5;
 
 
     @Override
@@ -149,6 +152,8 @@ public class ActivitySpecificContent
            SnapHelper mSnapHelper=new PagerSnapHelper();
            mSnapHelper.attachToRecyclerView(recyclerView_2);
 
+           textView_5.setText(lists_chapter.get(position).getName());
+
            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                @Override
                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -184,17 +189,6 @@ public class ActivitySpecificContent
                     }
                 })
                 .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
-    }
-
-    /*
-    * 下载
-    * */
-    @OnClick(R.id.bt_specific_3)void func_3(){
-        if(type){
-            T("下载");
-        }else{
-            T("处于离线功能板块，无法进行下载");
-        }
     }
 
     /*
@@ -287,6 +281,8 @@ public class ActivitySpecificContent
         recyclerView_2.setAdapter(adapter);
         SnapHelper mSnapHelper=new PagerSnapHelper();
         mSnapHelper.attachToRecyclerView(recyclerView_2);
+
+        textView_5.setText(name);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

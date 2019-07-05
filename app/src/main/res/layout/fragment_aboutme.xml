@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/my_color_lan"
     >
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@mipmap/icon_first_bottom_app_propaganda"
+        android:layout_gravity="top"
+        android:layout_marginTop="50dp"
+        />
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@mipmap/icon_yaoqi_login"
+        android:layout_gravity="bottom|right"
+        />
+
     <!--短信登录，QQ登录-->
     <LinearLayout
         android:id="@+id/line_aboutme_a"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:fitsSystemWindows="true"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="20dp"
         >
         <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/line_aboutme_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
             android:gravity="center"
             >
-            <LinearLayout
-                android:id="@+id/line_aboutme_1"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@color/my_color_hong"
-                android:gravity="center"
-                >
-                <TextView
-                    android:text="短信登录"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/icon_login_way_qq"
+                />
+            <TextView
+                android:text="短信登录"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/line_aboutme_2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
             android:gravity="center"
             >
-            <LinearLayout
-                android:id="@+id/line_aboutme_2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:background="@color/my_color_hei"
-                >
-                <TextView
-                    android:text="QQ登录"
-                    android:textColor="@color/my_color_bai"
-                    android:textSize="15sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/icon_login_way_verify_code"
+                />
+            <TextView
+                android:text="QQ登录"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 
@@ -73,30 +73,63 @@
     <LinearLayout
         android:id="@+id/line_aboutme_b"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:fitsSystemWindows="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         >
 
-        <EditText
-            android:id="@+id/edit_aboutme"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+            <EditText
+                android:id="@+id/edit_aboutme"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:textSize="15sp"
+                android:hint="请输入手机号码"
+                android:background="@drawable/edit_background"
+                android:gravity="center"
+                />
 
-        <Button
-            android:id="@+id/bt_aboutme"
-            android:text="发送验证码"
+            <Button
+                android:id="@+id/bt_aboutme"
+                android:text="发送"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="#CD6839"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/edit_aboutme_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/bt_aboutme_2"
-            android:text="登录"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            >
+            <EditText
+                android:id="@+id/edit_aboutme_2"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:textSize="15sp"
+                android:background="@drawable/edit_background"
+                android:hint="请输入短信验证码"
+                android:gravity="center"
+                />
+            <Button
+                android:id="@+id/bt_aboutme_2"
+                android:text="登录"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="#CD6839"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <!--关于我的信息的具体界面-->
@@ -110,4 +143,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.aboutme.ActivityQQ"
-    android:background="@color/my_color_hong"
+    android:background="@color/my_color_lan"
     >
 
 </android.support.constraint.ConstraintLayout>

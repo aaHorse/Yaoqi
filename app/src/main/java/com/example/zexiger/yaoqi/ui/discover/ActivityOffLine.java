@@ -109,7 +109,7 @@ public class ActivityOffLine extends BaseActivity {
                         unzip(obj);
                     }
                 }).start();
-                ActivitySpecificContent.startActivity(lists_);
+                ActivitySpecificContent.startActivity(lists_,obj.getName());
             }
         });
     }
