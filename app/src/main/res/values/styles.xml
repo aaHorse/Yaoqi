@@ -42,7 +42,6 @@
     </style>
 
     <style name="QMUI.Dialog_MenuItem">
-        <item name="android:background">#80000000</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingLeft">?attr/qmui_dialog_padding_horizontal</item>
         <item name="android:paddingRight">?attr/qmui_dialog_padding_horizontal</item>
