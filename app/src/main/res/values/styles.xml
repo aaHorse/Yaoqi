@@ -40,17 +40,4 @@
         <item name="qmui_topbar_height">48dp</item>
         <item name="qmui_topbar_image_btn_height">48dp</item>
     </style>
-
-    <style name="QMUI.Dialog_MenuItem">
-        <item name="android:paddingTop">0dp</item>
-        <item name="android:paddingLeft">?attr/qmui_dialog_padding_horizontal</item>
-        <item name="android:paddingRight">?attr/qmui_dialog_padding_horizontal</item>
-        <item name="android:paddingBottom">0dp</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">?attr/qmui_config_color_blue</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="qmui_dialog_menu_item_mark_drawable">@drawable/qmui_s_dialog_check_mark</item>
-        <item name="qmui_dialog_menu_item_check_drawable">@drawable/qmui_s_checkbox</item>
-        <item name="qmui_dialog_menu_item_check_mark_margin_hor">6dp</item>
-    </style>
 </resources>

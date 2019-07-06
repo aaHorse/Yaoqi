@@ -16,31 +16,18 @@
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 获取wifi状态 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 设置系统权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 电源锁权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 允许应用写（非读）用户的日历数据 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 允许应用访问震动器 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 
     <application
         android:name=".MyApp"
         android:allowBackup="true"
-        android:appComponentFactory="任意字符"
         android:icon="@drawable/sign"
         android:label="@string/app_name"
         android:roundIcon="@drawable/sign"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:appComponentFactory">
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask">

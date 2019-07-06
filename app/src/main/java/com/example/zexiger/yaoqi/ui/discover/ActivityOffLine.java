@@ -65,8 +65,10 @@ public class ActivityOffLine extends BaseActivity {
         lists_load=DataSupport.where("comic_id = ? ",comicsBean.getComicId()+"").find(LoadClass.class);
         for(int i=0;i<lists_load.size();i++){
             Bean bean=new Bean();
-            bean.setStr(lists_load.get(i).getName());
-            lists.add(bean);
+            if(lists_load.get(i).getFlag()==1){
+                bean.setStr(lists_load.get(i).getName());
+                lists.add(bean);
+            }
         }
         adapter_offLine=new Adapter_OffLine(lists);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

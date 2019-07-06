@@ -27,6 +27,7 @@ import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
+import com.example.zexiger.yaoqi.bean.PrepareClass;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
@@ -40,6 +41,7 @@ import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import org.litepal.crud.DataSupport;
 
@@ -78,6 +80,8 @@ public class ActivityLoad
     public final static String FROM_tongzhilan = "FROM_tongzhilan";
     public final static String DONE="DONE";
     private DownLoadService.MyBinder binder;
+    private List<PrepareClass> prepareClassList=new ArrayList<>();//下载前，在本类完成链接等资源的准备
+    private int task;//用于按顺序下载信息
     private ServiceConnection connection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -158,7 +162,7 @@ public class ActivityLoad
             if(binder==null){
                 return;
             }else{
-                load(0);
+                load();
             }
         }
     }
@@ -166,8 +170,24 @@ public class ActivityLoad
     /*
     *下载
     * */
-    private void load(int i){
-        mPresenter.getData(lists_checked.get(i).getChapter_id(),i);
+    private void load(){
+
+        prepareClassList.clear();
+        task=1;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<lists_checked.size();i++){
+                    while(true){
+                        if(task==1){
+                            mPresenter.getData(lists_checked.get(i).getChapter_id());
+                            task=0;
+                            break;
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
     /*
@@ -240,11 +260,21 @@ public class ActivityLoad
     }
 
     @Override
-    public void loadData(BeanSpecificContent beanSpecificContent_, int load_n) {
+    public void loadData(BeanSpecificContent beanSpecificContent_, String chapter_id) {
         beanSpecificContent=beanSpecificContent_;
         String path= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/youyaoqi/"+comicid+"/"
                 +beanSpecificContent.getData().getReturnData().getChapter_id()+".zip";
-        binder.startDownLoad(path,beanSpecificContent.getData().getReturnData().getZip_file_high(),load_n);
+        PrepareClass obj=new PrepareClass();
+        obj.setChapter_id(chapter_id);
+        obj.setPath(path);
+        obj.setZip_file_high(beanSpecificContent.getData().getReturnData().getZip_file_high());
+        prepareClassList.add(obj);
+
+        task=1;
+        func_10(chapter_id);
+        if(prepareClassList.size()==lists_checked.size()){
+            binder.startDownLoad(prepareClassList);
+        }
     }
 
     /*
@@ -256,10 +286,11 @@ public class ActivityLoad
             switch (intent.getAction()) {
                 case FROM_Thread:
                     String progress=intent.getStringExtra("progress")+"%";
-                    int n=intent.getIntExtra("load_n",-1);
-                    if(n!=-1&&n<lists_checked.size()){
-                        String chaterid=lists_checked.get(n).getChapter_id();
-                        func_9(chaterid,progress);
+                    String chapter_id=intent.getIntExtra("load_n",-1)+"";
+                    for(int i=0;i<lists_checked.size();i++){
+                        if(chapter_id.equals(lists_checked.get(i).getChapter_id())){
+                            func_9(chapter_id,progress);
+                        }
                     }
                     break;
                 case FROM_tongzhilan:
@@ -267,12 +298,10 @@ public class ActivityLoad
                     Logger.d("AL通知栏发来了信息"+intent.getStringExtra("progress"));
                     break;
                 case DONE:
-                    int load_n=intent.getIntExtra("load_n",-1);
-                    if(load_n!=-1){
-                        func_7(load_n);
-                        load_n++;
-                        if(load_n<lists_checked.size()){
-                            load(load_n);
+                    String chapter_id_2=intent.getIntExtra("load_n",-1)+"";
+                    for(int i=0;i<lists_checked.size();i++){
+                        if(chapter_id_2.equals(lists_checked.get(i).getChapter_id())){
+                            func_7(i);
                         }
                     }
                     break;
@@ -283,11 +312,10 @@ public class ActivityLoad
     }
 
     /*
-    * 某一个下载完成后，将其写入数据库，以及修改当前的list
+    * 某一个下载完成后，修改当前的list
     * */
     private void func_7(int load_n){
         String str=lists_checked.get(load_n).getChapter_id();
-        String name=lists_checked.get(load_n).getName();
         for(int i=0;i<lists.size();i++){
             if(str.equals(lists.get(i).getChapter_id())){
                 lists.get(i).setChecked(false);
@@ -297,15 +325,9 @@ public class ActivityLoad
                 break;
             }
         }
-        LoadClass loadClass=new LoadClass();
-        loadClass.setComic_id(comicid);
-        loadClass.setChapter_id(str);
-        loadClass.setName(name);
-        loadClass.setAddress(func_8(load_n));
-        loadClass.save();
     }
 
-    private String func_8(int load_n){
+    private String func_8(){
         String str="";
         List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>listBeans
                 =beanSpecificContent.getData().getReturnData().getImage_list();
@@ -318,6 +340,7 @@ public class ActivityLoad
                 str+=bean.getWidth()+","+bean.getHeight()+","+bean.getImages().get(0).getId()+";";
             }
         }
+        Logger.d(str);
         return str;
     }
 
@@ -332,6 +355,25 @@ public class ActivityLoad
             }
         }
         adapter.notifyDataSetChanged();
+    }
+
+    /*
+    * 将缓存信息写进数据库
+    * */
+    private void func_10(String chapter_id){
+        for(int i=0;i<lists_checked.size();i++){
+            if(chapter_id.equals(lists_checked.get(i).getChapter_id())){
+                String str=lists_checked.get(i).getChapter_id();
+                String name=lists_checked.get(i).getName();
+                LoadClass loadClass=new LoadClass();
+                loadClass.setComic_id(comicid);
+                loadClass.setChapter_id(str);
+                loadClass.setName(name);
+                loadClass.setAddress(func_8());
+                loadClass.setFlag(1);
+                loadClass.save();
+            }
+        }
     }
 
     private void initTopBar() {

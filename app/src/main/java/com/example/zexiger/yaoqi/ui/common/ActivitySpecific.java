@@ -119,19 +119,25 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         beanSpecificCombine = beanSpecific_combine_;
         BeanSpecific_combine.DataBean.ReturnDataBean.ComicBean comicBean= beanSpecificCombine.getData().getReturnData().getComic();
         //开数据库获取下载的信息
-        List<LoadClass>loadClassList=DataSupport.where("comic_id = ?",comicBean.getComic_id()).find(LoadClass.class);
-        for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
-            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
-            obj.setItemType(1);
-            obj.setLoad(false);
-            obj.setChecked(false);
-            //二重循环，一下子慢了几十倍。。。
-            for(int j=0;j<loadClassList.size();j++){
-                if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())){
-                    obj.setLoad(true);
+        try{
+            List<LoadClass>loadClassList=DataSupport.where("comic_id = ?",comicBean.getComic_id()).find(LoadClass.class);
+            for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
+                BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
+                obj.setItemType(1);
+                obj.setLoad(false);
+                obj.setChecked(false);
+                //二重循环，一下子慢了几十倍。。。
+                for(int j=0;j<loadClassList.size();j++){
+                    if(loadClassList.get(j).getChapter_id()!=null){
+                        if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())&&(loadClassList.get(i).getFlag()!=-1)){
+                            obj.setLoad(true);
+                        }
+                    }
                 }
+                lists.add(obj);
             }
-            lists.add(obj);
+        }catch (Exception e){
+            T("数据库出错");
         }
         Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
                 .into(imageView_1);

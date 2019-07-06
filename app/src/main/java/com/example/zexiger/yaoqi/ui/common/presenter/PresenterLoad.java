@@ -22,7 +22,7 @@ public class PresenterLoad extends BasePresenter<ContractLoad.View>
     }
 
     @Override
-    public void getData(String comicid, final int load_n) {
+    public void getData(final String comicid) {
         apiLoad.getDate(comicid)
                 .compose(RxSchedulers.<BeanSpecificContent>applySchedulers())
                 .compose(mView.<BeanSpecificContent>bindToLife())
@@ -34,7 +34,7 @@ public class PresenterLoad extends BasePresenter<ContractLoad.View>
 
                     @Override
                     public void onNext(@NonNull BeanSpecificContent specific) {
-                        mView.loadData(specific,load_n);
+                        mView.loadData(specific,comicid);
                     }
 
                     @Override

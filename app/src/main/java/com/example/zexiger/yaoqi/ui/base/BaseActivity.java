@@ -47,6 +47,7 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
     @Nullable
     @Inject
     protected T1 mPresenter;
+    private static boolean flag=false;//启动APP，开启监听更新服务，只需开启一次
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,10 @@ public abstract class BaseActivity<T1 extends BaseContract.BasePresenter>
         initData();
         QMUIStatusBarHelper.setStatusBarDarkMode(this);//白色
         mLoadingDialog = DialogHelper.getLoadingDialog(this);
-        new Update();//检查漫画更新
+        if(!flag){
+            new Update();//检查漫画更新
+            flag=true;
+        }
     }
 
     @Override

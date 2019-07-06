@@ -21,12 +21,16 @@ import android.widget.RemoteViews;
 
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
+import com.example.zexiger.yaoqi.bean.PrepareClass;
+import com.example.zexiger.yaoqi.database.LoadClass;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.orhanobut.logger.Logger;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DownLoadService extends Service {
     private LocalBroadcastManager mLocalBroadcastManager;
@@ -39,10 +43,16 @@ public class DownLoadService extends Service {
     private int flag=1;//暂停0，下载1，完成2，出错3
     private FileDownloadSampleListener fileDownloadSampleListener;
 
+    private static List<PrepareClass>prepareClassList_0=new ArrayList<>();//需要下载的列表，缓冲级
+    //注意，这里可能存在并发，暂时不考虑这一个问题
+    private static int task;//缓冲列表有东西需要下载 1 ,空为 0
+    private static List<PrepareClass>prepareClassList=new ArrayList<>();//需要下载的列表，正式应用级
+    private static int current;//当前在下载哪一个
+    private int task_flag;//用于实现一次只能下载一个
+
     @Override
     public void onCreate() {
         super.onCreate();
-
         //这里是，接收和发送程序内部的广播
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
         mBroadcastReceiver = new MyBroadcastReceiver();
@@ -51,6 +61,8 @@ public class DownLoadService extends Service {
         //这里是注册接收全局的广播
         this.registerReceiver(mBroadcastReceiver, intentFilter);
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        //监听是否有下载任务
+        func_3();
     }
 
     @Override
@@ -62,84 +74,84 @@ public class DownLoadService extends Service {
     * 下载文件的方法
     * */
     private void func_2(final String path, final String url,final int load_n) {
-        new Thread(new Runnable() {
+        sendChatMsg(load_n);
+        fileDownloadSampleListener=new FileDownloadSampleListener() {
             @Override
-            public void run() {
-                sendChatMsg(load_n);
-                fileDownloadSampleListener=new FileDownloadSampleListener() {
-                    @Override
-                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        flag=0;
-                        notification.contentView.setTextViewText(R.id.tv_service,
-                                "   正在下载（00.00%）");
-                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
-                        notification.contentView.setProgressBar(R.id.pBar,
-                                totalBytes, 0, false);
-                        manager.notify(load_n, notification);
-                    }
-
-                    @Override
-                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        notification.contentView.setTextViewText(R.id.tv_service,
-                                "   正在下载（" + func_1(soFarBytes, totalBytes) + "%）");
-                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
-                        notification.contentView.setProgressBar(R.id.pBar,
-                                totalBytes, soFarBytes, false);
-                        manager.notify(load_n, notification);
-                        sendThreadStatus(soFarBytes, totalBytes,load_n);
-                    }
-
-                    @Override
-                    protected void blockComplete(BaseDownloadTask task) {
-                        notification.contentView.setTextViewText(R.id.tv_service, "   下载完成（100%）");
-                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_wancheng);
-                        notification.contentView.setProgressBar(R.id.pBar,
-                                100, 100, false);
-                        manager.notify(load_n, notification);
-                        flag = 2;
-                        sendDone(load_n);
-                        Logger.d("下载完成");
-                    }
-
-                    @Override
-                    protected void completed(BaseDownloadTask task) {
-                        //stopSelf();
-                    }
-
-                    @Override
-                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        notification.contentView.setTextViewText(R.id.tv_service,
-                                "   暂停下载（" + func_1(soFarBytes, totalBytes) + "%）");
-                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.kaishi);
-                        manager.notify(load_n, notification);
-                        sendPause(soFarBytes, totalBytes);
-                        Logger.d("下载暂停");
-                    }
-
-                    @Override
-                    protected void error(BaseDownloadTask task, Throwable e) {
-                        notification.contentView.setTextViewText(R.id.tv_service, "   下载出错");
-                        notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_jinggao);
-                        manager.notify(load_n, notification);
-                        flag = 3;
-                        Logger.d("下载错误");
-                        Logger.d(e.getMessage());
-                    }
-
-                    @Override
-                    protected void warn(BaseDownloadTask task) {
-                        Logger.d("下载警告");
-                    }
-                };
-                singleTask = FileDownloader.getImpl().create(url)
-                        .setPath(path,false)
-                        .setCallbackProgressTimes(200)
-                        .setMinIntervalUpdateSpeed(400)
-                        .setCallbackProgressMinInterval(100)
-                        .setListener(fileDownloadSampleListener);
-                singleTaskId =  singleTask.start();
+            protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                flag=0;
+                notification.contentView.setTextViewText(R.id.tv_service,
+                        "   正在下载（00.00%）");
+                notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
+                notification.contentView.setProgressBar(R.id.pBar,
+                        totalBytes, 0, false);
+                manager.notify(load_n, notification);
             }
-        }).start();
+
+            @Override
+            protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                notification.contentView.setTextViewText(R.id.tv_service,
+                        "   正在下载（" + func_1(soFarBytes, totalBytes) + "%）");
+                notification.contentView.setImageViewResource(R.id.image_service, R.drawable.zanting);
+                notification.contentView.setProgressBar(R.id.pBar,
+                        totalBytes, soFarBytes, false);
+                manager.notify(load_n, notification);
+                sendThreadStatus(soFarBytes, totalBytes,load_n);
+            }
+
+            @Override
+            protected void blockComplete(BaseDownloadTask task) {
+                notification.contentView.setTextViewText(R.id.tv_service, "   下载完成（100%）");
+                notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_wancheng);
+                notification.contentView.setProgressBar(R.id.pBar,
+                        100, 100, false);
+                manager.notify(load_n, notification);
+                flag = 2;
+                sendDone(load_n);
+                Logger.d("下载完成");
+            }
+
+            @Override
+            protected void completed(BaseDownloadTask task) {
+                //stopSelf();
+            }
+
+            @Override
+            protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                notification.contentView.setTextViewText(R.id.tv_service,
+                        "   暂停下载（" + func_1(soFarBytes, totalBytes) + "%）");
+                notification.contentView.setImageViewResource(R.id.image_service, R.drawable.kaishi);
+                manager.notify(load_n, notification);
+                sendPause(soFarBytes, totalBytes);
+                Logger.d("下载暂停");
+            }
+
+            @Override
+            protected void error(BaseDownloadTask task, Throwable e) {
+                notification.contentView.setTextViewText(R.id.tv_service, "   下载出错");
+                notification.contentView.setImageViewResource(R.id.image_service, R.drawable.dkw_jinggao);
+                manager.notify(load_n, notification);
+                flag = 3;
+                Logger.d("下载错误");
+                Logger.d(e.getMessage());
+
+                //修改数据库缓冲里面对应的状态
+                LoadClass obj=new LoadClass();
+                obj.setFlag(1);
+                obj.updateAll("chapter_id = ?",load_n+"");
+            }
+
+            @Override
+            protected void warn(BaseDownloadTask task) {
+                Logger.d("下载警告");
+            }
+        };
+        singleTask = FileDownloader.getImpl().create(url)
+                .setPath(path,false)
+                .setCallbackProgressTimes(200)
+                .setMinIntervalUpdateSpeed(400)
+                .setCallbackProgressMinInterval(100)
+                .setListener(fileDownloadSampleListener);
+        singleTaskId =  singleTask.start();
     }
 
     /**
@@ -165,9 +177,11 @@ public class DownLoadService extends Service {
     * 下载完成
     * */
     private void sendDone(int load_n){
+        //将单个下载成功的信息传回活动
         Intent intent = new Intent(ActivityLoad.DONE);
         intent.putExtra("load_n",load_n);
         mLocalBroadcastManager.sendBroadcast(intent);
+        task_flag=1;
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -202,6 +216,39 @@ public class DownLoadService extends Service {
         manager.notify(load_n,notification);
     }
 
+    /*
+    * 一直循环，监听是否有下载任务
+    * */
+    private void func_3(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Logger.d("在线程");
+                while(true){
+                    if(task==1){
+                        //task=1
+                        prepareClassList.clear();
+                        for(int i=0;i<prepareClassList_0.size();i++){
+                            prepareClassList.add(prepareClassList_0.get(i));
+                        }
+                        task=0;
+                        //真正开始下载
+                        task_flag=1;
+                        for(int i=0;i<prepareClassList.size();i++){
+                            PrepareClass obj=prepareClassList.get(i);
+                            current=i;
+                            while(task_flag==0){
+                                //
+                            }
+                            task_flag=0;
+                            func_2(obj.getPath(),obj.getZip_file_high(),Integer.parseInt(obj.getChapter_id()));
+                        }
+                    }
+                }
+            }
+        }).start();
+    }
+
 
     /*
     * 单一对象放在这里
@@ -216,19 +263,30 @@ public class DownLoadService extends Service {
         /*
         * 在活动中对这一个类里面的方法进行调用，实现服务与活动的通信
         * */
-        private int load_n;
-        private String path;
-        private String url;
+
         //开始下载
-        public void startDownLoad(String path_,String url_,int load_n_){
-            path=path_;
-            url=url_;
-            load_n=load_n_;
-            func_2(path,url,load_n);
+        public void startDownLoad(List<PrepareClass>prepareClassList_){
+            Logger.d("在MyBind");
+            while(true){
+                /*
+                *等待缓冲list的信息进入下载队列
+                * */
+                if(task==0){
+                    break;
+                }
+            }
+            prepareClassList_0.clear();
+            for(int i=0;i<prepareClassList_.size();i++){
+                prepareClassList_0.add(prepareClassList_.get(i));
+            }
+            task=1;
+            Logger.d("task");
         }
+
         //暂停后再次开始下载
         public void start(){
-            func_2(path,url,load_n);
+            PrepareClass obj=prepareClassList.get(current);
+            func_2(obj.getPath(),obj.getZip_file_high(),Integer.parseInt(obj.getChapter_id()));
         }
         //暂停
         public void pause(){

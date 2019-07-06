@@ -7,6 +7,7 @@ public class LoadClass extends DataSupport {
     private String chapter_id;
     private String name;//章节的名字
     private String address;//章节压缩包对应的信息描述,是一个规整的字符串，在取出时转为数组
+    private int flag;//作为缓存的标志位，如果下载成功取 1，下载不成功取 -1
 
     public String getComic_id() {
         return comic_id;
@@ -38,5 +39,13 @@ public class LoadClass extends DataSupport {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }
