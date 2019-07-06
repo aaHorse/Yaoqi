@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
@@ -132,13 +133,26 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
             }
             lists.add(obj);
         }
-        Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
+        Glide.with(MyApp.getContext())
+                .load(comicBean.getWideCover())
+                .placeholder(R.mipmap.palceholder)
+                .error(R.mipmap.palceholder)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView_1);
-        Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
+        Glide.with(MyApp.getContext())
+                .load(comicBean.getWideCover())
+                .placeholder(R.mipmap.palceholder)
+                .error(R.mipmap.palceholder)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView_2);
         textView_1.setText(comicBean.getName());
         textView_2.setText(comicBean.getAuthor().getName());
-        Glide.with(MyApp.getContext()).load(comicBean.getCover()).into(imageView_3);
+        Glide.with(MyApp.getContext())
+                .load(comicBean.getCover())
+                .placeholder(R.mipmap.palceholder)
+                .error(R.mipmap.palceholder)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView_3);
         textView_5.setText(comicBean.getDescription());
         textView_6.setText(comicBean.getTicket_desc());
         textView_7.setText(comicBean.getTagList().get(1)+"(更新至"+lists.size()+"话)");

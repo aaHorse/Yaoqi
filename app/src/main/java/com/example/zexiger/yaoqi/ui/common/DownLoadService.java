@@ -142,9 +142,9 @@ public class DownLoadService extends Service {
         };
         singleTask = FileDownloader.getImpl().create(url)
                 .setPath(path,false)
-                .setCallbackProgressTimes(200)
+                .setCallbackProgressTimes(400)
                 .setMinIntervalUpdateSpeed(400)
-                .setCallbackProgressMinInterval(100)
+                .setCallbackProgressMinInterval(400)
                 .setListener(fileDownloadSampleListener);
         singleTaskId =  singleTask.start();
     }
