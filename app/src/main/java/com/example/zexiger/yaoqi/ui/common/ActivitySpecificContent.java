@@ -23,7 +23,7 @@ import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.InitClass;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific_Content;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterSpecificContent;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecificContent;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecificContent;
@@ -69,7 +69,7 @@ public class ActivitySpecificContent
     private static int position;
     @BindView(R.id.rv_specific_content)RecyclerView recyclerView;
     @BindView(R.id.rv_specific_content_2)RecyclerView recyclerView_2;
-    Adapter_Specific_Content adapter;
+    AdapterSpecificContent adapter;
     @BindView(R.id.line_specific_content_1)RelativeLayout relativeLayout_1;
     @BindView(R.id.line_specific_content_2)LinearLayout linearLayout_2;
     @BindView(R.id.line_specific_content_3)LinearLayout linearLayout_3;
@@ -146,7 +146,7 @@ public class ActivitySpecificContent
                item.setItemType(1);
                lists.add(item);
            }
-           adapter=new Adapter_Specific_Content(lists);
+           adapter=new AdapterSpecificContent(lists);
            recyclerView.setAdapter(adapter);
            recyclerView_2.setAdapter(adapter);
            SnapHelper mSnapHelper=new PagerSnapHelper();
@@ -276,7 +276,7 @@ public class ActivitySpecificContent
     * 离线功能的显示
     * */
     private void func_10(){
-        adapter=new Adapter_Specific_Content(lists_2);
+        adapter=new AdapterSpecificContent(lists_2);
         recyclerView.setAdapter(adapter);
         recyclerView_2.setAdapter(adapter);
         SnapHelper mSnapHelper=new PagerSnapHelper();

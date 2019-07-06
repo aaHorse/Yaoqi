@@ -12,11 +12,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.Bean;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 import com.example.zexiger.yaoqi.bean.BeanSpecificContent;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_OffLine;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterOffLine;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.ActivitySpecificContent;
 import com.orhanobut.logger.Logger;
@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class ActivityOffLine extends BaseActivity {
-    public static void startActivity(BeanSearch_2.DataBean.ReturnDataBean.ComicsBean comicsBean_){
+    public static void startActivity(BeanSearch2.DataBean.ReturnDataBean.ComicsBean comicsBean_){
         //这个对象是残血的，只有五个变量赋了值 ！
         comicsBean=comicsBean_;
         Context context=MyApp.getContext();
@@ -42,11 +42,11 @@ public class ActivityOffLine extends BaseActivity {
 
     }
 
-    private static BeanSearch_2.DataBean.ReturnDataBean.ComicsBean comicsBean;
+    private static BeanSearch2.DataBean.ReturnDataBean.ComicsBean comicsBean;
     private static List<LoadClass>lists_load;
     private static List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>lists_2=new ArrayList<>();
     @BindView(R.id.rv_offline)RecyclerView recyclerView;
-    Adapter_OffLine adapter_offLine;
+    AdapterOffLine adapter_offLine;
     private List<Bean>lists=new ArrayList<>();
     @BindView(R.id.topbar) QMUITopBarLayout mTopBar;
 
@@ -70,7 +70,7 @@ public class ActivityOffLine extends BaseActivity {
                 lists.add(bean);
             }
         }
-        adapter_offLine=new Adapter_OffLine(lists);
+        adapter_offLine=new AdapterOffLine(lists);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter_offLine);
         func_1();

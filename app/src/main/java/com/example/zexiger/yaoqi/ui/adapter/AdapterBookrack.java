@@ -12,10 +12,10 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_Bookrack
+public class AdapterBookrack
         extends BaseMultiItemQuickAdapter<BeanBookrack.DataBean.ReturnDataBean.FavListBean, BaseViewHolder> {
 
-    public Adapter_Bookrack(List<BeanBookrack.DataBean.ReturnDataBean.FavListBean> data) {
+    public AdapterBookrack(List<BeanBookrack.DataBean.ReturnDataBean.FavListBean> data) {
         super(data);
         addItemType(BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_1, R.layout.item_bookrack);
         addItemType(BeanBookrack.DataBean.ReturnDataBean.FavListBean.TYPE_2, R.layout.item_bookrack_2);

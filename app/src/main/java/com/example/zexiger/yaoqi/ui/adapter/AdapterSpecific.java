@@ -14,9 +14,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class Adapter_Specific
+public class AdapterSpecific
         extends BaseMultiItemQuickAdapter<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean, BaseViewHolder> {
-    public Adapter_Specific(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists){
+    public AdapterSpecific(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists){
         super(lists);
         addItemType(BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean.TYPE_1,R.layout.item_specific);
     }

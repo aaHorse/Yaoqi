@@ -2,14 +2,12 @@ package com.example.zexiger.yaoqi.ui.bookrack.presenter;
 
 import com.example.zexiger.yaoqi.bean.BeanSearch;
 import com.example.zexiger.yaoqi.bean.BeanSearchDefault;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 import com.example.zexiger.yaoqi.net.ApiSearch;
 import com.example.zexiger.yaoqi.net.RxSchedulers;
 import com.example.zexiger.yaoqi.ui.base.BasePresenter;
 import com.example.zexiger.yaoqi.ui.bookrack.contract.ContractSearch;
 import com.orhanobut.logger.Logger;
-
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -86,16 +84,16 @@ public class PresenterSearch
     @Override
     public void getData_2(String str) {
         api.getData_2(str)
-                .compose(RxSchedulers.<BeanSearch_2>applySchedulers())
-                .compose(mView.<BeanSearch_2>bindToLife())
-                .subscribe(new Observer<BeanSearch_2>() {
+                .compose(RxSchedulers.<BeanSearch2>applySchedulers())
+                .compose(mView.<BeanSearch2>bindToLife())
+                .subscribe(new Observer<BeanSearch2>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull BeanSearch_2 beanSearch_2) {
+                    public void onNext(@NonNull BeanSearch2 beanSearch_2) {
                         mView.loadData_2(beanSearch_2);
                     }
 

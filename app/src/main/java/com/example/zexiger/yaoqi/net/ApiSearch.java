@@ -2,7 +2,7 @@ package com.example.zexiger.yaoqi.net;
 
 import com.example.zexiger.yaoqi.bean.BeanSearch;
 import com.example.zexiger.yaoqi.bean.BeanSearchDefault;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 
 import io.reactivex.Observable;
 
@@ -27,7 +27,7 @@ public class ApiSearch {
         return apiSearchService.getDate(str);
     }
 
-    public Observable<BeanSearch_2> getData_2(String str){
+    public Observable<BeanSearch2> getData_2(String str){
         return apiSearchService.getDate_2(str);
     }
 

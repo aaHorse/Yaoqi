@@ -8,10 +8,10 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_Search
+public class AdapterSearch
         extends BaseMultiItemQuickAdapter<BeanSearch.DataBean.ReturnDataBean, BaseViewHolder> {
 
-    public Adapter_Search(List<BeanSearch.DataBean.ReturnDataBean> data) {
+    public AdapterSearch(List<BeanSearch.DataBean.ReturnDataBean> data) {
         super(data);
         addItemType(BeanSearch.DataBean.ReturnDataBean.TYPE_1, R.layout.item_search);
     }

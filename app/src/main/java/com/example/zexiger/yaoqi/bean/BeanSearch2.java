@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
 
-public class BeanSearch_2 {
+public class BeanSearch2 {
 
     private int code;
     private DataBean data;

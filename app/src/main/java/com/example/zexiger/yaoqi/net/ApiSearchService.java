@@ -2,7 +2,7 @@ package com.example.zexiger.yaoqi.net;
 
 import com.example.zexiger.yaoqi.bean.BeanSearch;
 import com.example.zexiger.yaoqi.bean.BeanSearchDefault;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -16,5 +16,5 @@ public interface ApiSearchService {
     Observable<BeanSearch> getDate(@Query("inputText")String string);
 
     @GET(API.url_11)
-    Observable<BeanSearch_2> getDate_2(@Query("q")String string);
+    Observable<BeanSearch2> getDate_2(@Query("q")String string);
 }

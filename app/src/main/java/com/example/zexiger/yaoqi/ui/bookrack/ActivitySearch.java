@@ -1,29 +1,21 @@
 package com.example.zexiger.yaoqi.ui.bookrack;
 
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSearch;
 import com.example.zexiger.yaoqi.bean.BeanSearchDefault;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Search;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterSearch;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.bookrack.contract.ContractSearch;
 import com.example.zexiger.yaoqi.ui.bookrack.presenter.PresenterSearch;
@@ -32,27 +24,15 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-import org.reactivestreams.Subscriber;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
-import io.reactivex.schedulers.Schedulers;
 
 public class ActivitySearch extends BaseActivity<PresenterSearch>
         implements ContractSearch.View {
@@ -63,7 +43,7 @@ public class ActivitySearch extends BaseActivity<PresenterSearch>
 
     @BindView(R.id.edt_search_1)EditText editText;
     @BindView(R.id.rl_search)RecyclerView recyclerView;
-    private Adapter_Search adapter_search;
+    private AdapterSearch adapter_search;
     private List<BeanSearch.DataBean.ReturnDataBean> lists=new ArrayList<>();
 
 
@@ -83,7 +63,7 @@ public class ActivitySearch extends BaseActivity<PresenterSearch>
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         QMUIStatusBarHelper.translucent(this);
-        adapter_search=new Adapter_Search(lists);
+        adapter_search=new AdapterSearch(lists);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter_search);
         func_3();
@@ -126,9 +106,9 @@ public class ActivitySearch extends BaseActivity<PresenterSearch>
     }
 
     @Override
-    public void loadData_2(BeanSearch_2 beanSearch_2) {
+    public void loadData_2(BeanSearch2 beanSearch_2) {
         //搜索的具体界面显示
-        Activity_Search_2.startActivity(beanSearch_2);
+        ActivitySearch2.startActivity(beanSearch_2);
     }
 
     @OnClick(R.id.ibt_search_1)void func_1(){

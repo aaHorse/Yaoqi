@@ -12,16 +12,13 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
@@ -31,25 +28,19 @@ import com.example.zexiger.yaoqi.bean.PrepareClass;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Load_1;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterLoad;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
-import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecificContent;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractLoad;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterLoad;
-import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecificContent;
 import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
@@ -68,9 +59,9 @@ public class ActivityLoad
     private BeanSpecificContent beanSpecificContent;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用
-    List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_checked=new ArrayList<>();//被选中的
+    private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_checked=new ArrayList<>();//被选中的
     @BindView(R.id.rv_load_1_1)RecyclerView recyclerView;
-    private Adapter_Load_1 adapter;
+    private AdapterLoad adapter;
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
     @BindView(R.id.topbar) QMUITopBarLayout mTopBar;
@@ -151,9 +142,19 @@ public class ActivityLoad
     * */
     @OnClick(R.id.bt_load_1_2)void func_6(){
         lists_checked.clear();
-        for(int i=0;i<lists.size();i++){
-            if(lists.get(i).isChecked()){
-                lists_checked.add(lists.get(i));
+        if(FLAG==0){
+            //正序
+            for(int i=0;i<lists.size();i++){
+                if(lists.get(i).isChecked()){
+                    lists_checked.add(lists.get(i));
+                }
+            }
+        }else{
+            //逆序
+            for(int i=lists.size()-1;i>=0;i--){
+                if(lists.get(i).isChecked()){
+                    lists_checked.add(lists.get(i));
+                }
             }
         }
         if(lists_checked.size()==0){
@@ -229,7 +230,7 @@ public class ActivityLoad
         textView.setText("共"+lists.size()+"话");
         StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        adapter=new Adapter_Load_1(lists);
+        adapter=new AdapterLoad(lists);
         recyclerView.setAdapter(adapter);
         if(FLAG==0){
             button.setText("逆序");
@@ -299,11 +300,7 @@ public class ActivityLoad
                     break;
                 case DONE:
                     String chapter_id_2=intent.getIntExtra("load_n",-1)+"";
-                    for(int i=0;i<lists_checked.size();i++){
-                        if(chapter_id_2.equals(lists_checked.get(i).getChapter_id())){
-                            func_7(i);
-                        }
-                    }
+                    func_7(chapter_id_2);
                     break;
                 default:
                     Logger.d("在这里");
@@ -314,13 +311,18 @@ public class ActivityLoad
     /*
     * 某一个下载完成后，修改当前的list
     * */
-    private void func_7(int load_n){
-        String str=lists_checked.get(load_n).getChapter_id();
+    private void func_7(String chapter_id){
         for(int i=0;i<lists.size();i++){
-            if(str.equals(lists.get(i).getChapter_id())){
+            if(chapter_id.equals(lists.get(i).getChapter_id())){
                 lists.get(i).setChecked(false);
                 lists.get(i).setLoad(true);
-                lists.get(i).setIndex((i+1)+"");
+                if(FLAG==0){
+                    //正序
+                    lists.get(i).setIndex((i+1)+"");
+                }else{
+                    //逆序
+                    lists.get(i).setIndex((lists.size()-i)+"");
+                }
                 adapter.notifyItemChanged(i);
                 break;
             }
@@ -370,7 +372,7 @@ public class ActivityLoad
                 loadClass.setChapter_id(str);
                 loadClass.setName(name);
                 loadClass.setAddress(func_8());
-                loadClass.setFlag(1);
+                loadClass.setFlag(-1);
                 loadClass.save();
             }
         }

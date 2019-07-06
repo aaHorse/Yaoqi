@@ -17,7 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanSpecific_combine;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterSpecific;
 import com.example.zexiger.yaoqi.utils.T;
 
 import java.util.ArrayList;
@@ -30,25 +30,25 @@ import butterknife.OnClick;
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
 
-public class Fragment_specific_1 extends Fragment {
+public class FragmentSpecific1 extends Fragment {
     public static void startFragment(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists_,
                                      FragmentManager fragmentManager_,String comicid_){
         comicid=comicid_;
         lists=lists_;
         fragmentManager=fragmentManager_;
         FragmentTransaction transaction=fragmentManager_.beginTransaction();
-        fragment=new Fragment_specific_1();
+        fragment=new FragmentSpecific1();
         transaction.replace(R.id.fl_specific,fragment);
         transaction.commit();
     }
 
     private static String comicid;
     private static FragmentManager fragmentManager;
-    private static Fragment_specific_1 fragment;
+    private static FragmentSpecific1 fragment;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists;
     private static List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用
     @BindView(R.id.rv_specific_2)RecyclerView recyclerView;
-    Adapter_Specific adapter;
+    AdapterSpecific adapter;
     @BindView(R.id.bt_shunxv)Button button;
 
     @Nullable
@@ -61,7 +61,7 @@ public class Fragment_specific_1 extends Fragment {
         }else{
             button.setText("顺序");
         }
-        adapter=new Adapter_Specific(lists);
+        adapter=new AdapterSpecific(lists);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

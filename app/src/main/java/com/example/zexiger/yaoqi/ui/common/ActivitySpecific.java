@@ -24,7 +24,7 @@ import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass;
 import com.example.zexiger.yaoqi.database.LoadClass_0;
 import com.example.zexiger.yaoqi.database.UpdateClass;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Specific;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterSpecific;
 import com.example.zexiger.yaoqi.ui.base.BaseActivity;
 import com.example.zexiger.yaoqi.ui.common.contract.ContractBeanSpecific;
 import com.example.zexiger.yaoqi.ui.common.presenter.PresenterSpecific;
@@ -70,7 +70,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists=new ArrayList<>();//多个页面都是用这一个list
     private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>lists_2=new ArrayList<>();//本页面使用的list
     private List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean>temp=new ArrayList<>();//临时使用的
-    private Adapter_Specific adapter_specific;
+    private AdapterSpecific adapter_specific;
     public static int FLAG=0;
     private static boolean isFavorite;
     private BeanSpecific_combine beanSpecificCombine;
@@ -109,7 +109,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
 
     @Override
-    public void initData() {
+    public void initData(){
         mPresenter.getData(comicid);
         mPresenter.getData_2(comicid);
     }
@@ -118,27 +118,19 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     public void loadData(BeanSpecific_combine beanSpecific_combine_) {
         beanSpecificCombine = beanSpecific_combine_;
         BeanSpecific_combine.DataBean.ReturnDataBean.ComicBean comicBean= beanSpecificCombine.getData().getReturnData().getComic();
-        //开数据库获取下载的信息
-        try{
-            List<LoadClass>loadClassList=DataSupport.where("comic_id = ?",comicBean.getComic_id()).find(LoadClass.class);
-            for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++){
-                BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj= beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
-                obj.setItemType(1);
-                obj.setLoad(false);
-                obj.setChecked(false);
-                //二重循环，一下子慢了几十倍。。。
-                for(int j=0;j<loadClassList.size();j++){
-                    if(loadClassList.get(j).getChapter_id()!=null){
-                        if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())&&(loadClassList.get(j).getFlag()!=-1)){
-                            obj.setLoad(true);
-                        }
-                    }
+        List<LoadClass>loadClassList=DataSupport.where("comic_id = ? and flag = ?",comicBean.getComic_id(),"1").find(LoadClass.class);
+        for(int i = 0; i< beanSpecificCombine.getData().getReturnData().getChapter_list().size(); i++) {
+            BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj = beanSpecificCombine.getData().getReturnData().getChapter_list().get(i);
+            obj.setItemType(1);
+            obj.setLoad(false);
+            obj.setChecked(false);
+            //二重循环，一下子慢了几十倍。。。
+            for (int j = 0; j < loadClassList.size(); j++) {
+                if (loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())) {
+                    obj.setLoad(true);
                 }
-                lists.add(obj);
             }
-        }catch (Exception e){
-            Logger.d(e.getMessage());
-            T("数据库出错");
+            lists.add(obj);
         }
         Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
                 .into(imageView_1);
@@ -159,7 +151,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         for(int i=0;i<7;i++){
             lists_2.add(lists.get(i));
         }
-        adapter_specific=new Adapter_Specific(lists_2);
+        adapter_specific=new AdapterSpecific(lists_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter_specific.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -214,8 +206,8 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
     }
     //下载
     @OnClick(R.id.bt_specific_3)void func_3(){
-        ActivityLoad.startActivity(lists,comicid);
         func_9();
+        ActivityLoad.startActivity(lists,comicid);
     }
     @OnClick(R.id.bt_shunxv)void func_5(){
         if(FLAG==0){
@@ -240,7 +232,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
         adapter_specific.notifyDataSetChanged();
     }
     @OnClick(R.id.button_kai)void func_6(){
-        Fragment_specific_1.startFragment(lists,getSupportFragmentManager(),comicid);
+        FragmentSpecific1.startFragment(lists,getSupportFragmentManager(),comicid);
     }
 
     @OnClick(R.id.line_specific_1)void func_7(){

@@ -13,9 +13,9 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_Load_1
+public class AdapterLoad
         extends BaseMultiItemQuickAdapter<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean, BaseViewHolder> {
-    public Adapter_Load_1(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists){
+    public AdapterLoad(List<BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean> lists){
         super(lists);
         addItemType(BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean.TYPE_1,R.layout.item_load_1);
     }

@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.zexiger.yaoqi.MyApp;
 import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanDiscover;
-import com.example.zexiger.yaoqi.bean.BeanSearch_2;
+import com.example.zexiger.yaoqi.bean.BeanSearch2;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
 import com.example.zexiger.yaoqi.database.LoadClass_0;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_Search_2;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterSearch2;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.example.zexiger.yaoqi.ui.discover.contract.ContractBeanDiscover;
 import com.example.zexiger.yaoqi.ui.discover.presenter.PresenterBeanDiscover;
@@ -43,8 +42,8 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
     }
 
     @BindView(R.id.rv_discover)RecyclerView recyclerView;
-    Adapter_Search_2 adapter_search_2;//借用搜索里面的adapter
-    private List<BeanSearch_2.DataBean.ReturnDataBean.ComicsBean>lists=new ArrayList<>();
+    AdapterSearch2 adapter_search_2;//借用搜索里面的adapter
+    private List<BeanSearch2.DataBean.ReturnDataBean.ComicsBean>lists=new ArrayList<>();
     @BindView(R.id.pull_to_refresh) QMUIPullRefreshLayout mPullRefreshLayout;
 
     @Override
@@ -63,7 +62,7 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
     @Override
     public void bindView(View view, Bundle savedInstanceState) {
         func_2();
-        adapter_search_2=new Adapter_Search_2(lists);
+        adapter_search_2=new AdapterSearch2(lists);
         recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
         recyclerView.setAdapter(adapter_search_2);
         func_1();
@@ -107,7 +106,7 @@ public class FragmentDiscover extends BaseFragment<PresenterBeanDiscover>
         List<LoadClass_0>lists_=LoadDB.query();
         lists.clear();
         for(int i=0;i<lists_.size();i++){
-            BeanSearch_2.DataBean.ReturnDataBean.ComicsBean obj=new BeanSearch_2.DataBean.ReturnDataBean.ComicsBean();
+            BeanSearch2.DataBean.ReturnDataBean.ComicsBean obj=new BeanSearch2.DataBean.ReturnDataBean.ComicsBean();
             obj.setItemType(1);
             Logger.d(lists_.get(i).getComic_id());
             obj.setComicId(Integer.parseInt(lists_.get(i).getComic_id()));

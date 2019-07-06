@@ -11,7 +11,7 @@ import com.example.zexiger.yaoqi.R;
 import com.example.zexiger.yaoqi.bean.BeanUpdate;
 import com.example.zexiger.yaoqi.component.ApplicationComponent;
 import com.example.zexiger.yaoqi.component.DaggerHttpComponent;
-import com.example.zexiger.yaoqi.ui.adapter.Adapter_UpdateContent;
+import com.example.zexiger.yaoqi.ui.adapter.AdapterUpdateContent;
 import com.example.zexiger.yaoqi.ui.base.BaseFragment;
 import com.example.zexiger.yaoqi.ui.common.ActivitySpecific;
 import com.example.zexiger.yaoqi.ui.update.contract.ContractUpdateContent;
@@ -27,7 +27,7 @@ import static com.example.zexiger.yaoqi.MainActivity.isLogin;
 public class FragmentUpdateContent extends BaseFragment<PresenterBeanUpdateContent>
         implements ContractUpdateContent.View {
     @BindView(R.id.rv_update)RecyclerView recyclerView;
-    private Adapter_UpdateContent adapter;
+    private AdapterUpdateContent adapter;
     private List<BeanUpdate.DataBean.ReturnDataBean.ComicsBean>lists=new ArrayList<>();
     String day;
 
@@ -67,7 +67,7 @@ public class FragmentUpdateContent extends BaseFragment<PresenterBeanUpdateConte
             lists.add(item);
         }
        recyclerView.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
-        adapter=new Adapter_UpdateContent(lists);
+        adapter=new AdapterUpdateContent(lists);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

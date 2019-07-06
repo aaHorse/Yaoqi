@@ -12,10 +12,10 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_Specific_Content
+public class AdapterSpecificContent
         extends BaseMultiItemQuickAdapter
         <BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean,BaseViewHolder> {
-    public Adapter_Specific_Content(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>list){
+    public AdapterSpecificContent(List<BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean>list){
         super(list);
         addItemType(BeanSpecificContent.DataBean.ReturnDataBean.ImageListBean.TYPE_1,
                 R.layout.item_specific_content);

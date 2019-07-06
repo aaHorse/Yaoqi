@@ -12,10 +12,10 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_UpdateContent
+public class AdapterUpdateContent
         extends BaseMultiItemQuickAdapter<BeanUpdate.DataBean.ReturnDataBean.ComicsBean,
                 BaseViewHolder> {
-    public Adapter_UpdateContent(List<BeanUpdate.DataBean.ReturnDataBean.ComicsBean> data) {
+    public AdapterUpdateContent(List<BeanUpdate.DataBean.ReturnDataBean.ComicsBean> data) {
         super(data);
         addItemType(BeanUpdate.DataBean.ReturnDataBean.ComicsBean.TYPE_1,R.layout.item_update);
     }

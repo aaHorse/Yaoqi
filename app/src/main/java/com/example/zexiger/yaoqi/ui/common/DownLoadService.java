@@ -133,11 +133,6 @@ public class DownLoadService extends Service {
                 flag = 3;
                 Logger.d("下载错误");
                 Logger.d(e.getMessage());
-
-                //修改数据库缓冲里面对应的状态
-                LoadClass obj=new LoadClass();
-                obj.setFlag(1);
-                obj.updateAll("chapter_id = ?",load_n+"");
             }
 
             @Override
@@ -177,6 +172,10 @@ public class DownLoadService extends Service {
     * 下载完成
     * */
     private void sendDone(int load_n){
+        //修改数据库缓冲里面对应的状态
+        LoadClass obj=new LoadClass();
+        obj.setFlag(1);
+        obj.updateAll("chapter_id = ?",load_n+"");
         //将单个下载成功的信息传回活动
         Intent intent = new Intent(ActivityLoad.DONE);
         intent.putExtra("load_n",load_n);

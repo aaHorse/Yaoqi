@@ -74,7 +74,7 @@
     <LinearLayout
         android:id="@+id/line_specific_content_3"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="141dp"
         android:orientation="vertical"
         android:layout_gravity="bottom"
         android:visibility="gone"
@@ -84,8 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="#00000000"
-            android:orientation="horizontal"
-            android:gravity="right"
+            android:orientation="vertical"
+            android:gravity="left"
             >
             <Button
                 android:id="@+id/bt_specific_content_tucao"
@@ -94,15 +94,13 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/my_color_bai"
+                android:layout_marginBottom="1dp"
                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/my_color_hong"
-            >
-
+            <View
+                android:layout_width="56dp"
+                android:layout_height="1dp"
+                android:background="@color/my_color_bai"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -112,21 +110,51 @@
             android:orientation="horizontal"
             >
             <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                <Button
-                    android:id="@+id/bt_specific_content_fashe"
-                    android:text="发射"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    >
+                    <EditText
+                        android:layout_width="250dp"
+                        android:layout_height="30dp"
+                        android:maxLines="1"
+                        android:hint="吐槽一下吧"
+                        android:background="@color/my_color_bai"
+                        />
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    >
+                    <Button
+                        android:id="@+id/bt_specific_content_fashe"
+                        android:text="发射"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_bt"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/my_color_bai"
+                >
+            </View>
         </LinearLayout>
 
         <LinearLayout
@@ -136,7 +164,7 @@
             >
             <LinearLayout
                 android:id="@+id/line_specific_content_4"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -150,11 +178,17 @@
                     android:gravity="center"
                     android:background="#80000000"
                     android:textColor="@color/my_color_bai"
+                    android:layout_marginRight="1dp"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/my_color_bai"
                     />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/line_specific_content_5"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -168,11 +202,17 @@
                     android:gravity="center"
                     android:background="#80000000"
                     android:textColor="@color/my_color_bai"
+                    android:layout_marginRight="1dp"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/my_color_bai"
                     />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/line_specific_content_6"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -186,6 +226,12 @@
                     android:gravity="center"
                     android:background="#80000000"
                     android:textColor="@color/my_color_bai"
+                    android:layout_marginRight="1dp"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/my_color_bai"
                     />
             </LinearLayout>
             <LinearLayout

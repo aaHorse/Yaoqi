@@ -8,19 +8,19 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-public class Adapter_OffLine
+public class AdapterButton
         extends BaseMultiItemQuickAdapter<Bean, BaseViewHolder> {
 
-    public Adapter_OffLine(List<Bean> data) {
+    public AdapterButton(List<Bean> data) {
         super(data);
-        addItemType(Bean.TYPE_1, R.layout.item_offline);
+        addItemType(Bean.TYPE_1, R.layout.item_button);
     }
 
     @Override
     protected void convert(BaseViewHolder helper,Bean item) {
         switch (helper.getItemViewType()){
             case Bean.TYPE_1:
-                helper.setText(R.id.tv_item_offline,item.getStr());
+                helper.setText(R.id.bt_item_button_1,item.getStr());
                 break;
             default:
                 Logger.d("匹配出错");

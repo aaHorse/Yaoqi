@@ -1,79 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="155dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
     android:background="@color/my_color_lan"
+    android:orientation="vertical"
     >
 
     <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="5dp"
-            >
-            <ImageView
-                android:id="@+id/iv_item_search_2_1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        >
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                />
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_weight="2"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_item_search_2_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="23sp"
-                />
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_item_search_2_1"
-                android:layout_marginTop="20dp"
+                app:cardCornerRadius="5dp"
                 >
+                <ImageView
+                    android:id="@+id/iv_item_search_2_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/tv_item_search_2_2"
+                    android:id="@+id/tv_item_search_2_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:layout_marginTop="10dp"
                     />
-                <Button
-                    android:id="@+id/bt_item_search_2_1"
-                    android:text="阅读"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    />
-            </FrameLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                >
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_item_search_2"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_item_search_2_1"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_item_search_2_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    >
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_item_search_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-        </RelativeLayout>
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/my_color_bai"
+        />
 </LinearLayout>
