@@ -129,7 +129,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
                 //二重循环，一下子慢了几十倍。。。
                 for(int j=0;j<loadClassList.size();j++){
                     if(loadClassList.get(j).getChapter_id()!=null){
-                        if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())&&(loadClassList.get(i).getFlag()!=-1)){
+                        if(loadClassList.get(j).getChapter_id().equals(obj.getChapter_id())&&(loadClassList.get(j).getFlag()!=-1)){
                             obj.setLoad(true);
                         }
                     }
@@ -137,6 +137,7 @@ public class ActivitySpecific extends BaseActivity<PresenterSpecific>
                 lists.add(obj);
             }
         }catch (Exception e){
+            Logger.d(e.getMessage());
             T("数据库出错");
         }
         Glide.with(MyApp.getContext()).load(comicBean.getWideCover())
