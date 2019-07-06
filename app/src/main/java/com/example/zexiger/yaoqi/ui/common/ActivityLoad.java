@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,6 +37,8 @@ import com.example.zexiger.yaoqi.utils.T;
 import com.orhanobut.logger.Logger;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.trncic.library.DottedProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.example.zexiger.yaoqi.MyApp.getContext;
 import static com.example.zexiger.yaoqi.ui.common.ActivitySpecific.FLAG;
 
 public class ActivityLoad
@@ -51,8 +55,8 @@ public class ActivityLoad
                                      String comicid_){
         lists=lists_;
         comicid=comicid_;
-        Intent intent=new Intent(MyApp.getContext(),ActivityLoad.class);
-        MyApp.getContext().startActivity(intent);
+        Intent intent=new Intent(getContext(),ActivityLoad.class);
+        getContext().startActivity(intent);
     }
 
     private static String comicid;
@@ -65,6 +69,8 @@ public class ActivityLoad
     @BindView(R.id.tv_load_1_1)TextView textView;
     @BindView(R.id.bt_load_1_1)Button button;
     @BindView(R.id.topbar) QMUITopBarLayout mTopBar;
+    @BindView(R.id.progress)DottedProgressBar progressBar;
+    @BindView(R.id.line_activity_load)LinearLayout linearLayout;
     private LocalBroadcastManager mLocalBroadcastManager;
     private MyBroadcastReceiver mBroadcastReceiver;
     public final static String FROM_Thread = "FROM_Thread";
@@ -118,7 +124,7 @@ public class ActivityLoad
                 BeanSpecific_combine.DataBean.ReturnDataBean.ChapterListBean obj=lists.get(position);
                 if(obj.isLoad()){
                     //Toast已经下载了
-                    T.showDefultToast(MyApp.getContext(),"该章节已经下载了");
+                    T.showDefultToast(getContext(),"该章节已经下载了");
                     return ;
                 }
                 //
@@ -131,7 +137,7 @@ public class ActivityLoad
                     adapter.notifyDataSetChanged();
                 }else{
                     //Toast,不是免费的
-                    T.showDefultToast(MyApp.getContext(),"该章节是收费的，无法下载");
+                    T.showDefultToast(getContext(),"该章节是收费的，无法下载");
                 }
             }
         });
@@ -141,6 +147,9 @@ public class ActivityLoad
     * 极速下载
     * */
     @OnClick(R.id.bt_load_1_2)void func_6(){
+        linearLayout.setVisibility(View.VISIBLE);
+        progressBar.startProgress();
+
         lists_checked.clear();
         if(FLAG==0){
             //正序
@@ -158,7 +167,7 @@ public class ActivityLoad
             }
         }
         if(lists_checked.size()==0){
-            T.showDefultToast(MyApp.getContext(),"还没有选择下载内容");
+            T.showDefultToast(getContext(),"还没有选择下载内容");
         }else{
             if(binder==null){
                 return;
@@ -172,7 +181,6 @@ public class ActivityLoad
     *下载
     * */
     private void load(){
-
         prepareClassList.clear();
         task=1;
         new Thread(new Runnable() {
@@ -274,6 +282,8 @@ public class ActivityLoad
         task=1;
         func_10(chapter_id);
         if(prepareClassList.size()==lists_checked.size()){
+            progressBar.stopProgress();
+            linearLayout.setVisibility(View.GONE);
             binder.startDownLoad(prepareClassList);
         }
     }

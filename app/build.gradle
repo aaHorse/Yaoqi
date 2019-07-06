@@ -82,5 +82,7 @@ dependencies {
     implementation 'com.hjm:BottomTabBar:1.2.2'
     //解压库
     implementation 'org.zeroturnaround:zt-zip:1.13'
+    //进度条
+    implementation 'com.github.igortrncic.dotted-progress-bar:library:1.0.0'
 }
 

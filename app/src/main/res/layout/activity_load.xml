@@ -3,7 +3,8 @@
 
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -70,7 +71,6 @@
                 android:background="@drawable/bg_bt"
                 />
         </LinearLayout>
-
     </FrameLayout>
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -78,4 +78,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"/>
+
+
+    <LinearLayout
+        android:id="@+id/line_activity_load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/my_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+        <com.trncic.library.DottedProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            app:activeDot="@drawable/active_dot"
+            app:dotSize="29dp"
+            app:inactiveDot="@drawable/inactive_dot"
+            app:jumpingSpeed="100"
+            app:spacing="15dp"
+            />
+    </LinearLayout>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
